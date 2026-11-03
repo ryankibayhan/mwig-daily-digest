@@ -1,0 +1,2111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MIST-40 ULTRA ⚡ Warsaw Market Command</title>
+<meta name="description" content="MIST-40 ULTRA — personal Bloomberg-style live terminal for the Polish mWIG40 market: live quotes, charts, movers, FX, an investing academy and Gordon's desk commentary.">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#07090d">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MIST-40">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAAB5ElEQVR42u3dMQ6EIBBAUXoTK+5/Cu+nF6CTYZR5yS9NFuFtsqGYbcfZpWHNFggOwaEgHPfVVDw4BIfg0Gocfo7VCQ7BITgEh+AQHIJDcAgOwQEHHHAIDsEhOASH4BAcgkNwCA444IBDcAgOwSE4BIfgEByCQ3DYMjjgUJ8zvGXN+ip87ptVzZrNAgcccMABBxxwwAEHHHDAAQcccMABBxxwzBxvHffCUC5jBwcccMABBxxwwAGHQ4IDDjjggAMOOOCAI+T4szZrv1XBAQcccMABBxxwwAEHHHDAAQcccMABBxxw/PsI4YADDjjggAMOOOCAAw444IADDjjggAOO3XB885I7KzjggAMOOOCAAw444IADDjjggAMOOOCAA46dh8W6PocDDjjggAMOOOCAAw444IADDjjggAMOOOBIOEL/8QYHHHDAAQcccMABBxxwwAEHHHDAAQccsTiyzkO53wE4BIfgEByCQ3AIDsEhOASH6gaH4BAcgkNwCA7BITgEh+Bwfe76HA7BITgEh+AQHIJDcAgOwSE44IADDsEhOASH4BAcgkNwCA7BAQcccAgOwSE4BIfgEByCQ3AIDjjggENwCA7BITgEh+AQHIJDcAiO8UMy3hoOwSE4FIVDgkNwCA4F9QBJBtjAU4PNygAAAABJRU5ErkJggg==">
+<style>
+/* ============ MIST-40 ULTRA — design system ============ */
+:root{
+  --bg:#07090d; --bg2:#0b0e14; --panel:#0e1219; --panel2:#111722;
+  --line:#1c2433; --line2:#263046;
+  --txt:#dbe4f0; --dim:#8494ab; --faint:#5a687e;
+  --amber:#ffb400; --amber2:#ffd34d; --amber-dim:rgba(255,180,0,.14);
+  --up:#22c55e; --up-bg:rgba(34,197,94,.12);
+  --down:#ef4444; --down-bg:rgba(239,68,68,.12);
+  --blue:#3b82f6; --violet:#a78bfa; --cyan:#22d3ee; --pink:#f472b6;
+  --mono:ui-monospace,'SF Mono','Cascadia Code','Roboto Mono',Menlo,Consolas,monospace;
+  --sans:'Segoe UI',system-ui,-apple-system,Roboto,'Helvetica Neue',Arial,sans-serif;
+  --rad:10px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:
+  radial-gradient(1200px 500px at 85% -10%,rgba(255,180,0,.06),transparent 60%),
+  radial-gradient(900px 420px at -10% 110%,rgba(59,130,246,.05),transparent 60%),
+  var(--bg);
+  color:var(--txt);font-family:var(--sans);font-size:15px;line-height:1.5;
+  -webkit-font-smoothing:antialiased;min-height:100vh}
+::selection{background:var(--amber-dim)}
+::-webkit-scrollbar{width:9px;height:9px}
+::-webkit-scrollbar-thumb{background:#242e40;border-radius:5px}
+::-webkit-scrollbar-track{background:transparent}
+a{color:var(--amber)}
+button{font-family:inherit}
+
+/* ---- header ---- */
+header{position:sticky;top:0;z-index:60;background:linear-gradient(180deg,rgba(9,12,17,.97),rgba(9,12,17,.92));
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.hwrap{max-width:1440px;margin:0 auto;padding:10px 16px 8px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:11px;min-width:0}
+.logo{width:40px;height:40px;border-radius:9px;background:
+  radial-gradient(circle at 30% 25%,#ffd34d,#ffb400 45%,#b57a00 90%);
+  display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:800;font-size:15px;color:#231a00;
+  box-shadow:0 0 18px rgba(255,180,0,.35), inset 0 0 6px rgba(255,255,255,.35);flex:none}
+.logo .zap{position:absolute;margin-left:26px;margin-top:-20px;font-size:15px;filter:drop-shadow(0 0 4px #ffb400)}
+.brand h1{font-size:20px;letter-spacing:.06em;font-weight:800;white-space:nowrap;
+  background:linear-gradient(90deg,#fff 0%,var(--amber2) 55%,var(--amber) 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.brand h1 .ultra{font-family:var(--mono);font-size:12px;letter-spacing:.28em;vertical-align:middle;
+  -webkit-text-fill-color:var(--amber);text-shadow:0 0 14px rgba(255,180,0,.5);margin-left:6px}
+.brand .sub{font-size:10.5px;color:var(--dim);letter-spacing:.14em;text-transform:uppercase;font-family:var(--mono)}
+.hspace{flex:1}
+.hclock{font-family:var(--mono);text-align:right;line-height:1.25}
+.hclock .time{font-size:17px;font-weight:700;color:var(--txt)}
+.hclock .date{font-size:10.5px;color:var(--dim)}
+.session-pill{display:inline-block;padding:1px 8px;border-radius:99px;font-size:10px;font-family:var(--mono);
+  letter-spacing:.1em;border:1px solid var(--line2);margin-top:2px}
+.session-pill.open{color:var(--up);border-color:rgba(34,197,94,.4);background:var(--up-bg);box-shadow:0 0 10px rgba(34,197,94,.12)}
+.session-pill.closed{color:var(--faint)}
+.session-pill.auction{color:var(--amber);border-color:rgba(255,180,0,.4);background:var(--amber-dim)}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:4px 11px;border:1px solid var(--line2);border-radius:99px;
+  font-family:var(--mono);font-size:11.5px;cursor:pointer;user-select:none;background:var(--panel);color:var(--dim);
+  transition:all .15s}
+.chip:hover{border-color:var(--amber);color:var(--amber2)}
+.chip.on{color:var(--amber2);border-color:rgba(255,180,0,.5);background:var(--amber-dim)}
+#statusBadge{cursor:default}
+#statusBadge.live{color:var(--up);border-color:rgba(34,197,94,.45);background:var(--up-bg);animation:pulseDot 2s infinite}
+#statusBadge.cached{color:var(--amber2);border-color:rgba(255,180,0,.4);background:var(--amber-dim)}
+#statusBadge.snapshot{color:var(--pink);border-color:rgba(244,114,182,.4);background:rgba(244,114,182,.08)}
+#statusBadge .dot{width:7px;height:7px;border-radius:50%;background:currentColor;display:inline-block}
+@keyframes pulseDot{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.35)}50%{box-shadow:0 0 0 5px rgba(34,197,94,0)}}
+#xpChip{color:var(--amber2)}#xpChip b{color:#fff}
+.xpbar-mini{width:64px;height:4px;background:var(--line);border-radius:3px;overflow:hidden}
+.xpbar-mini i{display:block;height:100%;background:linear-gradient(90deg,var(--amber),var(--amber2));transition:width .5s}
+
+/* ---- command bar ---- */
+.cmdwrap{max-width:1440px;margin:0 auto;padding:0 16px 9px;display:flex;gap:8px;align-items:center}
+.cmdbox{flex:1;display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line2);
+  border-radius:8px;padding:7px 12px;position:relative;transition:border-color .15s}
+.cmdbox:focus-within{border-color:var(--amber);box-shadow:0 0 0 3px rgba(255,180,0,.08)}
+.cmdbox .prompt{font-family:var(--mono);color:var(--amber);font-weight:700;font-size:13px;flex:none}
+#cmdInput{flex:1;background:none;border:none;outline:none;color:var(--txt);font-family:var(--mono);font-size:13px}
+#cmdInput::placeholder{color:var(--faint)}
+#cmdHint{position:absolute;top:calc(100% + 5px);left:0;right:0;background:var(--panel2);border:1px solid var(--line2);
+  border-radius:8px;max-height:240px;overflow:auto;display:none;z-index:80;box-shadow:0 12px 30px rgba(0,0,0,.55)}
+#cmdHint .hint-row{padding:7px 12px;display:flex;gap:10px;font-family:var(--mono);font-size:12px;cursor:pointer}
+#cmdHint .hint-row:hover,#cmdHint .hint-row.sel{background:var(--amber-dim)}
+#cmdHint .hint-row .hcmd{color:var(--amber2);min-width:110px;font-weight:700}
+#cmdHint .hint-row .hdesc{color:var(--dim)}
+.kbd{font-family:var(--mono);font-size:10px;border:1px solid var(--line2);border-bottom-width:2px;border-radius:4px;
+  padding:1px 5px;color:var(--dim);background:var(--panel2)}
+#refBtn{flex:none;position:relative;overflow:hidden}
+
+/* ---- ticker tape ---- */
+.tickerbar{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:linear-gradient(90deg,#0a0d13,#0d1119,#0a0d13);
+  overflow:hidden;white-space:nowrap;position:relative}
+.tickerbar:hover .tape{animation-play-state:paused}
+.tape{display:inline-block;animation:tape 90s linear infinite;will-change:transform}
+@keyframes tape{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.tk{display:inline-block;padding:6px 13px;font-family:var(--mono);font-size:12px;border-right:1px solid var(--line);cursor:pointer}
+.tk:hover{background:var(--amber-dim)}
+.tk b{color:var(--dim);font-weight:600;margin-right:7px}
+.num{font-family:var(--mono)}
+.up{color:var(--up)}.down{color:var(--down)}.flat{color:var(--faint)}
+.upbg{background:var(--up-bg)}.downbg{background:var(--down-bg)}
+
+/* ---- tabs ---- */
+nav.tabs{max-width:1440px;margin:10px auto 0;padding:0 16px;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+nav.tabs::-webkit-scrollbar{display:none}
+.tab{padding:8px 15px;border:1px solid var(--line);border-radius:9px 9px 0 0;background:var(--panel);color:var(--dim);
+  font-family:var(--mono);font-size:12px;letter-spacing:.08em;cursor:pointer;white-space:nowrap;display:flex;gap:8px;align-items:center;
+  border-bottom:none;transition:all .15s}
+.tab:hover{color:var(--txt);border-color:var(--line2)}
+.tab.active{color:var(--amber2);background:var(--panel2);border-color:var(--line2);box-shadow:inset 0 2px 0 var(--amber)}
+.tab .tnum{font-size:9px;color:var(--faint);border:1px solid var(--line2);border-radius:3px;padding:0 4px}
+.tab.active .tnum{color:var(--amber);border-color:rgba(255,180,0,.35)}
+
+/* ---- layout ---- */
+main{max-width:1440px;margin:0 auto;padding:14px 16px 40px}
+.panel{display:none;animation:fadein .25s}
+.panel.active{display:block}
+@keyframes fadein{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.grid{display:grid;gap:12px}
+.g2{grid-template-columns:1fr 1fr}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.card{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:var(--rad);
+  padding:13px 15px;position:relative;overflow:hidden}
+.card.hoverable:hover{border-color:var(--line2)}
+.card .chead{display:flex;align-items:center;gap:8px;margin-bottom:9px}
+.card .chead h3{font-size:11.5px;letter-spacing:.16em;color:var(--dim);font-family:var(--mono);font-weight:700;text-transform:uppercase}
+.card .chead .tag{font-size:9px;font-family:var(--mono);letter-spacing:.1em;padding:1px 6px;border-radius:4px;
+  background:var(--amber-dim);color:var(--amber2);border:1px solid rgba(255,180,0,.25)}
+.card .chead .spacer{flex:1}
+.card .chead .mini{font-size:11px;color:var(--faint);font-family:var(--mono)}
+.spark{width:100%;height:38px;display:block}
+
+/* ---- hero index card ---- */
+.hero-card{grid-column:span 2;display:flex;flex-direction:column;justify-content:space-between;
+  border-color:rgba(255,180,0,.3);box-shadow:0 0 30px rgba(255,180,0,.05)}
+.hero-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap}
+.hero-name{font-size:13px;letter-spacing:.2em;color:var(--amber);font-family:var(--mono);font-weight:700}
+.hero-desc{font-size:11px;color:var(--faint);margin-top:2px}
+.hero-price{font-family:var(--mono);font-size:44px;font-weight:800;line-height:1.05;letter-spacing:-.01em}
+.hero-chg{font-family:var(--mono);font-size:16px;font-weight:700;padding:3px 10px;border-radius:6px;display:inline-block;margin-top:4px}
+.hero-stats{display:flex;gap:18px;flex-wrap:wrap;margin-top:10px}
+.hero-stats .hs{text-align:left}
+.hero-stats .hs b{display:block;font-family:var(--mono);font-size:13px}
+.hero-stats .hs span{font-size:10px;color:var(--faint);letter-spacing:.1em;text-transform:uppercase;font-family:var(--mono)}
+
+/* ---- index cards ---- */
+.idx-price{font-family:var(--mono);font-size:21px;font-weight:700}
+.idx-sub{font-size:10.5px;color:var(--faint);margin-top:2px;font-family:var(--mono)}
+.chg-pill{font-family:var(--mono);font-size:12px;font-weight:700;padding:2px 8px;border-radius:5px;display:inline-block}
+
+/* ---- movers ---- */
+table.mtable{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:12.5px}
+table.mtable th{text-align:left;color:var(--faint);font-weight:600;font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  padding:5px 8px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--panel2)}
+table.mtable td{padding:7px 8px;border-bottom:1px solid rgba(28,36,51,.55);white-space:nowrap}
+table.mtable tbody tr{cursor:pointer;transition:background .12s}
+table.mtable tbody tr:hover{background:var(--amber-dim)}
+table.mtable td .nm{color:var(--txt)}
+table.mtable td .sym{color:var(--faint);font-size:10.5px;margin-left:6px}
+.heat{display:inline-block;width:56px;height:7px;border-radius:4px;background:var(--line);overflow:hidden;vertical-align:middle}
+.heat i{display:block;height:100%}
+.seg-btns{display:flex;gap:6px;flex-wrap:wrap}
+.seg-btns .sbtn{padding:4px 12px;border-radius:99px;border:1px solid var(--line2);background:none;color:var(--dim);
+  font-family:var(--mono);font-size:11px;cursor:pointer;transition:all .15s}
+.seg-btns .sbtn:hover{color:var(--txt)}
+.seg-btns .sbtn.active{background:var(--amber-dim);border-color:rgba(255,180,0,.5);color:var(--amber2)}
+
+/* ---- gauge ---- */
+.gauge-wrap{text-align:center}
+.gauge-val{font-family:var(--mono);font-size:26px;font-weight:800}
+.gauge-label{font-size:10px;color:var(--faint);letter-spacing:.16em;text-transform:uppercase;font-family:var(--mono);margin-top:2px}
+.meter{display:flex;gap:3px;margin-top:9px}
+.meter i{flex:1;height:9px;border-radius:2px;background:var(--line)}
+.meter i.on-up{background:var(--up);box-shadow:0 0 6px rgba(34,197,94,.5)}
+.meter i.on-down{background:var(--down);box-shadow:0 0 6px rgba(239,68,68,.5)}
+
+/* ---- chart desk ---- */
+.chart-card{padding-bottom:6px}
+.chart-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.chart-title{font-family:var(--mono);font-size:16px;font-weight:800}
+.chart-title .src{font-size:10px;color:var(--faint);display:block;font-weight:400;letter-spacing:.1em}
+.range-btns{display:flex;gap:5px}
+.rbtn{padding:4px 11px;border:1px solid var(--line2);background:none;color:var(--dim);border-radius:6px;
+  font-family:var(--mono);font-size:11.5px;cursor:pointer;transition:all .15s}
+.rbtn:hover{color:var(--txt);border-color:var(--dim)}
+.rbtn.active{background:var(--amber-dim);border-color:var(--amber);color:var(--amber2);font-weight:700}
+.sym-select{background:var(--panel2);border:1px solid var(--line2);color:var(--txt);font-family:var(--mono);
+  font-size:12px;padding:5px 9px;border-radius:6px;outline:none;cursor:pointer}
+.sym-select:focus{border-color:var(--amber)}
+#chartHost{position:relative}
+#chartHost svg{display:block;width:100%;cursor:crosshair}
+.ctip{position:absolute;pointer-events:none;background:rgba(13,17,25,.95);border:1px solid var(--line2);border-radius:7px;
+  padding:7px 10px;font-family:var(--mono);font-size:11.5px;display:none;z-index:10;box-shadow:0 8px 22px rgba(0,0,0,.5);white-space:nowrap}
+.chart-stats{display:flex;gap:16px;flex-wrap:wrap;padding:8px 4px 8px;font-family:var(--mono);font-size:11px;color:var(--dim)}
+.chart-stats b{color:var(--txt)}
+
+/* ---- world desk ---- */
+.fx-big{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;
+  background:rgba(255,255,255,.015);cursor:pointer;transition:border-color .15s}
+.fx-big:hover{border-color:var(--line2)}
+.fx-big .fxf{font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.12em}
+.fx-big .fxp{font-family:var(--mono);font-size:20px;font-weight:700}
+.fx-big .fxc{font-family:var(--mono);font-size:11.5px}
+.pln-meter{margin-top:10px}
+.pln-meter .prow{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;margin-top:6px}
+.pln-meter .prow .pl{width:52px;color:var(--dim)}
+.pln-meter .prow .pbar{flex:1;height:6px;border-radius:4px;background:var(--line);overflow:hidden}
+.pln-meter .prow .pbar i{display:block;height:100%}
+.pln-meter .prow .pv{width:74px;text-align:right}
+
+/* ---- your book ---- */
+.book-hero{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.book-ETF{font-family:var(--mono);font-size:34px;font-weight:800;color:var(--amber2)}
+.book-kpi{border-left:2px solid var(--line2);padding-left:12px}
+.book-kpi b{display:block;font-family:var(--mono);font-size:19px}
+.book-kpi span{font-size:10px;color:var(--faint);letter-spacing:.1em;text-transform:uppercase;font-family:var(--mono)}
+.slider-row{display:flex;align-items:center;gap:10px;margin-top:10px}
+.slider-row label{font-family:var(--mono);font-size:11px;color:var(--dim);min-width:120px}
+.slider-row input[type=range]{flex:1;accent-color:var(--amber);height:4px}
+.slider-row output{font-family:var(--mono);font-size:12px;color:var(--amber2);min-width:84px;text-align:right}
+.book-note{font-size:12px;color:var(--dim);border-left:3px solid var(--amber);padding:6px 10px;margin-top:11px;background:var(--amber-dim);
+  border-radius:0 6px 6px 0}
+input.tin{background:var(--panel2);border:1px solid var(--line2);color:var(--txt);font-family:var(--mono);font-size:13px;
+  padding:6px 10px;border-radius:6px;outline:none;width:110px}
+input.tin:focus{border-color:var(--amber)}
+
+/* ---- wire ---- */
+.wire-item{border-bottom:1px solid rgba(28,36,51,.6);padding:9px 4px;cursor:default;transition:background .15s}
+.wire-item:last-child{border-bottom:none}
+.wire-item:hover{background:var(--amber-dim)}
+.wire-time{font-family:var(--mono);font-size:10.5px;color:var(--faint);letter-spacing:.08em}
+.wire-head{font-size:13.5px;font-weight:600;margin-top:1px}
+.wire-gordon{font-size:12px;color:var(--amber2);font-style:italic;margin-top:3px;display:none}
+.wire-item:hover .wire-gordon{display:block}
+.wire-item:hover .wire-gordon::before{content:"🗣 GORDON: ";font-style:normal;font-size:10px;letter-spacing:.14em;color:var(--amber);opacity:.85}
+
+/* ---- gordon desk ---- */
+.gordon-face{width:54px;height:54px;border-radius:10px;flex:none;background:linear-gradient(145deg,#1a2233,#0d1119);
+  border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;font-size:26px;
+  box-shadow:0 0 20px rgba(255,180,0,.12)}
+.desk-tabs{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0 10px}
+.g-note{font-size:14px;line-height:1.65}
+.g-note .k{color:var(--amber2);font-family:var(--mono);font-size:12.5px}
+blockquote.gq{border-left:3px solid var(--amber);background:var(--amber-dim);padding:10px 14px;border-radius:0 8px 8px 0;
+  font-size:14.5px;line-height:1.6;font-style:italic;color:var(--txt)}
+
+/* ---- academy ---- */
+.track-head{display:flex;align-items:center;gap:10px;margin:16px 0 8px}
+.track-head h3{font-family:var(--mono);font-size:13px;letter-spacing:.2em}
+.track-head .rule{flex:1;height:1px;background:linear-gradient(90deg,var(--line2),transparent)}
+.track-head .tpct{font-family:var(--mono);font-size:11px;color:var(--dim)}
+.lesson-card{display:flex;gap:12px;align-items:center;background:linear-gradient(180deg,var(--panel2),var(--panel));
+  border:1px solid var(--line);border-radius:9px;padding:12px 14px;cursor:pointer;transition:all .15s}
+.lesson-card:hover{border-color:rgba(255,180,0,.45);transform:translateY(-1px)}
+.lesson-ico{font-size:22px;width:44px;height:44px;flex:none;border-radius:9px;background:var(--bg2);border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center}
+.lesson-body{flex:1;min-width:0}
+.lesson-title{font-weight:700;font-size:14.5px}
+.lesson-sub{font-size:11.5px;color:var(--dim);margin-top:2px}
+.lesson-meta{font-family:var(--mono);font-size:10.5px;color:var(--faint);margin-top:3px}
+.lesson-done{flex:none;width:26px;height:26px;border-radius:50%;border:2px solid var(--up);color:var(--up);
+  display:flex;align-items:center;justify-content:center;font-size:13px;background:var(--up-bg)}
+.progressbar{height:8px;border-radius:5px;background:var(--line);overflow:hidden;border:1px solid var(--line)}
+.progressbar i{display:block;height:100%;background:linear-gradient(90deg,var(--amber),var(--amber2));transition:width .6s}
+.xp-banner{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.xp-banner .bigxp{font-family:var(--mono);font-size:30px;font-weight:800;color:var(--amber2)}
+
+/* ---- arcade ---- */
+.game-stage{text-align:center;padding:18px 12px}
+.game-date{font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.16em}
+.game-prev{font-family:var(--mono);font-size:30px;font-weight:800;margin:8px 0 2px}
+.game-prev .lbl{font-size:10px;color:var(--faint);display:block;letter-spacing:.2em;font-weight:400}
+.game-q{font-size:15px;margin:12px 0 16px;color:var(--dim)}
+.game-btn{font-family:var(--mono);font-size:16px;font-weight:800;padding:13px 30px;border-radius:10px;cursor:pointer;
+  border:1px solid;transition:all .15s;letter-spacing:.1em}
+.game-btn.bull{color:var(--up);border-color:rgba(34,197,94,.5);background:var(--up-bg);margin-right:10px}
+.game-btn.bear{color:var(--down);border-color:rgba(239,68,68,.5);background:var(--down-bg)}
+.game-btn:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.4)}
+.game-btn:disabled{opacity:.4;cursor:default;transform:none}
+.game-reveal{font-family:var(--mono);font-size:15px;margin-top:14px;min-height:22px}
+.streak{font-family:var(--mono);font-size:12px;color:var(--amber2);margin-top:10px}
+.ach-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.ach{border:1px solid var(--line);border-radius:9px;padding:10px 11px;background:var(--panel);text-align:center;transition:all .2s}
+.ach .aico{font-size:22px;filter:grayscale(1);opacity:.35}
+.ach .anm{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:4px;line-height:1.35}
+.ach.unlocked{border-color:rgba(255,180,0,.4);box-shadow:0 0 16px rgba(255,180,0,.07)}
+.ach.unlocked .aico{filter:none;opacity:1}
+.ach.unlocked .anm{color:var(--amber2)}
+.levels{display:flex;gap:4px;flex-wrap:wrap;margin-top:9px}
+.levels .lv{font-family:var(--mono);font-size:10px;padding:2px 8px;border-radius:4px;border:1px solid var(--line2);color:var(--faint)}
+.levels .lv.done{color:var(--amber2);border-color:rgba(255,180,0,.4);background:var(--amber-dim)}
+.levels .lv.now{color:#fff;border-color:var(--amber);box-shadow:0 0 10px rgba(255,180,0,.3)}
+.sass-out{font-size:17px;font-style:italic;text-align:center;padding:14px 10px;min-height:64px;line-height:1.55}
+
+/* ---- modal ---- */
+.overlay{position:fixed;inset:0;background:rgba(3,5,8,.72);backdrop-filter:blur(3px);z-index:100;display:none;
+  align-items:flex-start;justify-content:center;padding:24px 12px;overflow:auto}
+.overlay.show{display:flex}
+.modal{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line2);border-radius:12px;
+  max-width:760px;width:100%;padding:20px 22px;box-shadow:0 30px 80px rgba(0,0,0,.6);animation:pop .2s;margin:auto}
+@keyframes pop{from{transform:scale(.96);opacity:0}to{transform:none;opacity:1}}
+.modal-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:8px}
+.modal-head h2{font-size:19px}
+.xclose{background:none;border:1px solid var(--line2);color:var(--dim);border-radius:7px;width:30px;height:30px;cursor:pointer;
+  font-size:15px;flex:none;transition:all .15s}
+.xclose:hover{color:var(--down);border-color:var(--down)}
+.modal-body{font-size:14px;line-height:1.65;color:var(--txt)}
+.modal-body h4{margin:15px 0 6px;font-size:13px;letter-spacing:.14em;font-family:var(--mono);color:var(--amber);text-transform:uppercase}
+.modal-body p{margin:8px 0;color:#c6d1e2}
+.modal-body ul{margin:8px 0 8px 20px;color:#c6d1e2}
+.modal-body .gside{border-left:3px solid var(--amber);background:var(--amber-dim);padding:9px 13px;border-radius:0 8px 8px 0;
+  font-style:italic;font-size:13px;margin:13px 0}
+.modal-body .gside::before{content:"🗣 GORDON: ";font-style:normal;font-family:var(--mono);font-size:10px;letter-spacing:.15em;color:var(--amber)}
+.q-item{margin:14px 0;padding:11px 13px;border:1px solid var(--line);border-radius:9px;background:var(--bg2)}
+.q-item .qq{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.q-opt{display:block;width:100%;text-align:left;background:var(--panel2);border:1px solid var(--line2);color:var(--txt);
+  font-family:var(--sans);font-size:13px;padding:7px 11px;border-radius:7px;margin-top:5px;cursor:pointer;transition:all .13s}
+.q-opt:hover{border-color:var(--dim)}
+.q-opt.correct{border-color:var(--up);background:var(--up-bg);color:var(--up)}
+.q-opt.wrong{border-color:var(--down);background:var(--down-bg);color:var(--down)}
+.q-opt:disabled{cursor:default}
+.q-expl{font-size:12px;color:var(--dim);margin-top:7px;display:none}
+.q-expl.show{display:block}
+
+/* ---- toast ---- */
+#toasts{position:fixed;right:16px;bottom:16px;z-index:200;display:flex;flex-direction:column;gap:8px;max-width:290px}
+.toast{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line2);border-left:3px solid var(--amber);
+  border-radius:9px;padding:10px 14px;font-size:12.5px;box-shadow:0 10px 30px rgba(0,0,0,.5);animation:toastIn .25s;
+  font-family:var(--mono)}
+.toast .ttitle{color:var(--amber2);font-weight:700;font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.toast.xp{border-left-color:var(--up)}
+.toast.ach{border-left-color:var(--violet)}
+@keyframes toastIn{from{transform:translateX(40px);opacity:0}to{transform:none;opacity:1}}
+.toast.bye{animation:toastOut .3s forwards}
+@keyframes toastOut{to{transform:translateX(50px);opacity:0}}
+
+/* ---- countdown bar ---- */
+.refresh-bar{position:fixed;left:0;bottom:0;height:3px;background:linear-gradient(90deg,var(--amber),var(--amber2));
+  width:0%;z-index:90;transition:width 1s linear;opacity:.85}
+
+footer{border-top:1px solid var(--line);margin-top:10px;padding:16px;color:var(--faint);font-size:11px;font-family:var(--mono)}
+footer .fwrap{max-width:1440px;margin:0 auto;padding:0 16px;display:flex;gap:14px;flex-wrap:wrap;justify-content:space-between}
+
+/* ---- responsive ---- */
+@media(max-width:1100px){.g4{grid-template-columns:1fr 1fr}}
+@media(max-width:900px){
+  .g3{grid-template-columns:1fr 1fr}.g2{grid-template-columns:1fr}
+  .hero-card{grid-column:span 1}
+  .hero-price{font-size:34px}
+  .hclock .date{display:none}
+}
+@media(max-width:640px){
+  .g4,.g3,.g2{grid-template-columns:1fr}
+  .brand h1{font-size:17px}
+  main{padding:10px 10px 34px}
+  .hwrap{gap:8px}
+  .hero-price{font-size:29px}
+  .modal{padding:15px}
+  .game-btn{width:100%;margin:6px 0;display:block}
+  .kbd{display:none}
+}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+<header>
+  <div class="hwrap">
+    <div class="brand">
+      <div class="logo">M40<span class="zap">⚡</span></div>
+      <div>
+        <h1>MIST-40<span class="ultra">ULTRA</span></h1>
+        <div class="sub">Warsaw Market Command · personal desk of Y.B.</div>
+      </div>
+    </div>
+    <div class="hspace"></div>
+    <div class="hclock">
+      <div class="time" id="clock">--:--:--</div>
+      <div class="date" id="clockDate">Europe/Warsaw</div>
+      <span class="session-pill closed" id="sessionPill">CHECKING…</span>
+    </div>
+    <span class="chip" id="statusBadge" title="Data freshness: LIVE = fetched just now · CACHED = last saved copy · SNAPSHOT = built-in 03 Nov 2026 close"><span class="dot"></span><span id="statusTxt">…</span></span>
+    <span class="chip" id="xpChip" title="Your desk XP and level — click for the Trophy Room" onclick="switchTab('arcade')">★ <b id="xpVal">0</b> · <span id="lvlVal">INTERN</span><span class="xpbar-mini"><i id="xpBarMini"></i></span></span>
+    <button class="chip" id="sndBtn" title="Toggle desk sounds (M)" onclick="toggleSound()">🔇 SOUND OFF</button>
+    <button class="chip" id="refBtn" onclick="refreshNow()" title="Refresh now (R)">⟳ REFRESH NOW</button>
+  </div>
+  <div class="cmdwrap">
+    <div class="cmdbox">
+      <span class="prompt">GORDON&gt;</span>
+      <input id="cmdInput" autocomplete="off" spellcheck="false" placeholder='Type a command and hit Enter — try "help"  ·  press / to focus · 1-9 switch desks'>
+      <div id="cmdHint"></div>
+    </div>
+  </div>
+</header>
+
+<div class="tickerbar"><div class="tape" id="tape"></div></div>
+
+<nav class="tabs" id="tabBar">
+  <button class="tab active" data-tab="markets"><span class="tnum">1</span>MARKETS</button>
+  <button class="tab" data-tab="chart"><span class="tnum">2</span>CHART</button>
+  <button class="tab" data-tab="movers"><span class="tnum">3</span>MOVERS</button>
+  <button class="tab" data-tab="world"><span class="tnum">4</span>WORLD</button>
+  <button class="tab" data-tab="book"><span class="tnum">5</span>YOUR BOOK</button>
+  <button class="tab" data-tab="wire"><span class="tnum">6</span>THE WIRE</button>
+  <button class="tab" data-tab="gordon"><span class="tnum">7</span>GORDON</button>
+  <button class="tab" data-tab="academy"><span class="tnum">8</span>ACADEMY</button>
+  <button class="tab" data-tab="arcade"><span class="tnum">9</span>ARCADE</button>
+</nav>
+
+<main>
+
+<!-- ============ 1 · MARKETS ============ -->
+<section class="panel active" id="panel-markets">
+  <div class="grid g4" id="idxGrid"></div>
+  <div class="grid g3" style="margin-top:12px">
+    <div class="card">
+      <div class="chead"><h3> breadth — mood-o-meter</h3><span class="tag">GORDON THERMOMETER</span><div class="spacer"></div><span class="mini" id="breadthMini"></span></div>
+      <div class="gauge-wrap" id="moodWrap"></div>
+    </div>
+    <div class="card">
+      <div class="chead"><h3>today's tape</h3><span class="tag">TOP ACTION</span><div class="spacer"></div><span class="mini">click a row → Gordon roasts it</span></div>
+      <table class="mtable" id="miniMovers"></table>
+    </div>
+    <div class="card">
+      <div class="chead"><h3>satellite-1 watch</h3><span class="tag">YOUR ETF</span></div>
+      <div id="satWatch"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2 · CHART ============ -->
+<section class="panel" id="panel-chart">
+  <div class="card chart-card">
+    <div class="chart-top">
+      <div>
+        <div class="chart-title" id="chTitle">mWIG40</div>
+        <span class="src" id="chSource">loading…</span>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <select class="sym-select" id="chSym" onchange="chartSelect()"></select>
+        <div class="range-btns" id="rangeBtns"></div>
+      </div>
+    </div>
+    <div class="chart-stats" id="chStats"></div>
+    <div id="chartHost"></div>
+  </div>
+</section>
+
+<!-- ============ 3 · MOVERS ============ -->
+<section class="panel" id="panel-movers">
+  <div class="card">
+    <div class="chead">
+      <h3>the tape — full board</h3>
+      <div class="spacer"></div>
+      <div class="seg-btns" id="movFilter">
+        <button class="sbtn active" data-f="all">ALL</button>
+        <button class="sbtn" data-f="gainers">▲ GAINERS</button>
+        <button class="sbtn" data-f="losers">▼ LOSERS</button>
+        <button class="sbtn" data-f="energy">⚡ ENERGY</button>
+        <button class="sbtn" data-f="banks">🏦 BANKS</button>
+      </div>
+    </div>
+    <div style="overflow-x:auto"><table class="mtable" id="moverTable"></table></div>
+  </div>
+</section>
+
+<!-- ============ 4 · WORLD ============ -->
+<section class="panel" id="panel-world">
+  <div class="grid g2">
+    <div class="card">
+      <div class="chead"><h3>złoty desk — PLN crosses</h3><span class="tag">FX</span></div>
+      <div class="grid g2" id="fxGrid"></div>
+      <div class="pln-meter" id="plnMeter"></div>
+    </div>
+    <div class="card">
+      <div class="chead"><h3>global session</h3><span class="tag">OVERNIGHT MOOD</span></div>
+      <div class="grid g2" id="globalGrid"></div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:12px">
+    <div class="chead"><h3>commodities & hard assets</h3><span class="tag">WHAT THE WORLD PAYS FOR</span></div>
+    <div class="grid g4" id="cmdtyGrid"></div>
+  </div>
+</section>
+
+<!-- ============ 5 · YOUR BOOK ============ -->
+<section class="panel" id="panel-book">
+  <div class="card hero-card" style="border-color:rgba(255,180,0,.3)">
+    <div class="chead"><h3>satellite-1 · beta ETF mWIG40TR</h3><span class="tag">YOUR BOOK</span></div>
+    <div class="book-hero" id="bookHero"></div>
+    <div class="book-note" id="bookPlanNote"></div>
+  </div>
+  <div class="grid g2" style="margin-top:12px">
+    <div class="card">
+      <div class="chead"><h3>DCA simulator</h3><span class="tag">ILLUSTRATION — NOT ADVICE</span></div>
+      <div class="slider-row"><label>Monthly budget</label><input type="range" id="dcaAmt" min="200" max="5000" step="100" value="1400" oninput="renderBookSim()"><output id="dcaAmtOut">1400 zł</output></div>
+      <div class="slider-row"><label>Start month</label><input type="range" id="dcaStart" min="2027" max="2028" step="1" value="2027" oninput="renderBookSim()"><output id="dcaStartOut">Jan 2027</output></div>
+      <div class="slider-row"><label>Horizon (months)</label><input type="range" id="dcaMonths" min="6" max="30" step="1" value="12" oninput="renderBookSim()"><output id="dcaMonthsOut">12 mo</output></div>
+      <div class="slider-row"><label>Unit price (edit me)</label><input type="range" id="dcaPrice" min="100" max="250" step="0.5" oninput="renderBookSim()"><output id="dcaPriceOut">—</output></div>
+      <div id="dcaResult" style="margin-top:12px"></div>
+      <div class="book-note" style="margin-top:13px">Fixed-price illustration only. Real markets move both ways; nothing here is a promise, forecast, or investment advice.</div>
+    </div>
+    <div class="card">
+      <div class="chead"><h3>the full plan · core + satellite</h3><span class="tag">CONTEXT</span></div>
+      <div id="bookContext"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6 · THE WIRE ============ -->
+<section class="panel" id="panel-wire">
+  <div class="card">
+    <div class="chead"><h3>desk wire — live-generated commentary</h3><span class="tag">NOT A NEWS FEED</span>
+      <div class="spacer"></div><span class="mini">hover any item for Gordon's take</span></div>
+    <div id="wireList"></div>
+  </div>
+</section>
+
+<!-- ============ 7 · GORDON ============ -->
+<section class="panel" id="panel-gordon">
+  <div class="card">
+    <div class="chead">
+      <div class="gordon-face">🎙️</div>
+      <div>
+        <h3 style="color:var(--amber2);font-size:15px;letter-spacing:.08em">GORDON'S DESK</h3>
+        <div style="font-size:11.5px;color:var(--dim)">Sarcastic Warsaw trading-desk editor. Opinionated, not licensed.</div>
+      </div>
+      <div class="spacer"></div>
+      <button class="chip on" id="sassBtn" onclick="dispenseSass()">🧂 SASS DISPENSER — GET ROASTED</button>
+    </div>
+    <div class="desk-tabs" id="deskTabs"></div>
+    <div id="deskBody"></div>
+  </div>
+</section>
+
+<!-- ============ 8 · ACADEMY ============ -->
+<section class="panel" id="panel-academy">
+  <div class="card">
+    <div class="chead">
+      <h3>⚡ MIST ACADEMY — learning studies</h3><span class="tag">12 LESSONS · 3 TRACKS</span>
+      <div class="spacer"></div><span class="mini">read → quiz → earn XP → level up</span>
+    </div>
+    <div class="xp-banner">
+      <div class="bigxp"><span id="acadDone">0</span>/12 <span style="font-size:12px;color:var(--dim)">lessons complete</span></div>
+      <div style="flex:1;min-width:180px"><div class="progressbar"><i id="acadBar" style="width:0%"></i></div></div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--dim)" id="acadXpTxt"></div>
+    </div>
+  </div>
+  <div id="acadTracks"></div>
+</section>
+
+<!-- ============ 9 · ARCADE ============ -->
+<section class="panel" id="panel-arcade">
+  <div class="grid g2">
+    <div class="card">
+      <div class="chead"><h3>🐂 BULL OR BEAR? — price game</h3><span class="tag">REAL HISTORY</span>
+        <div class="spacer"></div><span class="mini" id="gameRec"></span></div>
+      <div class="game-stage" id="gameStage"></div>
+    </div>
+    <div class="card">
+      <div class="chead"><h3>🧂 sass dispenser</h3><span class="tag">FRESH FROM THE DESK</span></div>
+      <div class="sass-out" id="sassOut">Press the button. I dare you.</div>
+      <div style="text-align:center"><button class="chip on" onclick="dispenseSass()">GIVE ME ANOTHER</button></div>
+      <div class="chead" style="margin-top:18px"><h3>🏆 trophy room</h3><span class="tag" id="achCount">0/12</span></div>
+      <div class="levels" id="levelRow"></div>
+      <div class="ach-grid" id="achGrid" style="margin-top:10px"></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="fwrap">
+    <span>MIST-40 ULTRA v4.2 TURBO · personal desk · turbo feed: whole board in 2 batched Yahoo requests · honest badge above = real freshness</span>
+    <span id="footStatus"></span>
+    <span>Educational toy. No investment advice. No fabricated numbers — ever.</span>
+  </div>
+</footer>
+
+<div class="overlay" id="overlay" onclick="if(event.target===this)closeModal()"><div class="modal" id="modal"></div></div>
+<div id="toasts"></div>
+<div class="refresh-bar" id="refBar"></div>
+
+<script>
+/* SNAPSHOT DATA - GPW close 03 Nov 2026 - generated from Yahoo Finance */
+const SNAPSHOT = {"asOf":"2026-11-03 17:05 CET (GPW session close)","quotes":{"MWIG40.WA":{"p":10486.72,"chg":-0.335,"pc":10521.99,"ts":1793722500,"cur":"PLN","hi":null,"lo":null},"MWIG40TR.WA":{"p":16947.67,"chg":-0.335,"pc":17004.66,"ts":1793722500,"cur":"PLN","hi":null,"lo":null},"WIG20.WA":{"p":4138.6,"chg":-0.338,"pc":4152.65,"ts":1793722500,"cur":"PLN","hi":null,"lo":null},"SWIG80.WA":{"p":29346.54,"chg":0.067,"pc":29326.88,"ts":1793722500,"cur":"PLN","hi":null,"lo":null},"WIG.WA":{"p":155849.81,"chg":-0.341,"pc":156383.05,"ts":1793722500,"cur":"PLN","hi":null,"lo":null},"ETFBM40TR.WA":{"p":171.9,"chg":-0.452,"pc":172.68,"ts":1793721806,"cur":"PLN","hi":172.08,"lo":168.4},"ETFBW20TR.WA":{"p":85.76,"chg":-0.43,"pc":86.13,"ts":1793721692,"cur":"PLN","hi":85.91,"lo":84.59},"PKO.WA":{"p":113.62,"chg":1.175,"pc":112.3,"ts":1793721654,"cur":"PLN","hi":114.48,"lo":110.6},"MBK.WA":{"p":1610.0,"chg":-0.587,"pc":1619.5,"ts":1793721590,"cur":"PLN","hi":1623.5,"lo":1575.0},"PGE.WA":{"p":15.5,"chg":-2.454,"pc":15.89,"ts":1793721808,"cur":"PLN","hi":16.22,"lo":15.5},"TPE.WA":{"p":8.836,"chg":0.753,"pc":8.77,"ts":1793721572,"cur":"PLN","hi":9.032,"lo":8.744},"ENA.WA":{"p":20.82,"chg":-0.573,"pc":20.94,"ts":1793721834,"cur":"PLN","hi":21.08,"lo":20.26},"JSW.WA":{"p":26.8,"chg":3.236,"pc":25.96,"ts":1793721600,"cur":"PLN","hi":27.09,"lo":25.6},"PKN.WA":{"p":144.24,"chg":-0.042,"pc":144.3,"ts":1793721839,"cur":"PLN","hi":145.42,"lo":143.2},"KGH.WA":{"p":275.35,"chg":-4.343,"pc":287.85,"ts":1793721894,"cur":"PLN","hi":283.2,"lo":271.85},"CDR.WA":{"p":256.5,"chg":-0.697,"pc":258.3,"ts":1793721662,"cur":"PLN","hi":256.9,"lo":250.5},"11B.WA":{"p":113.2,"chg":-0.352,"pc":113.6,"ts":1793721641,"cur":"PLN","hi":114.2,"lo":112.9},"LPP.WA":{"p":26220.0,"chg":-2.889,"pc":27000.0,"ts":1793721726,"cur":"PLN","hi":26820.0,"lo":25860.0},"DNP.WA":{"p":38.1,"chg":-0.105,"pc":38.14,"ts":1793721653,"cur":"PLN","hi":38.34,"lo":37.57},"ALE.WA":{"p":58.36,"chg":-2.733,"pc":60.0,"ts":1793721688,"cur":"PLN","hi":59.91,"lo":57.26},"CPS.WA":{"p":12.5,"chg":-1.691,"pc":12.715,"ts":1793721647,"cur":"PLN","hi":12.715,"lo":12.18},"MDV.WA":{"p":93.24,"chg":-2.591,"pc":95.72,"ts":1793721664,"cur":"PLN","hi":96.04,"lo":91.1},"XTB.WA":{"p":129.98,"chg":-0.794,"pc":131.02,"ts":1793721861,"cur":"PLN","hi":132.24,"lo":126.28},"EURPLN=X":{"p":4.411,"chg":-0.017,"pc":4.4117,"ts":1793748141,"cur":"PLN","hi":4.4114,"lo":4.4064},"USDPLN=X":{"p":3.9395,"chg":-0.0862,"pc":3.9429,"ts":1793748150,"cur":"PLN","hi":3.9427,"lo":3.9375},"GBPPLN=X":{"p":5.2857,"chg":0.0591,"pc":5.2826,"ts":1793748146,"cur":"PLN","hi":5.2877,"lo":5.263},"CHFPLN=X":{"p":4.8016,"chg":-0.2679,"pc":4.8145,"ts":1793748134,"cur":"PLN","hi":4.8026,"lo":4.7959},"^GSPC":{"p":7568.92,"chg":0.365,"pc":7541.4,"ts":1793741413,"cur":"USD","hi":7594.61,"lo":7545.39},"^IXIC":{"p":25372.01,"chg":0.825,"pc":25164.363,"ts":1793744159,"cur":"USD","hi":25474.463,"lo":25246.635},"^GDAXI":{"p":25864.62,"chg":-0.448,"pc":25981.09,"ts":1793725200,"cur":"EUR","hi":26037.28,"lo":25677.86},"^N225":{"p":63081.86,"chg":-0.329,"pc":63290.1,"ts":1793601903,"cur":"JPY","hi":63615.32,"lo":62712.91},"CL=F":{"p":96.7,"chg":0.635,"pc":96.09,"ts":1793747489,"cur":"USD","hi":96.82,"lo":96.64},"BZ=F":{"p":104.3,"chg":0.676,"pc":103.6,"ts":1793747152,"cur":"USD","hi":104.37,"lo":104.3},"GC=F":{"p":3939.1,"chg":-0.033,"pc":3940.4,"ts":1793747544,"cur":"USD","hi":3943.1,"lo":3937.0},"SI=F":{"p":49.82,"chg":0.135,"pc":49.753,"ts":1793747544,"cur":"USD","hi":49.895,"lo":49.785}},"mwig40Intraday":[[1793174400,10933.6],[1793176200,10923.66],[1793178000,10945.33],[1793179800,10937.72],[1793181600,10938.35],[1793183400,10914.16],[1793185200,10914.64],[1793187000,10900.98],[1793188800,10904.97],[1793190600,10910.16],[1793192400,10935.23],[1793194200,10922.67],[1793196000,10926.25],[1793197800,10884.33],[1793199600,10898.52],[1793201400,10890.47],[1793203200,10889.25],[1793260800,10950.59],[1793262600,10944.11],[1793264400,10938.71],[1793266200,10961.87],[1793268000,10955.71],[1793269800,10940.7],[1793271600,10894.85],[1793273400,10868.46],[1793275200,10876.02],[1793277000,10880.02],[1793278800,10882.04],[1793280600,10890.62],[1793282400,10908.86],[1793284200,10908.07],[1793286000,10929.32],[1793287800,10936.28],[1793289600,10945.45],[1793347200,10859.88],[1793349000,10842.72],[1793350800,10836.36],[1793352600,10790.39],[1793354400,10806.81],[1793356200,10792.05],[1793358000,10779.91],[1793359800,10753.14],[1793361600,10743.75],[1793363400,10736.58],[1793365200,10724.77],[1793367000,10686.72],[1793368800,10679.78],[1793370600,10699.69],[1793372400,10693.85],[1793374200,10681.17],[1793376000,10677.25],[1793606400,10558.22],[1793608200,10545.17],[1793610000,10604.66],[1793611800,10597.72],[1793613600,10568.14],[1793615400,10580.53],[1793617200,10547.69],[1793619000,10530.36],[1793620800,10506.66],[1793622600,10516.16],[1793624400,10473.78],[1793626200,10497.43],[1793628000,10460.35],[1793629800,10466.43],[1793631600,10516.77],[1793633400,10526.26],[1793635200,10521.99],[1793692800,10413.81],[1793694600,10311.37],[1793696400,10376.13],[1793698200,10416.78],[1793700000,10430.39],[1793701800,10417.78],[1793703600,10408.53],[1793705400,10395.35],[1793707200,10404.34],[1793709000,10419.61],[1793710800,10442.53],[1793712600,10468.04],[1793714400,10449.5],[1793716200,10470.76],[1793718000,10472.13],[1793719800,10496.03],[1793721600,10486.72],[1793721900,10486.72]],"etfDaily":[[1762156800,127.62],[1762243200,127.96],[1762329600,129.08],[1762416000,128.2],[1762502400,127.08],[1762761600,128.9],[1762934400,128.9],[1763020800,128.64],[1763107200,128.06],[1763366400,127.5],[1763452800,124.1],[1763539200,125.8],[1763625600,126.16],[1763712000,124.36],[1763971200,124.46],[1764057600,125.56],[1764144000,126.94],[1764230400,127.4],[1764316800,127.82],[1764576000,127.2],[1764662400,125.94],[1764748800,125.5],[1764835200,124.5],[1764921600,125.2],[1765180800,125.52],[1765267200,126.98],[1765353600,127.88],[1765440000,127.66],[1765526400,127.0],[1765785600,126.98],[1765872000,126.12],[1765958400,126.52],[1766044800,126.1],[1766131200,127.22],[1766390400,128.86],[1766476800,129.02],[1766995200,129.66],[1767081600,129.9],[1767340800,133.6],[1767600000,134.56],[1767772800,137.96],[1767859200,136.08],[1767945600,137.88],[1768204800,138.18],[1768291200,138.06],[1768377600,137.62],[1768464000,137.2],[1768550400,136.88],[1768809600,136.02],[1768896000,135.76],[1768982400,135.86],[1769068800,138.8],[1769155200,137.96],[1769414400,139.72],[1769500800,141.1],[1769587200,141.28],[1769673600,139.94],[1769760000,142.32],[1770019200,143.88],[1770105600,145.08],[1770192000,143.32],[1770278400,140.88],[1770364800,141.12],[1770624000,142.92],[1770710400,143.5],[1770796800,143.78],[1770883200,143.12],[1770969600,141.0],[1771228800,142.24],[1771315200,140.9],[1771401600,142.86],[1771488000,141.3],[1771574400,140.88],[1771833600,141.42],[1771920000,139.86],[1772006400,141.38],[1772092800,141.16],[1772179200,141.58],[1772438400,139.62],[1772524800,134.82],[1772611200,137.54],[1772697600,137.72],[1772784000,135.0],[1773043200,134.34],[1773129600,136.36],[1773216000,134.38],[1773302400,132.46],[1773388800,132.52],[1773648000,132.52],[1773734400,136.66],[1773820800,135.26],[1773907200,133.4],[1773993600,130.68],[1774252800,131.44],[1774339200,129.8],[1774425600,131.62],[1774512000,131.0],[1774598400,130.28],[1774854000,131.28],[1774940400,134.1],[1775026800,136.12],[1775113200,137.16],[1775545200,137.06],[1775631600,141.52],[1775718000,141.34],[1775804400,143.5],[1776063600,143.72],[1776150000,145.08],[1776236400,147.28],[1776322800,145.8],[1776409200,148.0],[1776668400,147.32],[1776754800,146.22],[1776841200,146.68],[1776927600,145.0],[1777014000,144.62],[1777273200,143.98],[1777359600,143.4],[1777446000,143.82],[1777532400,143.5],[1777878000,145.06],[1777964400,146.0],[1778050800,148.6],[1778137200,148.32],[1778223600,145.5],[1778482800,146.78],[1778569200,144.94],[1778655600,146.04],[1778742000,148.04],[1778828400,147.5],[1779087600,148.74],[1779174000,148.4],[1779260400,150.26],[1779346800,151.16],[1779433200,152.96],[1779692400,155.92],[1779778800,155.04],[1779865200,153.64],[1779951600,154.7],[1780038000,155.3],[1780297200,152.76],[1780383600,153.84],[1780470000,154.4],[1780642800,153.72],[1780902000,154.34],[1780988400,153.66],[1781074800,153.34],[1781161200,153.42],[1781247600,157.12],[1781506800,156.56],[1781593200,157.38],[1781679600,157.5],[1781766000,156.7],[1781852400,157.02],[1782111600,156.0],[1782198000,155.28],[1782284400,153.74],[1782370800,154.16],[1782457200,153.64],[1782716400,153.32],[1782802800,154.26],[1782889200,156.24],[1782975600,158.32],[1783062000,159.62],[1783321200,160.66],[1783407600,159.82],[1783494000,160.18],[1783580400,160.18],[1783666800,162.5],[1783926000,163.64],[1784012400,164.0],[1784098800,164.16],[1784185200,162.92],[1784271600,161.46],[1784530800,163.04],[1784617200,163.68],[1784703600,163.38],[1784790000,161.6],[1784876400,161.74],[1785135600,163.8],[1785222000,164.04],[1785308400,164.54],[1785394800,166.62],[1785481200,167.92],[1785740400,169.5],[1785826800,172.5],[1785913200,172.24],[1785999600,172.78],[1786086000,173.44],[1786345200,174.62],[1786431600,174.82],[1786518000,175.24],[1786604400,175.52],[1786690800,176.54],[1786950000,174.72],[1787036400,173.16],[1787122800,173.4],[1787209200,172.16],[1787295600,172.74],[1787554800,173.76],[1787641200,174.6],[1787727600,175.64],[1787814000,174.24],[1787900400,174.34],[1788159600,173.96],[1788246000,172.48],[1788332400,172.52],[1788418800,169.88],[1788505200,171.64],[1788764400,171.84],[1788850800,174.74],[1788937200,172.66],[1789023600,171.0],[1789110000,170.44],[1789369200,169.28],[1789455600,166.92],[1789542000,168.6],[1789628400,171.38],[1789714800,169.14],[1789974000,173.64],[1790060400,174.34],[1790146800,173.06],[1790233200,173.18],[1790319600,172.64],[1790578800,172.04],[1790665200,172.5],[1790751600,173.52],[1790838000,171.62],[1790924400,171.24],[1791183600,172.82],[1791270000,175.7],[1791356400,173.48],[1791442800,172.04],[1791529200,174.5],[1791788400,175.88],[1791874800,176.0],[1791961200,175.34],[1792047600,174.74],[1792134000,177.84],[1792393200,175.22],[1792479600,174.84],[1792566000,175.92],[1792652400,175.68],[1792738800,175.04],[1793001600,177.12],[1793088000,178.92],[1793174400,178.2],[1793260800,179.4],[1793347200,175.16],[1793606400,172.68],[1793692800,171.9]]};
+
+'use strict';
+/* ============================================================
+   MIST-40 ULTRA — part 3: static data & content
+   ============================================================ */
+
+/* ---- symbol universe (all verified live on Yahoo, Nov 2026) ---- */
+const UNIVERSE = {
+  indices: [
+    {s:'MWIG40.WA',  n:'mWIG40',   d:'Polish mid caps — your home index', hero:true},
+    {s:'MWIG40TR.WA',n:'mWIG40TR', d:'mWIG40 with dividends reinvested'},
+    {s:'WIG20.WA',   n:'WIG20',    d:'Polish large caps'},
+    {s:'SWIG80.WA',  n:'sWIG80',   d:'Polish small caps'},
+    {s:'WIG.WA',     n:'WIG',      d:'the whole Warsaw market'}
+  ],
+  etfs: [
+    {s:'ETFBM40TR.WA', n:'Beta ETF mWIG40TR', d:'your satellite · mWIG40TR 1:1', tag:'SATELLITE-1'},
+    {s:'ETFBW20TR.WA', n:'Beta ETF WIG20TR',  d:'large-cap twin, dividends inside'}
+  ],
+  stocks: [
+    {s:'PKO.WA', n:'PKO BP',      g:'banks',   f:'🏦'},
+    {s:'MBK.WA', n:'mBank',       g:'banks',   f:'🏦'},
+    {s:'PGE.WA', n:'PGE',         g:'energy',  f:'⚡'},
+    {s:'TPE.WA', n:'Tauron',      g:'energy',  f:'⚡'},
+    {s:'ENA.WA', n:'Energa',      g:'energy',  f:'⚡'},
+    {s:'JSW.WA', n:'JSW',         g:'energy',  f:'⛏️'},
+    {s:'PKN.WA', n:'Orlen',       g:'energy',  f:'⛽'},
+    {s:'KGH.WA', n:'KGHM',        g:'energy',  f:'⛏️'},
+    {s:'CDR.WA', n:'CD Projekt',  g:'games',   f:'🎮'},
+    {s:'11B.WA', n:'11 bit studios', g:'games', f:'🎮'},
+    {s:'LPP.WA', n:'LPP',         g:'retail',  f:'👗'},
+    {s:'DNP.WA', n:'Dino Polska', g:'retail',  f:'🛒'},
+    {s:'ALE.WA', n:'Allegro',     g:'retail',  f:'🛒'},
+    {s:'CPS.WA', n:'Grupa CPS',   g:'retail',  f:'⛽'},
+    {s:'MDV.WA', n:'Medisept',    g:'health',  f:'🧪'},
+    {s:'XTB.WA', n:'XTB',         g:'banks',   f:'🏦'}
+  ],
+  fx: [
+    {s:'EURPLN=X', n:'EUR/PLN', f:'💶'},
+    {s:'USDPLN=X', n:'USD/PLN', f:'💵'},
+    {s:'GBPPLN=X', n:'GBP/PLN', f:'💷'},
+    {s:'CHFPLN=X', n:'CHF/PLN', f:'🏦'}
+  ],
+  global: [
+    {s:'^GSPC',   n:'S&P 500',   f:'🇺🇸', d:'US large caps'},
+    {s:'^IXIC',   n:'Nasdaq',    f:'🇺🇸', d:'US tech-heavy'},
+    {s:'^GDAXI',  n:'DAX',       f:'🇩🇪', d:'Germany, our main trade partner'},
+    {s:'^N225',   n:'Nikkei 225',f:'🇯🇵', d:'Tokyo overnight mood'}
+  ],
+  cmdty: [
+    {s:'CL=F', n:'WTI crude', f:'🛢️'},
+    {s:'BZ=F', n:'Brent crude',f:'🛢️'},
+    {s:'GC=F', n:'Gold',       f:'🥇'},
+    {s:'SI=F', n:'Silver',     f:'🥈'}
+  ]
+};
+const ALL_SYMS = [...UNIVERSE.indices, ...UNIVERSE.etfs, ...UNIVERSE.stocks, ...UNIVERSE.fx, ...UNIVERSE.global, ...UNIVERSE.cmdty];
+const META = {}; ALL_SYMS.forEach(o => META[o.s] = o);
+
+/* ---- XP levels ---- */
+const LEVELS = [
+  {xp:0,    t:'INTERN'},
+  {xp:100,  t:'DESK JUNIOR'},
+  {xp:250,  t:'MOVER'},
+  {xp:500,  t:'SENIOR ANALYST'},
+  {xp:900,  t:'PORTFOLIO MANAGER'},
+  {xp:1500, t:'HEAD OF DESK'},
+  {xp:2500, t:"GORDON'S BOSS"},
+  {xp:4000, t:'MARKET ORACLE'}
+];
+
+/* ---- achievements ---- */
+const ACH = [
+  {id:'boot',     ico:'🚀', nm:'FIRST BOOT',       xp:20, desc:'Open the terminal'},
+  {id:'live',     ico:'📡', nm:'WIRED IN',         xp:25, desc:'Get a LIVE data refresh'},
+  {id:'roast5',   ico:'🔥', nm:'ROASTED ×5',       xp:20, desc:'Make Gordon roast 5 movers'},
+  {id:'sass10',   ico:'🧂', nm:'SASS CONNOISSEUR', xp:20, desc:'Pull 10 sasses from the dispenser'},
+  {id:'chart5',   ico:'📈', nm:'RANGE RUNNER',     xp:25, desc:'View all 5 chart ranges'},
+  {id:'cmd10',    ico:'⌨️', nm:'COMMAND NINJA',    xp:25, desc:'Run 10 command-line orders'},
+  {id:'acad1',    ico:'🎓', nm:'STUDENT',          xp:20, desc:'Finish your first Academy lesson'},
+  {id:'acad6',    ico:'📚', nm:'HALFWAY SCHOLAR',  xp:40, desc:'Finish 6 Academy lessons'},
+  {id:'acad12',   ico:'🎓', nm:'PHD OF THE DESK',  xp:80, desc:'Finish all 12 Academy lessons'},
+  {id:'streak5',  ico:'🔮', nm:'FORTUNE TELLER',   xp:40, desc:'Win a 5-round Bull-or-Bear streak'},
+  {id:'bookworm', ico:'📓', nm:'BOOKWORM',         xp:20, desc:'Play with the DCA simulator'},
+  {id:'owl',      ico:'🦉', nm:'NIGHT DESK',       xp:20, desc:'Use the terminal after 22:00'}
+];
+
+/* ---- sass bank ---- */
+const SASS = [
+  "Another day, another 0.3%. Markets are a soap opera with worse acting.",
+  "You checking prices every 60 seconds doesn't make the DCA plan go faster. It just makes you older.",
+  "If your ETF could talk, it would ask why you keep staring at it. It's an index fund, not a Tamagotchi.",
+  "Volatility is the market charging you rent for the privilege of watching.",
+  "The mWIG40 doesn't care about your feelings. That's precisely why it works.",
+  "I've seen prettier order books. On a shipwreck.",
+  "Buying the dip is easy. Identifying it as a dip and not an elevator shaft? That's the job.",
+  "Your plan says monthly, automatic, boring. Your fingers say 'let me just check real quick.' Your plan is right.",
+  "A stock you didn't research is a rumor with a ticker symbol.",
+  "Every rouble I mean złoty you save in fees is a złoty that compounds. Brokers hate this trick.",
+  "Time in the market beats timing the market. The market agrees and charges you for the lesson either way.",
+  "WIG20 yawns, sWIG80 does cartwheels, mWIG40 splits the difference. Polish market theatre at its finest.",
+  "You know what we call a hot tip at this desk? A coincidence with good PR.",
+  "Gold glittered today. It also glittered when I spilled my coffee on a Krugerrand in 2014.",
+  "Brent and WTI had a disagreement again. The pump wins. It always wins.",
+  "If panic-selling were cardio, retail investors would be Olympians.",
+  "I once predicted 9 of the last 2 crashes. Great analyst. Terrible batting average.",
+  "Your emergency fund is called 'emergency' so your portfolio never has to meet one.",
+  "Dividends are the market's way of saying 'thanks for not touching anything.'",
+  "The best trading indicator is a calendar. You've got one of those. It says 'buy monthly, breathe normally.'"
+];
+
+/* ---- WSE / trader lingo glossary (desk tab) ---- */
+const LINGO = [
+  {k:'BREADTH', v:'Share of stocks rising vs falling. The index can be up while breadth is ugly — a rally carried by three giants is thinner than it looks.'},
+  {k:'TOTAL RETURN (TR)', v:'Index version that reinvests dividends. mWIG40TR ≥ mWIG40 always, and the gap widens every year. Your ETF tracks the TR version.'},
+  {k:'DCA', v:'Dollar— *złoty* —cost averaging: buying a fixed amount on a schedule. You buy more units when cheap, fewer when expensive. Automatic humility.'},
+  {k:'FREE FLOAT', v:'Shares actually tradable, excluding locked-in strategic stakes. Index weights use free float, not full market cap.'},
+  {k:'FIXING', v:'A short auction that concentrates matching at one price. WSE runs one at 11:30 on top of opening (8:30–9:00) and closing (17:00–17:05) auctions.'},
+  {k:'LOT', v:'Minimum trade unit. On WSE, stocks trade in lots — often 1 share, sometimes more. Your broker app handles it; the concept pays your rent: always check.'},
+  {k:'SPREAD', v:'Gap between best bid and best ask. It is a real, invisible cost you pay on every single entry and exit.'},
+  {k:'TER', v:'Total Expense Ratio — the ETF\u2019s annual fee, taken from the fund daily so you never see an invoice. Small number, huge consequences over 20 years.'},
+  {k:'TRACKING DIFFERENCE', v:'How far an ETF lands from its index after fees. Your Beta ETF mWIG40TR\u2019s whole job is to make this number boring.'},
+  {k:'DRAWDOWN', v:'Peak-to-trough pain. Not a hypothetical: every index you own has had at least one −30% moment. The plan only survives if you expect it.'},
+  {k:'AUCTION', v:'Session phase where orders accumulate and match at a single price. Thin stocks can jump in auctions — limit orders are your seatbelt.'},
+  {k:'SATELLITE vs CORE', v:'Core = the always-there global part (your VWCE). Satellite = the smaller, conviction-flavored tilt (your Beta ETF mWIG40TR). Orbit responsibly.'}
+];
+
+/* ---- WSE fun facts (desk tab) ---- */
+const FUNFACTS = [
+  "The Warsaw Stock Exchange opened trading on 16 April 1991 with five companies and a single electronic trading system — sessions were held once a week at first.",
+  "GPW's mWIG40 caps any single company at 15% of the index, so one giant can't quietly become 'the market'.",
+  "The WIG20 and mWIG40 are free-float weighted: it's not who owns shares, it's who can actually sell them, that counts.",
+  "WSE closing auction runs 17:00–17:05 — those last five minutes can move the official close more than the previous hour.",
+  "Poland's WIG indices include banks, coal, videogames and funeral services — few markets offer a stranger mood board.",
+  "GPW lists both price indices (mWIG40) and total-return indices (mWIG40TR). Guess which one compounds your dividends better.",
+  "A stock market fix for one seat at GPW once cost a fraction of what a Bloomberg terminal subscription costs per month. You're reading the free version — welcome.",
+  "The zloty is one of the more heavily-traded emerging-market currencies — the FX panel is not decoration, it's the weather report for your foreign ETFs."
+];
+
+/* ---- MIST ACADEMY: 12 lessons ---- */
+const LESSONS = [
+ { // 1
+  track:'A · MARKET BASICS', ico:'🧭', title:'What an index actually is',
+  body:`<p>An index is a <b>weighted average basket</b> of stocks, designed to summarize a whole market in one number. When mWIG40 moves, it is not one company — it is 40 mid-cap Polish companies leaning the same way.</p>
+  <h4>Weighting: who steers</h4><p>WSE indices are <b>free-float weighted</b>: companies count by the value of shares actually available to trade, with a single company capped (15% in mWIG40), so no giant quietly becomes "the market".</p>
+  <h4>The family map</h4>
+  <ul><li><b>WIG</b> — everything, the whole Warsaw market</li><li><b>WIG20</b> — the 20 large caps; heavy in banks and energy</li><li><b>mWIG40</b> — your home index: 40 mid caps, more diversified by name</li><li><b>sWIG80</b> — the 80 small caps; smallest companies, biggest daily drama</li></ul>
+  <p>A price index is a headline. The TR version is what your ETF actually chases.</p>`,
+  gordon:"An index is a mood with a decimal point. Yours happens to be the mid caps — congratulations on taste, now stop staring at it.",
+  quiz:[
+   {q:'mWIG40 index weights are based on…', o:['Total shares outstanding','Free float (tradable shares)','Company revenue','Equal weight for everyone'], a:1,
+    e:'Free float — locked-in strategic stakes do not steer the index, and any single name is capped.'},
+   {q:'Which index family member is the whole-market headline?', o:['mWIG40','WIG20','WIG','sWIG80'], a:2,
+    e:'WIG is the broad one. The others are size segments.'},
+   {q:'How many companies are in mWIG40?', o:['20','40','80','100'], a:1,
+    e:'Forty mid caps — more names than WIG20, calmer than sWIG80.'}
+  ]},
+ { // 2
+  track:'A · MARKET BASICS', ico:'💰', title:'Price vs Total Return — the dividend gap',
+  body:`<p>Two indices, same 40 companies, different endings: <b>mWIG40</b> is the <b>price index</b> — dividends are subtracted as they are paid. <b>mWIG40TR</b> is the <b>total-return index</b> — dividends reinvested immediately.</p>
+  <h4>Why the gap grows</h4><p>Each reinvested dividend buys more units, which earn their own dividends. The gap between price and TR indexes widens every single year, roughly by the dividend yield.</p>
+  <h4>Why you own the TR version</h4><p>Your satellite ETF (Beta ETF mWIG40TR) tracks the total-return index, accumulating dividends inside the fund. On the chart desk, mWIG40TR trades at a higher level than mWIG40 — that gap is not free money, it is your dividends wearing a work uniform.</p>`,
+  gordon:"One index drops dividends on the floor. The other picks them up and puts them back to work. This desk runs on the second one.",
+  quiz:[
+   {q:'mWIG40TR differs from mWIG40 because it…', o:['Uses a different company list','Reinvests dividends back into the index','Is currency-adjusted','Only counts banks'], a:1,
+    e:'Same companies — TR assumes every dividend is instantly reinvested.'},
+   {q:'Over 10 years, the price-vs-TR gap typically…', o:['Disappears','Stays constant','Widens, roughly by the dividend yield','Reverses'], a:2,
+    e:'Compounding: each year’s reinvested dividends start earning their own dividends.'},
+   {q:'Your ETF tracks which version?', o:['Price index (mWIG40)','Total return (mWIG40TR)','Neither','Both, alternating'], a:1,
+    e:'Beta ETF mWIG40TR — dividends accumulate inside the fund.'}
+  ]},
+ { // 3
+  track:'A · MARKET BASICS', ico:'🫀', title:'Breadth — the market’s real pulse',
+  body:`<p>The index tells you <b>where</b> the market is. Breadth tells you <b>who</b> came along for the ride: the share of stocks rising vs falling.</p>
+  <h4>Reading the Mood-O-Meter</h4><p>This terminal computes breadth live from the 16 stocks on the board. 70% up with the index green is a healthy march. Index green but only 30% rising? Three giants are carrying the piano and the rest are watching.</p>
+  <h4>Why it matters to a monthly buyer</h4><p>Breadth is a reality check against headline worship. If your DCA plan says "buy regardless", breadth is how you stay informed without becoming reactive — knowledge, not a trigger.</p>`,
+  gordon:"The index is the band's lead singer. Breadth tells you whether the rest of the band showed up.",
+  quiz:[
+   {q:'Index up + breadth weak (few rising) usually means…', o:['A broad healthy rally','Gains concentrated in a few large names','The market is closed','Dividends were paid'], a:1,
+    e:'A thin rally: heavyweight names move the index while most of the tape sits out.'},
+   {q:'For a DCA investor, breadth is best used as…', o:['A buy/sell trigger','Context and understanding','Proof of guaranteed gains','A tax form'], a:1,
+    e:'The plan says buy monthly regardless — breadth keeps you informed, not jumpy.'},
+   {q:'Breadth equals…', o:['Index points','% of stocks rising vs falling','Total turnover in zł','The TER'], a:1,
+    e:'Participation, not level: who is rising, not how much the index moved.'}
+  ]},
+ { // 4
+  track:'B · WSE MECHANICS', ico:'⏰', title:'A day on the WSE',
+  body:`<p>The Warsaw session has a rhythm older than your broker app:</p>
+  <ul><li><b>8:30–9:00</b> — opening auction: orders pile up, one price matches all</li>
+  <li><b>9:00–17:00</b> — continuous trading (plus a <b>fixing auction at 11:30</b>)</li>
+  <li><b>17:00–17:05</b> — closing auction: the official close is set here</li></ul>
+  <h4>Why auctions exist</h4><p>They concentrate liquidity into a single fair price instead of letting thin order books stagger through the morning. That is also why the official close can jump in the final five minutes.</p>
+  <h4>Live data note</h4><p>Your terminal badge says OPEN or CLOSED based on Warsaw time — quotes freeze when the session does; FX and US markets keep moving and keep feeding.</p>`,
+  gordon:"Nine to five with two pit stops. The market is more regulated than my coffee intake.",
+  quiz:[
+   {q:'The opening auction runs…', o:['7:00–9:00','8:30–9:00','Only at 11:30','17:00–17:05'], a:1,
+    e:'Half an hour of order collection, then a single matching price at 9:00.'},
+   {q:'The extra mid-session fixing auction happens at…', o:['11:30','13:00','15:30','There is none'], a:0,
+    e:'11:30 — a liquidity pit stop in the middle of continuous trading.'},
+   {q:'The official closing price is set…', o:['Randomly','At 16:59 by the last trade','In the 17:00–17:05 closing auction','By the GPW CEO'], a:2,
+    e:'That is why the last five minutes can move the close more than the previous hour.'}
+  ]},
+ { // 5
+  track:'B · WSE MECHANICS', ico:'🧩', title:'mWIG40 vs WIG20 vs sWIG80',
+  body:`<p>Same exchange, three size classes, three different personalities:</p>
+  <ul><li><b>WIG20</b> — 20 large caps: banks and energy dominate; institutional flows move it; slower, heavier.</li>
+  <li><b>mWIG40</b> — 40 mid caps: more names, capped weights, more balanced sectors; your home turf.</li>
+  <li><b>sWIG80</b> — 80 small caps: thin liquidity, wide spreads, spectacular days in both directions.</li></ul>
+  <h4>Why size matters for you</h4><p>Smaller indices swing harder — more upside on good days, deeper drawdowns on bad ones. An ETF on mid caps gives you that personality <b>without</b> single-company risk: your ETF owns all 40, so one blow-up dents you 2.5%, not 100%.</p>`,
+  gordon:"WIG20 is the sedan, mWIG40 the hot hatch, sWIG80 the go-kart. You picked the hot hatch. Sensible. Mostly.",
+  quiz:[
+   {q:'Which is most sensitive to thin liquidity and wild daily swings?', o:['WIG20','mWIG40','sWIG80','None — all equal'], a:2,
+    e:'Small caps trade thinner, so price moves are sharper both ways.'},
+   {q:'A 15% single-stock cap in mWIG40 exists to…', o:['Raise fees','Stop one company dominating the index','Help day traders','Set the TER'], a:1,
+    e:'Diversification by construction — no single name becomes the market.'},
+   {q:'One mid-cap blow-up inside your ETF costs you roughly…', o:['Everything','About 1/40th of the position','Nothing ever','The full dividend'], a:1,
+    e:'That is the entire point of index investing: errors are survivable.'}
+  ]},
+ { // 6
+  track:'B · WSE MECHANICS', ico:'🎫', title:'Orders, lots & spreads',
+  body:`<p>The order ticket is where theory meets money:</p>
+  <h4>Order types</h4>
+  <ul><li><b>Limit order</b> — "buy at ≤ X". Price protected; execution not guaranteed.</li>
+  <li><b>Market order</b> — "buy now". Execution guaranteed; price not.</li></ul>
+  <h4>The spread — the invisible invoice</h4><p>Every stock has a best bid and best ask. The gap between them is paid by whoever is impatient. On WSE blue chips it is a whisper; on small caps it can be a toll booth. ETFs on liquid indices keep spreads tight — another quiet argument for the satellite-1 approach.</p>
+  <h4>Lots</h4><p>WSE stocks trade in minimum lot sizes (frequently 1 share for stocks; your broker app shows it per instrument). ETFs like Beta ETF mWIG40TR trade in small lots, which suits a 1,400 zł monthly budget perfectly.</p>`,
+  gordon:"Market orders in thin names are how confident people fund the patient ones. Use a limit. It's free.",
+  quiz:[
+   {q:'A limit buy order guarantees…', o:['Execution','A price ceiling only','Neither','Free trades'], a:1,
+    e:'You will never pay more than your limit — but the trade may simply never happen.'},
+   {q:'The bid-ask spread is…', o:['A broker fee','A tax','The cost of immediacy','Fixed by GPW'], a:2,
+    e:'You pay it crossing the spread — biggest where liquidity is thinnest.'},
+   {q:'For a fixed monthly ETF budget, spreads argue for…', o:['Small illiquid stocks','Liquid index ETFs','Day trading','Holding cash'], a:1,
+    e:'Tight spreads = smaller invisible toll on every monthly purchase.'}
+  ]},
+ { // 7
+  track:'C · INVESTING CRAFT', ico:'🔁', title:'DCA — boring brilliance',
+  body:`<p>Dollar— złoty— <b>cost averaging</b>: invest a fixed amount on a fixed schedule, regardless of headlines. High prices buy fewer units, low prices buy more. Automatically.</p>
+  <h4>Why it works</h4><p>It removes the two decisions humans are worst at: <b>when</b> and <b>how much</b>. Lump-sum requires being right once, big. DCA requires being present, monthly. Your plan — 1,400 zł/month into the Beta ETF mWIG40TR from January 2027 — is textbook DCA.</p>
+  <h4>What it does NOT do</h4><p>It does not beat the market — it makes your <b>average purchase price</b> behave. It is a discipline tool, not a magic return. Markets can still fall after you buy; the point is you keep buying the dip without needing to spot it.</p>`,
+  gordon:"The best market-timing strategy ever invented: the standing order. Zero adrenaline, all compound interest.",
+  quiz:[
+   {q:'DCA lowers your average cost because…', o:['It buys more units when prices are low','Brokers give discounts','It predicts bottoms','It reinvests dividends'], a:0,
+    e:'A fixed złoty amount buys more shares at low prices — the average price of your units falls.'},
+   {q:'What does DCA eliminate?', o:['Market risk','Timing decisions','Fees','Taxes'], a:1,
+    e:'You never have to answer "when?" again — the calendar answers for you.'},
+   {q:'DCA is best described as…', o:['A return-booster','A discipline tool','A guarantee','A tax dodge'], a:1,
+    e:'It structures behavior; the market still does whatever it wants.'}
+  ]},
+ { // 8
+  track:'C · INVESTING CRAFT', ico:'🏗️', title:'How a Beta ETF works',
+  body:`<p>An <b>ETF</b> is a fund that trades like a share and simply <b>copies an index</b>. Your Beta ETF mWIG40TR copies the mWIG40 total-return index.</p>
+  <h4>Physical replication</h4><p>The fund actually holds the 40 underlying stocks, in index weights, and reinvests their dividends inside the fund (accumulating). No fund manager picking favourites — the index is the strategy.</p>
+  <h4>The two numbers that judge it</h4>
+  <ul><li><b>TER</b> — annual total expense ratio, skimmed daily and invisibly from the fund.</li>
+  <li><b>Tracking difference</b> — how far the ETF lands from its index after all costs. A good mWIG40 ETF's whole ambition is to make this number boring.</li></ul>
+  <p>A tight tracking difference with a low TER is the entire scorecard for an index fund — you can grade yours from the CHART desk anytime.</p>`,
+  gordon:"A fund whose job is to be average — in the most precisely engineered way possible. Poetry.",
+  quiz:[
+   {q:'Your ETF replicates the index by…', o:['Buying all 40 stocks in index weights','Predicting the best 10','Hedging with FX','Shorting it'], a:0,
+    e:'Physical replication: hold everything, weight it like the index, be the average.'},
+   {q:'TER is paid…', o:['Once, upfront','Annually, as an invoice','Daily, invisibly inside the fund','Never'], a:2,
+    e:'No invoice arrives — the NAV just grows slightly slower than the index.'},
+   {q:'The best tracking difference is…', o:['Positive and large','As close to zero as possible','Equal to the TER','Not measurable'], a:1,
+    e:'Zero = the fund perfectly copies its index. Boring is the goal.'}
+  ]},
+ { // 9
+  track:'C · INVESTING CRAFT', ico:'🧾', title:'The real cost stack',
+  body:`<p>Every złoty you don't pay in costs is a złoty that compounds forever. The stack you actually pay:</p>
+  <ul><li><b>TER</b> — the ETF's own fee, daily and invisible.</li>
+  <li><b>Spread</b> — the bid-ask toll on every buy and sell. (Standing monthly orders on a liquid ETF keep it small.)</li>
+  <li><b>Broker commission</b> — your OKI / PKO BP ticket fee; check your plan's actual rates.</li>
+  <li><b>FX spread</b> — on the foreign half of your book (VWCE), currency conversion adds its own quiet toll.</li></ul>
+  <h4>Why it compounds</h4><p>Fees don't just subtract once — they subtract from a base that would have compounded. 1% a year over 25 years is not 25% of returns, it is closer to a quarter of the final pot.</p>`,
+  gordon:"Costs are the only number in investing you fully control. Control it with the enthusiasm of a miser at a buffet.",
+  quiz:[
+   {q:'Which cost is skimmed invisibly inside an ETF?', o:['TER','FX spread','Broker commission','Stamp duty'], a:0,
+    e:'TER never sends an invoice — the NAV grows slightly slower.'},
+   {q:'You pay the bid-ask spread when…', o:['Holding','Trading across it','Dividends are paid','Never'], a:1,
+    e:'Every entry and exit crosses the spread; liquidity sets the toll.'},
+   {q:'Why do fees compound against you?', o:['They reduce the base that would have grown','They are doubled yearly','They trigger taxes','They do not'], a:0,
+    e:'You lose the fee plus every future return that fee would have earned.'}
+  ]},
+ { // 10
+  track:'C · INVESTING CRAFT', ico:'🌊', title:'Volatility & drawdowns',
+  body:`<p><b>Volatility</b> = how much prices wiggle. <b>Drawdown</b> = the peak-to-trough fall you actually sit through. Volatility is the trailer; drawdown is the movie.</p>
+  <h4>Polish history lesson</h4><p>Mid caps like mWIG40 have had multiple −30% to −50% drawdowns — 2008, 2020, 2022. Every one felt like "this time is different". None of them were the end of the story, but all of them felt like it at 3 a.m.</p>
+  <h4>The honest toolkit</h4>
+  <ul><li>Expect drawdowns as a <b>feature</b>, not a malfunction</li><li>Monthly DCA converts falling markets into <b>cheaper units</b></li><li>A cash emergency fund means you never <b>must</b> sell into the panic</li></ul>
+  <p>Nothing here promises recovery. History rhymes; it does not sign contracts.</p>`,
+  gordon:"Volatility is tuition. Drawdowns are the exam. Most people fail the exam because they studied the tuition.",
+  quiz:[
+   {q:'A drawdown measures…', o:['Annual volatility','Peak-to-trough decline','The dividend yield','Broker fees'], a:1,
+    e:'How far down you went from the previous high — the pain you actually experienced.'},
+   {q:'During a DCA drawdown, falling prices mean…', o:['The plan is broken','Your fixed złoty buys more units','You should stop buying','Guaranteed recovery'], a:1,
+    e:'Same budget, more units — the mechanical silver lining of bad news.'},
+   {q:'The emergency fund’s job is to ensure you…', o:['Max returns','Never must sell into panic','Avoid all taxes','Beat inflation'], a:1,
+    e:'Optional selling is strategy; forced selling is tragedy.'}
+  ]},
+ { // 11
+  track:'C · INVESTING CRAFT', ico:'🌍', title:'Your global half — VWCE & FX',
+  body:`<p>Your book is a <b>core + satellite</b> architecture: a global core and a Polish satellite. The global core (an all-world developed + emerging ETF, like VWCE) carries the heavy load; the Beta ETF mWIG40TR orbits it.</p>
+  <h4>The FX layer</h4><p>VWCE is priced in PLN for you but its companies earn in dollars, euros, yen. When złoty weakens, your foreign units are worth more PLN — and vice versa. The FX panel on the WORLD desk is the weather report for exactly this.</p>
+  <h4>Why both</h4><p>Poland is one economy; the world is all of them. A satellite can outperform some years and lag others — the core keeps you globally diversified while the Polish tilt does its thing. Rebalance, don't romance.</p>`,
+  gordon:"Core and satellite. The world pays your mortgage, Poland pays your excitement. Balance accordingly.",
+  quiz:[
+   {q:'In your book, the global core is…', o:['The Beta ETF','VWCE, an all-world ETF','Cash','WIG20 futures'], a:1,
+    e:'The core carries global diversification; the Polish ETF is the satellite.'},
+   {q:'PLN weakens 5% — your foreign ETF in PLN…', o:['Falls','Rises (all else equal)','Is unaffected','Doubles'], a:1,
+    e:'Foreign assets are worth more in a weaker złoty — the FX panel in action.'},
+   {q:'The point of combining core + satellite is…', o:['Guaranteed outperformance','Global diversification plus a measured tilt','Doubling risk','Avoiding PLN'], a:1,
+    e:'The tilt is optional; the diversification is load-bearing.'}
+  ]},
+ { // 12
+  track:'C · INVESTING CRAFT', ico:'🧠', title:'Behaviour — the final boss',
+  body:`<p>The evidence is unkind: the biggest destroyer of real portfolio returns is not fees, taxes or crashes. It is the investor reacting to them.</p>
+  <h4>The classics</h4>
+  <ul><li><b>Loss aversion</b> — a −5% day hurts about twice as much as a +5% day feels good.</li>
+  <li><b>Checking frequency</b> — the more often you look, the more often you see red. Daily: ~46% of days are down. Monthly: far fewer. Annual: almost always up, historically.</li>
+  <li><b>Noise ≠ signal</b> — a 60-second refresh exists for awareness, not action.</li></ul>
+  <h4>Armor</h4><p>You already own the answer: a written plan (1,400 zł/month, automatic, from Jan 2027) that pre-decides everything a panic would ask. The terminal's job — Gordon, breadth, academy — is to keep you <b>informed enough to stay calm</b>.</p>`,
+  gordon:"You will not beat the market. You can beat yourself — and that's the bigger prize.",
+  quiz:[
+   {q:'Behavioural finance says the main drag on real returns is…', o:['Index construction','Investor reactions to volatility','Broker software','Dividend dates'], a:1,
+    e:'Buying high, selling low, repeating — the world\u2019s most expensive habit.'},
+   {q:'Checking a portfolio less often typically…', o:['Increases risk','Reduces the share of painful observations','Lowers returns mechanically','Is forbidden'], a:1,
+    e:'Less frequent glances = fewer red days = fewer bad urges.'},
+   {q:'A written DCA plan works because it…', o:['Predicts the market','Pre-decides what panic would ask','Removes fees','Guarantees profit'], a:1,
+    e:'The decision is made once, calmly — then executed monthly, regardless.'}
+  ]}
+];
+/* ============================================================
+   MIST-40 ULTRA — part 4: core engine
+   ============================================================ */
+
+/* ---- tiny utils ---- */
+const $  = (id) => document.getElementById(id);
+const $$ = (q, el=document) => Array.from(el.querySelectorAll(q));
+const esc = (s) => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt = (n, d=2) => (n==null || isNaN(n)) ? '—' : Number(n).toLocaleString('en-US',{minimumFractionDigits:d, maximumFractionDigits:d});
+const fmtPLN = (n) => (n==null || isNaN(n)) ? '—' : fmt(n,2) + ' zł';
+const pct = (n) => (n==null || isNaN(n)) ? '—' : (n>0?'+':'') + fmt(n,2) + '%';
+const cls = (n) => n>0.005 ? 'up' : (n<-0.005 ? 'down' : 'flat');
+const clsBg = (n) => n>0.005 ? 'upbg' : (n<-0.005 ? 'downbg' : '');
+const sign = (n) => (n>0?'+':'') + fmt(n,2);
+const clamp = (n,a,b) => Math.max(a, Math.min(b, n));
+const pick = (arr) => arr[Math.floor(Math.random()*arr.length)];
+const pad2 = (n) => String(n).padStart(2,'0');
+function fmtTime(ts){ return new Date(ts*1000).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}); }
+function fmtDate(ts){ return new Date(ts*1000).toLocaleDateString('en-GB',{day:'2-digit',month:'short'}); }
+
+/* ---- persistent prefs / progress ---- */
+const LS = {
+  get(k, def){ try{ const v = localStorage.getItem(k); return v==null ? def : JSON.parse(v); }catch(e){ return def; } },
+  set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+};
+const P = {
+  xp:        LS.get('mist40_xp', 0),
+  ach:       LS.get('mist40_ach', {}),          // id -> true
+  academy:   LS.get('mist40_academy', {}),      // lessonId -> {read:true, quiz:n, total:3}
+  roasts:    LS.get('mist40_roasts', 0),
+  sass:      LS.get('mist40_sass', 0),
+  cmds:      LS.get('mist40_cmds', 0),
+  ranges:    LS.get('mist40_ranges', {}),       // range -> true
+  streakBest:LS.get('mist40_streak', 0),
+  sound:     LS.get('mist40_snd', true),
+  gameW:     LS.get('mist40_gw', 0), gameL: LS.get('mist40_gl', 0)
+};
+function saveP(){
+  LS.set('mist40_xp', P.xp); LS.set('mist40_ach', P.ach); LS.set('mist40_academy', P.academy);
+  LS.set('mist40_roasts', P.roasts); LS.set('mist40_sass', P.sass); LS.set('mist40_cmds', P.cmds);
+  LS.set('mist40_ranges', P.ranges); LS.set('mist40_streak', P.streakBest);
+  LS.set('mist40_snd', P.sound); LS.set('mist40_gw', P.gameW); LS.set('mist40_gl', P.gameL);
+}
+
+/* ---- XP & levels ---- */
+function levelInfo(xp){
+  let li = 0;
+  for (let i=0;i<LEVELS.length;i++) if (xp >= LEVELS[i].xp) li = i;
+  const cur = LEVELS[li], next = LEVELS[li+1];
+  const base = cur.xp, span = (next ? next.xp - cur.xp : 1);
+  const prog = next ? clamp((xp - base)/span, 0, 1) : 1;
+  return {i: li, title: cur.t, next: next ? next.t : null, nextXp: next ? next.xp : null, prog};
+}
+function addXP(n, why){
+  const before = levelInfo(P.xp).i;
+  P.xp += n; saveP(); renderXP();
+  toast('xp', '+' + n + ' XP', why || '');
+  const after = levelInfo(P.xp).i;
+  if (after > before){ snd('level'); toast('ach', 'LEVEL UP → ' + levelInfo(P.xp).title, 'The desk promotes you. Try not to let it go to your head.'); }
+}
+function unlock(id){
+  if (P.ach[id]) return;
+  const a = ACH.find(x=>x.id===id); if (!a) return;
+  P.ach[id] = true; saveP();
+  snd('ach'); toast('ach', a.ico + ' ' + a.nm + ' UNLOCKED', a.desc + ' · +' + a.xp + ' XP');
+  P.xp += a.xp; saveP(); renderXP(); renderAch();
+}
+function renderXP(){
+  const L = levelInfo(P.xp);
+  if ($('xpVal')) $('xpVal').textContent = P.xp;
+  if ($('lvlVal')) $('lvlVal').textContent = L.title;
+  if ($('xpBarMini')) $('xpBarMini').style.width = Math.round(L.prog*100) + '%';
+}
+
+/* ---- toasts ---- */
+function toast(kind, title, sub){
+  const t = document.createElement('div');
+  t.className = 'toast ' + (kind||'');
+  t.innerHTML = '<div class="ttitle">' + esc(title) + '</div>' + (sub ? '<div style="color:var(--dim);margin-top:2px">' + esc(sub) + '</div>' : '');
+  $('toasts').appendChild(t);
+  setTimeout(()=>{ t.classList.add('bye'); setTimeout(()=>t.remove(), 350); }, 3600);
+}
+
+/* ---- sounds (WebAudio synth, no files) ---- */
+let AC = null;
+function snd(name){
+  if (!P.sound) return;
+  try{
+    AC = AC || new (window.AudioContext||window.webkitAudioContext)();
+    if (AC.state === 'suspended') AC.resume();
+    const t = AC.currentTime;
+    const play = (f, start, dur, type='sine', vol=0.08) => {
+      const o = AC.createOscillator(), g = AC.createGain();
+      o.type = type; o.frequency.value = f;
+      g.gain.setValueAtTime(0.0001, t+start);
+      g.gain.exponentialRampToValueAtTime(vol, t+start+0.01);
+      g.gain.exponentialRampToValueAtTime(0.0001, t+start+dur);
+      o.connect(g); g.connect(AC.destination);
+      o.start(t+start); o.stop(t+start+dur+0.05);
+    };
+    if (name==='click') play(660, 0, .06, 'triangle', .05);
+    else if (name==='xp'){ play(880,0,.09,'sine',.07); play(1320,.09,.12,'sine',.06); }
+    else if (name==='ding'){ play(1046,0,.1,'sine',.07); play(1568,.1,.15,'sine',.06); }
+    else if (name==='wrong') play(220,0,.2,'sawtooth',.045);
+    else if (name==='level'){ [523,659,784,1046].forEach((f,i)=>play(f, i*.12, .18, 'triangle', .07)); }
+    else if (name==='ach'){ [784,988,1175,1568].forEach((f,i)=>play(f, i*.1, .22, 'sine', .06)); }
+    else if (name==='tick') play(440,0,.04,'square',.03);
+  }catch(e){}
+}
+function toggleSound(){
+  P.sound = !P.sound; saveP();
+  const b = $('sndBtn');
+  b.textContent = P.sound ? '🔊 SOUND ON' : '🔇 SOUND OFF';
+  b.classList.toggle('on', P.sound);
+  if (P.sound) snd('click');
+}
+
+/* ---- data state ---- */
+let Q = {};                 // live quotes: sym -> {p, chg, pc, ts, t: fetchedAt, live}
+let DATA_MODE = 'SNAPSHOT'; // LIVE | CACHED | SNAPSHOT
+let liveHits = 0, quoteStreak = 0;
+
+function setMode(m, note){
+  DATA_MODE = m;
+  const b = $('statusBadge'), t = $('statusTxt');
+  b.className = 'chip ' + m.toLowerCase();
+  t.textContent = m + (note ? ' ' + note : '');
+  $('footStatus').textContent = 'mode: ' + m + (note ? ' · ' + note : '') + ' · snapshot base: GPW close 03 Nov 2026';
+}
+
+/* ---- snapshot merge (never fabricate: real GPW close 03 Nov 2026) ---- */
+function snapshotQuotes(){
+  const q = {};
+  for (const s in SNAPSHOT.quotes){
+    const o = SNAPSHOT.quotes[s];
+    q[s] = {p: o.p, chg: o.chg, pc: o.pc, ts: o.ts, hi: o.hi, lo: o.lo, t: 0, live: false};
+  }
+  return q;
+}
+
+/* ---- proxy fetch engine ---- */
+const PROXIES = [
+  u => 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u),
+  u => 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(u),
+  u => 'https://corsproxy.io/?url=' + encodeURIComponent(u),
+  u => u // direct (works if user opens from a non-CORS-restricted context)
+];
+let bestProxy = LS.get('mist40_proxy', 0);
+const inflight = {};
+async function fetchJSON(url, validate){
+  validate = validate || (j => j && j.chart && j.chart.result);
+  const order = [bestProxy, ...PROXIES.map((_,i)=>i).filter(i=>i!==bestProxy)];
+  for (const pi of order){
+    try{
+      const r = await fetch(PROXIES[pi](url), {cache:'no-store'});
+      if (!r.ok) continue;
+      const j = await r.json();
+      if (validate(j)) { bestProxy = pi; LS.set('mist40_proxy', pi); return j; }
+      continue;
+    }catch(e){ /* try next proxy */ }
+  }
+  return null;
+}
+async function fetchQuote(sym){
+  const j = await fetchJSON('https://query1.finance.yahoo.com/v8/finance/chart/' + encodeURIComponent(sym) + '?range=1d&interval=1d');
+  if (!j || !j.chart.result || !j.chart.result[0]) return null;
+  const m = j.chart.result[0].meta;
+  if (m.regularMarketPrice == null) return null;
+  return {p: m.regularMarketPrice, chg: m.regularMarketChangePercent, pc: m.chartPreviousClose ?? m.regularMarketPrice, ts: m.regularMarketTime,
+          hi: (m.regularMarketDayHigh > 0) ? m.regularMarketDayHigh : null,
+          lo: (m.regularMarketDayLow  > 0) ? m.regularMarketDayLow  : null};
+}
+async function fetchSeries(sym, range, interval){
+  const j = await fetchJSON('https://query1.finance.yahoo.com/v8/finance/chart/' + encodeURIComponent(sym) + '?range=' + range + '&interval=' + interval);
+  if (!j || !j.chart.result || !j.chart.result[0]) return null;
+  const r = j.chart.result[0];
+  const ts = r.timestamp || [], cl = (r.indicators.quote[0]||{}).close || [];
+  const pts = [];
+  for (let i=0;i<ts.length;i++) if (cl[i]!=null) pts.push([ts[i], cl[i]]);
+  return pts.length ? pts : null;
+}
+
+/* ---- TURBO spark engine: the whole board in 2 batched requests (max 20 syms each) ---- */
+const SPARK_CHUNKS = [];
+for (let i = 0; i < ALL_SYMS.length; i += 20) SPARK_CHUNKS.push(ALL_SYMS.slice(i, i + 20).map(o => o.s));
+async function fetchSparkBatch(syms){
+  const url = 'https://query1.finance.yahoo.com/v8/finance/spark?symbols=' + syms.map(s => encodeURIComponent(s)).join(',') + '&range=1d&interval=30m';
+  const j = await fetchJSON(url, x => x && typeof x === 'object' && !x.spark && !x.error);
+  if (!j) return null;
+  const out = {};
+  for (const s in j){
+    const d = j[s];
+    if (!d || !Array.isArray(d.close)) continue;
+    const pts = [];
+    for (let i = 0; i < d.close.length; i++) if (d.close[i] != null && d.timestamp && d.timestamp[i] != null) pts.push([d.timestamp[i], d.close[i]]);
+    if (!pts.length) continue;
+    const closes = pts.map(p => p[1]);
+    out[s] = {
+      p: closes[closes.length - 1],
+      chg: d.fulldayChangePercent,
+      pc: (d.chartPreviousClose != null ? d.chartPreviousClose : d.previousClose),
+      ts: pts[pts.length - 1][0],
+      hi: closes.length > 1 ? Math.max(...closes) : null,
+      lo: closes.length > 1 ? Math.min(...closes) : null,
+      intraday: pts
+    };
+  }
+  return out;
+}
+/* Frankfurter ECB FX — CORS-open, direct from the browser, no proxy needed. Fallback when proxies die. */
+async function fetchFrankfurter(){
+  try{
+    const d = new Date(); d.setDate(d.getDate() - 10);
+    const iso = d.toISOString().slice(0, 10);
+    const r = await fetch('https://api.frankfurter.dev/v1/' + iso + '..?base=PLN&symbols=EUR,USD,GBP,CHF', {cache:'no-store'});
+    if (!r.ok) return null;
+    const j = await r.json();
+    if (!j || !j.rates) return null;
+    const days = Object.keys(j.rates).sort();
+    if (!days.length) return null;
+    const last = j.rates[days[days.length - 1]];
+    const prev = days.length > 1 ? j.rates[days[days.length - 2]] : null;
+    const out = {};
+    for (const cur in last){
+      if (!last[cur]) continue;
+      const p = 1 / last[cur];
+      const pc = (prev && prev[cur]) ? 1 / prev[cur] : null;
+      out[cur + 'PLN=X'] = {p: p, pc: pc, chg: (pc ? (p - pc) / pc * 100 : null),
+        ts: Math.floor(Date.now() / 1000), hi: null, lo: null, src: 'ecb'};
+    }
+    return Object.keys(out).length ? out : null;
+  }catch(e){ return null; }
+}
+
+/* batch refresh: staggered, deduped, cache-aware */
+let refreshing = false;
+/* TURBO refresh: 2 batched spark requests cover all 35 symbols (vs 35 single requests),
+   and the board paints LIVE as soon as the FIRST batch lands. */
+async function refreshAll(manual){
+  if (refreshing) return; refreshing = true;
+  $('refBtn').textContent = '⟳ FETCHING…';
+  let ok = 0, painted = false;
+  const results = await Promise.allSettled(SPARK_CHUNKS.map(c => fetchSparkBatch(c)));
+  for (const r of results){
+    if (r.status === 'fulfilled' && r.value){
+      for (const s in r.value){ Q[s] = Object.assign({}, r.value[s], {t: Date.now(), live: true}); ok++; }
+      if (!painted && ok){ setMode('LIVE', ok + '/' + ALL_SYMS.length); renderAll(); painted = true; } // progressive paint
+    }
+  }
+  if (ok > 0){
+    liveHits++;
+    LS.set('mist40', Q); // v3-compatible cache key
+    setMode('LIVE', ok + '/' + ALL_SYMS.length + (ok < ALL_SYMS.length ? ' · rest from last saved' : ''));
+    if (manual || liveHits === 1) unlock('live');
+    renderAll();
+  } else {
+    await refreshPerSymbol(); // fallback: per-symbol engine, then cache/snapshot + direct ECB FX
+  }
+  $('refBtn').textContent = '⟳ REFRESH NOW';
+  refreshing = false;
+  REF.tick = 30;
+}
+async function refreshPerSymbol(){
+  let ok = 0;
+  const results = await Promise.all(ALL_SYMS.map(async (o, i) => {
+    await new Promise(r => setTimeout(r, 40 * (i % 7))); // gentle stagger, no bursts
+    if (inflight[o.s]) return null;
+    inflight[o.s] = true;
+    try{
+      const q = await fetchQuote(o.s);
+      inflight[o.s] = false;
+      if (q) return {s: o.s, q: q};
+    }catch(e){ inflight[o.s] = false; }
+    return null;
+  }));
+  for (const r of results) if (r){ Q[r.s] = Object.assign({}, r.q, {t: Date.now(), live: true}); ok++; }
+  if (ok > 0){
+    liveHits++;
+    LS.set('mist40', Q);
+    setMode('LIVE', ok + '/' + ALL_SYMS.length);
+    if (liveHits === 1) unlock('live');
+    renderAll();
+    return;
+  }
+  // proxies fully down: snapshot base + validated cache + DIRECT ECB FX (no proxy needed)
+  const base = snapshotQuotes();
+  const cache = LS.get('mist40', null);
+  let nValid = 0;
+  if (cache && typeof cache === 'object'){
+    for (const s in cache){
+      const c = cache[s];
+      if (c && typeof c.p === 'number' && isFinite(c.p)){ base[s] = c; nValid++; }
+    }
+  }
+  const fx = await fetchFrankfurter();
+  let nFx = 0;
+  if (fx){ for (const s in fx){ base[s] = Object.assign({}, fx[s], {t: Date.now(), live: true}); nFx++; } }
+  Q = base;
+  setMode(nValid || nFx ? 'CACHED' : 'SNAPSHOT',
+    nFx ? '· FX live via ECB · proxies down' : '· proxies unreachable · last GPW close shown');
+  renderAll();
+}
+function refreshNow(){ snd('click'); refreshAll(true); }
+
+/* ---- clock & session (Europe/Warsaw) ---- */
+function warsawNow(){
+  const d = new Date();
+  return new Date(d.toLocaleString('en-US', {timeZone:'Europe/Warsaw'}));
+}
+function tickClock(){
+  const d = warsawNow();
+  $('clock').textContent = pad2(d.getHours()) + ':' + pad2(d.getMinutes()) + ':' + pad2(d.getSeconds());
+  $('clockDate').textContent = d.toLocaleDateString('en-GB',{weekday:'short', day:'2-digit', month:'short', year:'numeric'}) + ' · Warsaw';
+  const mins = d.getHours()*60 + d.getMinutes();
+  const pill = $('sessionPill');
+  let state, cls_, label;
+  if (mins < 8*60+30){ state='closed'; cls_='closed'; label='PRE-OPEN'; }
+  else if (mins < 9*60){ state='auction'; cls_='auction'; label='OPENING AUCTION'; }
+  else if (mins < 17*60){ state='open'; cls_='open'; label='● WSE OPEN'; }
+  else if (mins < 17*60+5){ state='auction'; cls_='auction'; label='CLOSING AUCTION'; }
+  else { state='closed'; cls_='closed'; label='WSE CLOSED'; }
+  pill.className = 'session-pill ' + cls_;
+  pill.textContent = label;
+  REF.session = state;
+  const h = d.getHours();
+  if (h >= 22 || h < 5) unlock('owl');
+}
+
+/* ---- refresh timer: pauses when tab hidden ---- */
+const REF = {tick: 30, session: 'closed', hidden: false};
+function startTimers(){
+  tickClock(); setInterval(tickClock, 1000);
+  setInterval(()=>{
+    if (document.hidden){ REF.hidden = true; return; }
+    if (REF.hidden){ REF.hidden = false; REF.tick = 0; } // refresh immediately on return
+    REF.tick--;
+    if (REF.tick <= 0){ refreshAll(false); REF.tick = 30; }
+    $('refBar').style.width = ((30-REF.tick)/30*100) + '%';
+  }, 1000);
+}
+/* ============================================================
+   MIST-40 ULTRA — part 5: renderers & chart engine
+   ============================================================ */
+
+/* ---- quote helpers ---- */
+function q(s){
+  const c = Q[s];
+  if (c && c.p != null && isFinite(c.p)) return c;
+  const sn = SNAPSHOT.quotes[s];
+  if (sn && sn.p != null) return {p: sn.p, chg: sn.chg, pc: sn.pc, ts: sn.ts, hi: sn.hi, lo: sn.lo, t: 0, live: false};
+  return {p:null, chg:null, pc:null, hi:null, lo:null};
+}
+function upCount(){
+  const st = UNIVERSE.stocks.map(o => q(o.s).chg);
+  const valid = st.filter(c => c != null);
+  const ups = valid.filter(c => c > 0).length;
+  return {ups, n: valid.length || 1, pct: valid.length ? ups/valid.length*100 : 50};
+}
+
+/* ---- ticker tape ---- */
+function renderTape(){
+  const mk = (o) => {
+    const c = q(o.s);
+    return '<span class="tk" onclick="openSym(\'' + o.s + '\')"><b>' + esc(o.n) + '</b>' +
+      '<span class="num">' + fmt(c.p, 2) + '</span> <span class="' + cls(c.chg) + ' num">' + pct(c.chg) + '</span></span>';
+  };
+  const items = [...UNIVERSE.indices, ...UNIVERSE.etfs, ...UNIVERSE.stocks, ...UNIVERSE.fx, ...UNIVERSE.global, ...UNIVERSE.cmdty].map(mk).join('');
+  $('tape').innerHTML = items + items; // duplicated for seamless loop
+}
+
+/* ---- sparkline (mini svg) ---- */
+function sparkSVG(pts, w=140, h=38, color){
+  if (!pts || pts.length < 2) return '<svg class="spark" viewBox="0 0 ' + w + ' ' + h + '"><text x="2" y="24" font-size="9" fill="#5a687e">…</text></svg>';
+  const vals = pts.map(p => p[1]);
+  const mn = Math.min(...vals), mx = Math.max(...vals), span = (mx-mn) || 1;
+  const step = w / (pts.length - 1);
+  let d = '', area = 'M0,' + h;
+  pts.forEach((p, i) => {
+    const x = i * step, y = h - 4 - ((p[1]-mn)/span)*(h-8);
+    d += (i ? 'L' : 'M') + x.toFixed(1) + ',' + y.toFixed(1);
+    area += ' L' + x.toFixed(1) + ',' + y.toFixed(1);
+  });
+  area += 'L' + w + ',' + h + ' Z';
+  return '<svg class="spark" viewBox="0 0 ' + w + ' ' + h + '" preserveAspectRatio="none">' +
+    '<path d="' + area + '" fill="' + color + '" opacity="0.12"/><path d="' + d + '" fill="none" stroke="' + color + '" stroke-width="1.6"/></svg>';
+}
+
+/* ---- MARKETS: index grid ---- */
+function renderIndices(){
+  const intr = SNAPSHOT.mwig40Intraday, etfD = SNAPSHOT.etfDaily;
+  $('idxGrid').innerHTML = UNIVERSE.indices.map(o => {
+    const c = q(o.s);
+    const isHero = o.hero;
+    const col = c.chg > 0 ? 'var(--up)' : (c.chg < 0 ? 'var(--down)' : 'var(--faint)');
+    const spark = isHero ? sparkSVG(intr.slice(-28), 240, 46, col)
+                         : sparkSVG(etfD.slice(-21), 160, 38, col);
+    if (isHero){
+      return '<div class="card hero-card">' +
+        '<div class="hero-top"><div><div class="hero-name">◆ ' + esc(o.n) + '</div><div class="hero-desc">' + esc(o.d) + '</div></div>' +
+        '<div style="text-align:right"><span class="chg-pill ' + clsBg(c.chg) + ' ' + cls(c.chg) + '">' + pct(c.chg) + '</span></div></div>' +
+        '<div class="hero-price">' + fmt(c.p, 2) + '</div>' + spark +
+        '<div class="hero-stats">' +
+          '<div class="hs"><b>' + fmt(c.pc, 2) + '</b><span>prev close</span></div>' +
+          '<div class="hs"><b>' + esc(fmtTime(c.ts)) + '</b><span>last quote</span></div>' +
+          '<div class="hs"><b class="' + cls(q('MWIG40TR.WA').chg) + '">' + fmt(q('MWIG40TR.WA').p, 0) + '</b><span>TR twin</span></div>' +
+        '</div></div>';
+    }
+    return '<div class="card hoverable" onclick="openSym(\'' + o.s + '\')">' +
+      '<div class="chead"><h3>' + esc(o.n) + '</h3><div class="spacer"></div>' +
+      '<span class="chg-pill ' + clsBg(c.chg) + ' ' + cls(c.chg) + '">' + pct(c.chg) + '</span></div>' +
+      '<div class="idx-price">' + fmt(c.p, 2) + '</div>' +
+      '<div class="idx-sub">' + esc(o.d) + '</div>' + spark + '</div>';
+  }).join('') + UNIVERSE.etfs.map(o => {
+    const c = q(o.s);
+    return '<div class="card hoverable" onclick="openSym(\'' + o.s + '\')" style="border-color:rgba(255,180,0,.35)">' +
+      '<div class="chead"><h3>' + esc(o.n) + '</h3>' + (o.tag ? '<span class="tag">' + o.tag + '</span>' : '') + '<div class="spacer"></div>' +
+      '<span class="chg-pill ' + clsBg(c.chg) + ' ' + cls(c.chg) + '">' + pct(c.chg) + '</span></div>' +
+      '<div class="idx-price" style="color:var(--amber2)">' + fmt(c.p, 2) + '</div>' +
+      '<div class="idx-sub">' + esc(o.d) + '</div>' + sparkSVG(SNAPSHOT.etfDaily.slice(-21), 160, 38, '#ffb400') + '</div>';
+  }).join('');
+}
+
+/* ---- mood-o-meter ---- */
+function renderMood(){
+  const b = upCount();
+  const pctUp = b.pct;
+  const mood = pctUp >= 80 ? ['EUPHORIA','even the interns are making money','var(--up)'] :
+               pctUp >= 60 ? ['GREEN SEA','broad, boring, beautiful','var(--up)'] :
+               pctUp >= 45 ? ['SPLIT DESK','a knife fight in a corridor','#c9a227'] :
+               pctUp >= 25 ? ['RED DRIFT','the tape is leaking','#d97706'] :
+                             ['CAPITULATION','everyone is suddenly an art critic','var(--down)'];
+  const segs = UNIVERSE.stocks.map(o => {
+    const c = q(o.s).chg;
+    const on = c == null ? '' : (c > 0 ? 'on-up' : (c < 0 ? 'on-down' : ''));
+    return '<i class="' + on + '" title="' + esc(o.n) + ' ' + pct(c) + '"></i>';
+  }).join('');
+  // semicircular gauge
+  const ang = clamp(pctUp, 0, 100) / 100 * 180 - 90;
+  const rad = -90 * Math.PI/180;
+  const r = 62, cx = 80, cy = 72;
+  const arc = (a0, a1, col) => {
+    const p0 = [cx + r*Math.cos((a0-90)*Math.PI/180), cy + r*Math.sin((a0-90)*Math.PI/180)];
+    const p1 = [cx + r*Math.cos((a1-90)*Math.PI/180), cy + r*Math.sin((a1-90)*Math.PI/180)];
+    return '<path d="M' + p0[0].toFixed(1) + ',' + p0[1].toFixed(1) + ' A' + r + ',' + r + ' 0 0 1 ' + p1[0].toFixed(1) + ',' + p1[1].toFixed(1) + '" stroke="' + col + '" stroke-width="10" fill="none" stroke-linecap="round"/>';
+  };
+  const ndx = clamp(pctUp/100*180, 0, 180);
+  const needle = ang;
+  const nx = cx + (r-14)*Math.cos((needle-90)*Math.PI/180);
+  const ny = cy + (r-14)*Math.sin((needle-90)*Math.PI/180);
+  $('moodWrap').innerHTML =
+    '<svg viewBox="0 0 160 92" style="max-width:230px;margin:0 auto;display:block">' +
+      arc(2, 178, '#1c2433') + arc(Math.max(2,ndx-16), Math.min(178, ndx), mood[2]) +
+      '<line x1="' + cx + '" y1="' + cy + '" x2="' + nx.toFixed(1) + '" y2="' + ny.toFixed(1) + '" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>' +
+      '<circle cx="' + cx + '" cy="' + cy + '" r="4" fill="#fff"/>' +
+      '<text x="' + cx + '" y="' + (cy-8) + '" text-anchor="middle" font-size="21" font-weight="800" fill="' + mood[2] + '" font-family="monospace">' + fmt(pctUp,0) + '% UP</text>' +
+    '</svg>' +
+    '<div class="gauge-val" style="color:' + mood[2] + ';font-size:15px;letter-spacing:.14em">' + mood[0] + '</div>' +
+    '<div class="gauge-label" style="color:var(--dim)">' + mood[1] + '</div>' +
+    '<div class="meter">' + segs + '</div>';
+  $('breadthMini').textContent = b.ups + '/' + b.n + ' up';
+}
+
+/* ---- mini movers (markets tab) ---- */
+function miniMoversHTML(){
+  const rows = UNIVERSE.stocks.map(o => ({o, c: q(o.s)})).filter(x => x.c.chg != null)
+    .sort((a,b) => Math.abs(b.c.chg) - Math.abs(a.c.chg)).slice(0, 7);
+  let html = '<thead><tr><th>#</th><th>name</th><th style="text-align:right">last</th><th style="text-align:right">%</th></tr></thead><tbody>';
+  rows.forEach((x, i) => {
+    html += '<tr onclick="roastStock(\'' + x.o.s + '\')"><td style="color:var(--faint)">' + (i+1) + '</td>' +
+      '<td><span class="nm">' + x.o.f + ' ' + esc(x.o.n) + '</span><span class="sym">' + esc(x.o.s.replace('.WA','')) + '</span></td>' +
+      '<td style="text-align:right">' + fmt(x.c.p, 2) + '</td>' +
+      '<td style="text-align:right" class="' + cls(x.c.chg) + '"><b>' + pct(x.c.chg) + '</b></td></tr>';
+  });
+  return html + '</tbody>';
+}
+
+/* ---- satellite watch (markets tab) ---- */
+function renderSatWatch(){
+  const c = q('ETFBM40TR.WA');
+  const units = c.p ? 1400 / c.p : null;
+  $('satWatch').innerHTML =
+    '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px">' +
+      '<span class="idx-price" style="color:var(--amber2)">' + fmt(c.p, 2) + ' <span style="font-size:12px;color:var(--faint)">PLN</span></span>' +
+      '<span class="chg-pill ' + clsBg(c.chg) + ' ' + cls(c.chg) + '">' + pct(c.chg) + '</span></div>' +
+    '<div style="margin-top:9px;font-size:12.5px;color:var(--dim);line-height:1.7">' +
+      'Next planned buy: <b style="color:var(--txt)">1,400 zł</b> → ≈ <b style="color:var(--amber2)">' + fmt(units, 2) + ' units</b> at today\'s price<br>' +
+      'Plan: monthly from <b style="color:var(--txt)">Jan 2027</b> · broker <b style="color:var(--txt)">OKI @ PKO BP</b><br>' +
+      'Day move in zł: <b class="' + cls(c.chg) + '">' + sign((c.p != null && c.pc != null) ? (c.p - c.pc) : null) + '</b> per unit' +
+    '</div>' + sparkSVG(SNAPSHOT.etfDaily.slice(-42), 300, 52, '#ffb400');
+}
+
+/* ---- MARKETS tab ---- */
+function renderMarkets(){
+  renderIndices(); renderMood(); renderSatWatch();
+  $('miniMovers').innerHTML = miniMoversHTML();
+}
+
+/* ---- MOVERS tab ---- */
+let movFilter = 'all';
+function renderMovers(){
+  let list = UNIVERSE.stocks.map(o => ({o, c: q(o.s)})).filter(x => x.c.chg != null);
+  if (movFilter === 'gainers') list = list.filter(x => x.c.chg > 0);
+  else if (movFilter === 'losers') list = list.filter(x => x.c.chg < 0);
+  else if (movFilter === 'energy') list = list.filter(x => x.o.g === 'energy');
+  else if (movFilter === 'banks')  list = list.filter(x => x.o.g === 'banks');
+  list.sort((a,b) => (movFilter === 'losers' ? 1 : -1) * ((b.c.chg||0) - (a.c.chg||0)));
+  const maxAbs = Math.max(...list.map(x => Math.abs(x.c.chg)), 1);
+  let html = '<thead><tr><th>#</th><th>name</th><th style="text-align:right">last</th><th style="text-align:right">prev</th><th style="text-align:right">Δ zł</th><th style="text-align:right">%</th><th style="text-align:right">day range</th><th style="text-align:left">24h</th><th style="text-align:left">heat</th></tr></thead><tbody>';
+  if (!list.length) html += '<tbody><tr><td colspan="9" style="color:var(--faint);padding:14px">nothing in this bucket today — the tape is moody</td></tr>';
+  list.forEach((x, i) => {
+    const dzl = (x.c.p != null && x.c.pc != null) ? x.c.p - x.c.pc : null;
+    const w = Math.round(Math.abs(x.c.chg)/maxAbs*100);
+    const heatCol = x.c.chg > 0 ? 'var(--up)' : 'var(--down)';
+    html += '<tr onclick="roastStock(\'' + x.o.s + '\')">' +
+      '<td style="color:var(--faint)">' + (i+1) + '</td>' +
+      '<td><span class="nm">' + x.o.f + ' ' + esc(x.o.n) + '</span><span class="sym">' + esc(x.o.s.replace('.WA','')) + '</span></td>' +
+      '<td style="text-align:right">' + fmt(x.c.p, 2) + '</td>' +
+      '<td style="text-align:right;color:var(--faint)">' + fmt(x.c.pc, 2) + '</td>' +
+      '<td style="text-align:right" class="' + cls(x.c.chg) + '">' + sign(dzl) + '</td>' +
+      '<td style="text-align:right" class="' + cls(x.c.chg) + '"><b>' + pct(x.c.chg) + '</b></td>' +
+      '<td style="text-align:right;color:var(--dim)">' + (x.c.hi != null ? fmt(x.c.lo, 2) + ' – ' + fmt(x.c.hi, 2) : '—') + '</td>' +
+      '<td>' + ((x.c.intraday && x.c.intraday.length > 2) ? sparkSVG(x.c.intraday.slice(-26), 84, 22, heatCol) : '<svg class="spark" viewBox="0 0 84 22"><text x="2" y="15" font-size="9" fill="#5a687e">—</text></svg>') + '</td>' +
+      '<td><span class="heat"><i style="width:' + w + '%;background:' + heatCol + '"></i></span></td></tr>';
+  });
+  $('moverTable').innerHTML = html + '</tbody>';
+}
+
+/* ---- WORLD tab ---- */
+function renderWorld(){
+  const fxCards = UNIVERSE.fx.map(o => {
+    const c = q(o.s);
+    return '<div class="fx-big" onclick="openSym(\'' + o.s + '\')"><span class="fxf">' + o.f + ' ' + esc(o.n) + '</span>' +
+      '<span class="fxp">' + fmt(c.p, 4) + '</span>' +
+      '<span class="fxc ' + cls(c.chg) + '">' + pct(c.chg) + ' · ' + (c.chg != null && c.chg > 0 ? 'złoty softer' : (c.chg < 0 ? 'złoty firmer' : 'flat')) + (c.src === 'ecb' ? ' · ECB ref' : '') + '</span></div>';
+  }).join('');
+  $('fxGrid').innerHTML = fxCards;
+  // PLN strength meter (vs yesterday's proxy closes)
+  const plnRows = UNIVERSE.fx.map(o => {
+    const c = q(o.s);
+    const s = c.chg == null ? 0 : clamp(c.chg * 22, -10, 10); // scale % to bar
+    const col = s < 0 ? 'var(--up)' : 'var(--down)'; // weaker foreign = stronger PLN
+    const left = Math.min(Math.abs(s), 10) * 10;
+    return '<div class="prow"><span class="pl">' + esc(o.n) + '</span><span class="pbar"><i style="width:' + left + '%;background:' + col + '"></i></span>' +
+      '<span class="pv ' + (s < 0 ? 'up' : (s > 0 ? 'down' : 'flat')) + '">' + (s < 0 ? 'PLN ▲' : (s > 0 ? 'PLN ▼' : '—')) + ' ' + Math.abs(s).toFixed(1) + '</span></div>';
+  }).join('');
+  $('plnMeter').innerHTML = '<div style="font-family:var(--mono);font-size:10px;color:var(--faint);letter-spacing:.16em;margin-bottom:2px">ZŁOTY STRENGTH (0–10, live)</div>' + plnRows;
+  $('globalGrid').innerHTML = UNIVERSE.global.map(o => {
+    const c = q(o.s);
+    return '<div class="fx-big"><span class="fxf">' + o.f + ' ' + esc(o.n) + ' · ' + esc(o.d) + '</span>' +
+      '<span class="fxp">' + fmt(c.p, 2) + '</span>' +
+      '<span class="fxc ' + cls(c.chg) + '">' + pct(c.chg) + '</span></div>';
+  }).join('');
+  $('cmdtyGrid').innerHTML = UNIVERSE.cmdty.map(o => {
+    const c = q(o.s);
+    return '<div class="fx-big"><span class="fxf">' + o.f + ' ' + esc(o.n) + '</span>' +
+      '<span class="fxp">' + fmt(c.p, 2) + '<span style="font-size:10px;color:var(--faint)"> USD</span></span>' +
+      '<span class="fxc ' + cls(c.chg) + '">' + pct(c.chg) + '</span></div>';
+  }).join('');
+}
+
+/* ---- YOUR BOOK tab ---- */
+function renderBookHero(){
+  const c = q('ETFBM40TR.WA');
+  $('bookHero').innerHTML =
+    '<div class="book-ETF">' + fmt(c.p, 2) + '<span style="font-size:14px;color:var(--faint)"> PLN</span></div>' +
+    '<span class="chg-pill ' + clsBg(c.chg) + ' ' + cls(c.chg) + '" style="font-size:15px">' + pct(c.chg) + '</span>' +
+    '<div class="book-kpi"><b>' + fmt(1400 / (c.p || 1), 2) + '</b><span>units per monthly 1,400 zł</span></div>' +
+    '<div class="book-kpi"><b>' + fmt(1400 / (c.p || 1) * 12, 1) + '</b><span>units per year (fixed price!)</span></div>';
+  $('bookPlanNote').innerHTML = '<b>THE PLAN:</b> from <b>January 2027</b>, 1,400 zł every month into this ETF via OKI @ PKO BP — automatic, boring, beautiful. ' +
+    'It orbits a global core (all-world ETF). Prices above are live; the simulator on the right is a <b>fixed-price illustration</b> — markets will disagree with it, loudly and often.';
+  const monthsToStart = Math.max(0, Math.round((new Date('2027-01-01') - warsawNow()) / (30.4*24*3600*1000)));
+  $('bookContext').innerHTML =
+    '<div style="font-size:13px;line-height:1.8;color:#c6d1e2">' +
+    '<b style="color:var(--amber2)">◆ CORE</b> — global all-world ETF: every developed + emerging market in one ticket. The load-bearing wall.<br>' +
+    '<b style="color:var(--amber2)">◆ SATELLITE-1</b> — Beta ETF mWIG40TR: the Polish mid-cap tilt. This terminal exists to babysit it.<br>' +
+    '<b style="color:var(--amber2)">◆ DISCIPLINE</b> — fixed schedule, fixed amount, zero drama. ' + (monthsToStart > 0 ? '<b style="color:var(--txt)">' + monthsToStart + ' months</b> until the first DCA order fires.' : 'DCA window is open — plan says: execute.') + '<br>' +
+    '<span style="color:var(--faint);font-size:11.5px">Education & tracking only — not investment advice. Structure and tax questions belong with your advisors.</span></div>';
+}
+function renderBookSim(){
+  const amt = +$('dcaAmt').value, startY = +$('dcaStart').value, months = +$('dcaMonths').value;
+  const price = +$('dcaPrice').value;
+  $('dcaAmtOut').textContent = fmt(amt, 0) + ' zł';
+  $('dcaStartOut').textContent = startY === 2027 ? 'Jan 2027' : 'Jan 2028';
+  $('dcaMonthsOut').textContent = months + ' mo';
+  $('dcaPriceOut').textContent = fmt(price, 2) + ' zł';
+  const units = amt / price;
+  const total = amt * months;
+  const totalUnits = units * months;
+  $('dcaResult').innerHTML =
+    '<table class="mtable"><tbody>' +
+    '<tr><td>Units per month</td><td style="text-align:right"><b class="num">' + fmt(units, 2) + '</b></td></tr>' +
+    '<tr><td>Invested over ' + months + ' months</td><td style="text-align:right"><b class="num">' + fmtPLN(total) + '</b></td></tr>' +
+    '<tr><td>Units accumulated</td><td style="text-align:right"><b class="num" style="color:var(--amber2)">' + fmt(totalUnits, 1) + '</b></td></tr>' +
+    '<tr><td>Position value (at fixed price)</td><td style="text-align:right"><b class="num">' + fmtPLN(totalUnits * price) + '</b></td></tr>' +
+    '</tbody></table>' +
+    '<div style="font-size:11.5px;color:var(--faint);margin-top:8px;font-family:var(--mono)">Fees, spreads & price moves excluded on purpose — this is arithmetic, not prophecy.</div>';
+  unlock('bookworm');
+}
+
+/* ---- THE WIRE ---- */
+function renderWire(){
+  const b = upCount();
+  const stocks = UNIVERSE.stocks.map(o => ({o, c: q(o.s)})).filter(x => x.c.chg != null);
+  const top = stocks.slice().sort((a,x) => x.c.chg - a.c.chg)[0];
+  const bot = stocks.slice().sort((a,x) => a.c.chg - x.c.chg)[0];
+  const mi = q('MWIG40.WA');
+  const items = [];
+  const gordon = pick(SASS);
+  const sessionOpen = REF.session === 'open' || REF.session === 'auction';
+  items.push({t: fmtTime(mi.ts || Math.floor(Date.now()/1000)),
+    h: (sessionOpen ? 'DESK OPEN — ' : 'GPW SESSION CLOSED — showing the last session: ') + 'mWIG40 ' + pct(mi.chg) + ' at ' + fmt(mi.p, 2),
+    g: gordon});
+  if (top) items.push({t: 'TAPE', h: top.o.f + ' ' + top.o.n + ' leads the board: ' + pct(top.c.chg) + ' at ' + fmt(top.c.p, 2),
+    g: roastFor(top.o.s, top.c.chg)});
+  if (bot) items.push({t: 'TAPE', h: bot.o.f + ' ' + bot.o.n + ' lags the board: ' + pct(bot.c.chg) + ' at ' + fmt(bot.c.p, 2),
+    g: roastFor(bot.o.s, bot.c.chg)});
+  items.push({t: 'BREADTH', h: b.ups + ' of ' + b.n + ' tracked stocks up — participation ' + fmt(b.pct,0) + '%',
+    g: b.pct >= 60 ? 'A broad march. The kind of day that quietly makes DCA investors rich and day traders bored.' :
+       b.pct >= 45 ? 'Split tape. Half the market is at lunch while the other half pretends to work.' :
+       'A thin crowd carrying the piano. Watch participation, not just the headline.'});
+  const mx = UNIVERSE.fx.map(o => ({o, c: q(o.s)})).sort((a,x) => Math.abs(x.c.chg||0) - Math.abs(a.c.chg||0))[0];
+  if (mx && mx.c.chg != null) items.push({t: 'FX DESK', h: esc(mx.o.n) + ' ' + pct(mx.c.chg) + ' vs złoty — ' + (mx.c.chg > 0 ? 'importers sigh, exporters smile' : 'złoty flexes'),
+    g: 'Your VWCE half feels this in its sleep. FX is the weather; you built the house to handle weather.'});
+  const rnd1 = pick(LINGO), rnd2 = pick(FUNFACTS);
+  items.push({t: 'LINGO', h: 'Word of the session: ' + rnd1.k, g: rnd1.v});
+  items.push({t: 'FUN FACT', h: rnd2.length > 96 ? rnd2.slice(0, 93) + '…' : rnd2, g: 'Hover me properly, I contain facts and they are free.'});
+  $('wireList').innerHTML = items.map(x =>
+    '<div class="wire-item"><span class="wire-time">' + esc(x.t) + '</span>' +
+    '<div class="wire-head">' + x.h + '</div>' +
+    '<div class="wire-gordon">' + esc(x.g) + '</div></div>').join('');
+}
+
+/* ---- GORDON desk ---- */
+let deskTab = 'tape';
+function renderDesk(){
+  const tabs = [['tape','📋 THE TAPE'],['spot','🎯 MOVER SPOTLIGHT'],['why','💡 WHY IT MATTERS'],['lingo','📖 TRADER LINGO'],['fact','🎉 FUN FACT']];
+  $('deskTabs').innerHTML = tabs.map(t => '<button class="sbtn' + (deskTab === t[0] ? ' active' : '') + '" onclick="switchDesk(\'' + t[0] + '\')">' + t[1] + '</button>').join('');
+  const stocks = UNIVERSE.stocks.map(o => ({o, c: q(o.s)})).filter(x => x.c.chg != null);
+  const top = stocks.slice().sort((a,x) => x.c.chg - a.c.chg);
+  const up = top.slice(0, 3), dn = top.slice(-3).reverse();
+  const b = upCount();
+  let h = '';
+  if (deskTab === 'tape'){
+    h = '<div class="g-note">' + (DATA_MODE === 'LIVE' ? 'The tape is <span class="k">LIVE</span>.' : DATA_MODE === 'CACHED' ? 'The tape is <span class="k">CACHED</span> — proxies are being moody.' : 'Running the <span class="k">SNAPSHOT</span> — GPW close, 03 Nov 2026.') +
+      ' Breadth is <span class="k">' + fmt(b.pct,0) + '%</span>. ' + (b.pct >= 60 ? 'Green sea out there.' : b.pct >= 45 ? 'A knife fight in a corridor.' : 'The tape is leaking — mind your pockets.') + '</div>' +
+      '<table class="mtable" style="margin-top:10px"><thead><tr><th>▲ TOP 3</th><th style="text-align:right">%</th><th>▼ TOP 3</th><th style="text-align:right">%</th></tr></thead><tbody>' +
+      [0,1,2].map(i => '<tr><td onclick="roastStock(\'' + up[i].o.s + '\')" style="cursor:pointer">' + up[i].o.f + ' ' + esc(up[i].o.n) + '</td><td class="up" style="text-align:right"><b>' + pct(up[i].c.chg) + '</b></td>' +
+        '<td onclick="roastStock(\'' + dn[i].o.s + '\')" style="cursor:pointer">' + dn[i].o.f + ' ' + esc(dn[i].o.n) + '</td><td class="down" style="text-align:right"><b>' + pct(dn[i].c.chg) + '</b></td></tr>').join('') +
+      '</tbody></table><blockquote class="gq" style="margin-top:12px">' + esc(pick(SASS)) + '</blockquote>';
+  } else if (deskTab === 'spot'){
+    const s = up[0], f = dn[0];
+    h = '<div class="g-note"><span class="k">SPOTLIGHT:</span> ' + s.o.f + ' <b>' + esc(s.o.n) + '</b> at ' + fmt(s.c.p, 2) + ' (' + pct(s.c.chg) + '). ' + roastFor(s.o.s, s.c.chg) + '</div>' +
+        '<div class="g-note" style="margin-top:9px"><span class="k">IN THE DOCK:</span> ' + f.o.f + ' <b>' + esc(f.o.n) + '</b> at ' + fmt(f.c.p, 2) + ' (' + pct(f.c.chg) + '). ' + roastFor(f.o.s, f.c.chg) + '</div>' +
+        '<blockquote class="gq" style="margin-top:12px">Spotlights are for theatre. Your plan is for money. Buy the index, close the laptop.</blockquote>';
+  } else if (deskTab === 'why'){
+    const c = q('ETFBM40TR.WA');
+    h = '<div class="g-note">You own one Polish instrument: <span class="k">Beta ETF mWIG40TR</span>, now ' + fmt(c.p, 2) + ' zł (' + pct(c.chg) + '). ' +
+      'At today\'s price your monthly 1,400 zł buys <span class="k">' + fmt(1400/(c.p||1), 2) + ' units</span>. ' +
+      'A day like this moves that number by pennies. A decade of them moves it by a career.</div>' +
+      '<blockquote class="gq">Why it matters: the index does the work, the plan does the buying, and you — you do the waiting. The waiting is the skill.</blockquote>';
+  } else if (deskTab === 'lingo'){
+    h = LINGO.slice().sort(() => Math.random()-0.5).slice(0, 4).map(l =>
+      '<div class="g-note" style="margin-bottom:9px"><span class="k">' + l.k + '</span> — ' + esc(l.v) + '</div>').join('');
+  } else {
+    h = '<div class="g-note">' + esc(pick(FUNFACTS)) + '</div><blockquote class="gq" style="margin-top:10px">' + esc(pick(FUNFACTS)) + '</blockquote>';
+  }
+  $('deskBody').innerHTML = h;
+}
+function switchDesk(t){ deskTab = t; snd('click'); renderDesk(); }
+
+/* ---- sass dispenser ---- */
+function dispenseSass(){
+  snd('ding');
+  const s = pick(SASS);
+  $('sassOut').textContent = '"' + s + '"';
+  $('sassOut').dataset.last = '"' + s + '"';
+  P.sass++; saveP();
+  if (P.sass >= 10) unlock('sass10');
+  addXP(1, 'sass accepted like a professional');
+}
+
+/* ---- roast generator ---- */
+const ROAST_MAP = {
+  'PKO.WA': ['The bank that holds your OKI login is having a day. Your transfer fees remain unimpressed.', 'PKO moves 1% and suddenly everyone\'s a banking analyst.'],
+  'MBK.WA': ['mBank: proof that banking can be both boring and dramatic, like a soap opera with a compliance department.'],
+  'PGE.WA': ['PGE: the lights stay on, the shareholders debate.', 'State-owned utility pricing in politics. Yes, that\'s a thing.'],
+  'TPE.WA': ['Tauron: electricity with extra volatility, no surge protector included.'],
+  'ENA.WA': ['Energa: small utility, big feelings.'],
+  'JSW.WA': ['Coal. In 2026. The market has opinions and so does the EU.'],
+  'PKN.WA': ['Orlen: part oil company, part geopolitical novel.'],
+  'KGH.WA': ['Copper is Doctor Copper — reportedly the only metal with a PhD in economics.', 'KGH tracks copper and global growth; today copper cleared its throat.'],
+  'CDR.WA': ['CD Projekt: when the roadmap slips, the price develops its own bugs.'],
+  '11B.WA': ['11 bit: a studio whose sequels include "release date: TBD" and "investor: patient".'],
+  'LPP.WA': ['LPP: fashion margins are tight and the zloty is a co-designer.'],
+  'DNP.WA': ['Dino: a supermarket chain so consistent it\'s basically a savings account with shelves.'],
+  'ALE.WA': ['Allegro: the market\'s way of letting you invest in every shopping impulse you\'ve suppressed.'],
+  'CPS.WA': ['Grupa CPS: petrol stations — the toll booths of civilization.'],
+  'MDV.WA': ['Medisept: hygiene and healthcare, the two things nobody cancels in a recession.'],
+  'XTB.WA': ['XTB: a broker that monetizes other people\'s overconfidence. Meta, isn\'t it?']
+};
+function roastFor(sym, chg){
+  const pool = ROAST_MAP[sym] || ['Interesting ticker. No notes.'];
+  const magnitude = Math.abs(chg||0);
+  let extra = '';
+  if (magnitude >= 3) extra = ' And by "a day" I mean a full theatrical production.';
+  else if (magnitude >= 1.5) extra = ' That\'s a proper move — someone\'s spreadsheet is on fire.';
+  else extra = ' Statistically, that\'s a shrug with a decimal point.';
+  return pick(pool) + extra;
+}
+function roastStock(sym){
+  snd('ding');
+  const c = q(sym), m = META[sym] || {n: sym, f:'📈'};
+  P.roasts++; saveP();
+  if (P.roasts >= 5) unlock('roast5');
+  addXP(1, 'roast consumed');
+  openModal(m.f + ' ' + esc(m.n) + ' — ' + esc(sym.replace('.WA','')) +
+    '<span style="font-size:14px;font-family:var(--mono)" class="' + cls(c.chg) + '">' + fmt(c.p, 2) + ' · ' + pct(c.chg) + '</span>',
+    '<div class="gside">' + esc(roastFor(sym, c.chg)) + '</div>' +
+    '<p style="font-family:var(--mono);font-size:12.5px;margin-top:12px;color:var(--dim)">last ' + fmt(c.p, 2) + ' · prev ' + fmt(c.pc, 2) + ' · Δ ' + sign(c.p != null && c.pc != null ? c.p - c.pc : null) +
+    (c.hi != null ? ' · day range ' + fmt(c.lo, 2) + ' – ' + fmt(c.hi, 2) : '') +
+    '<br>data: ' + DATA_MODE + (c.ts ? ' · quote time ' + fmtTime(c.ts) : '') + '</p>' +
+    '<p style="margin-top:10px;font-size:12px;color:var(--faint)">Desk commentary is satire, not analysis. The numbers are real; the attitude is complimentary.</p>');
+}
+
+/* ---- modal ---- */
+function openModal(titleHTML, bodyHTML){
+  $('modal').innerHTML = '<div class="modal-head"><h2>' + titleHTML + '</h2><button class="xclose" onclick="closeModal()">✕</button></div><div class="modal-body">' + bodyHTML + '</div>';
+  $('overlay').classList.add('show');
+}
+function closeModal(){ $('overlay').classList.remove('show'); }
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
+});
+
+/* ---- open a symbol on the chart desk ---- */
+function openSym(sym){
+  if (!META[sym]) return;
+  chartState.sym = sym;
+  const sel = $('chSym'); if (sel) sel.value = sym;
+  switchTab('chart');
+  loadChart();
+}
+
+/* ============================================================
+   CHART ENGINE
+   ============================================================ */
+const RANGES = [
+  {id:'1D', r:'1d',  i:'30m', label:'1D'},
+  {id:'5D', r:'5d',  i:'30m', label:'5D'},
+  {id:'1M', r:'1mo', i:'1d',  label:'1M'},
+  {id:'6M', r:'6mo', i:'1d',  label:'6M'},
+  {id:'1Y', r:'1y',  i:'1d',  label:'1Y'}
+];
+const chartState = {sym: 'MWIG40.WA', range: '1D', pts: null, src: '', loading: false};
+const chartCache = {}; // sym|range -> {pts, ts}
+
+function initChartUI(){
+  const opts = ALL_SYMS.filter(o => !o.s.includes('=X')).map(o => '<option value="' + o.s + '"' + (o.s === chartState.sym ? ' selected' : '') + '>' + esc(o.n) + '</option>').join('');
+  $('chSym').innerHTML = opts;
+  $('rangeBtns').innerHTML = RANGES.map(r => '<button class="rbtn' + (r.id === chartState.range ? ' active' : '') + '" data-r="' + r.id + '" onclick="setRange(\'' + r.id + '\')">' + r.label + '</button>').join('');
+}
+function chartSelect(){ chartState.sym = $('chSym').value; loadChart(); }
+function setRange(r){
+  chartState.range = r; snd('click');
+  $$('#rangeBtns .rbtn').forEach(b => b.classList.toggle('active', b.dataset.r === r));
+  P.ranges[r] = true; saveP();
+  if (Object.keys(P.ranges).filter(k => P.ranges[k]).length >= 5) unlock('chart5');
+  loadChart();
+}
+function snapshotSeries(sym, rangeId){
+  if (sym === 'MWIG40.WA' || sym === 'MWIG40TR.WA'){
+    if (rangeId === '1D'){ const d = SNAPSHOT.mwig40Intraday.slice(-16); return d.length ? d : null; }
+    if (rangeId === '5D') return SNAPSHOT.mwig40Intraday;
+    return SNAPSHOT.etfDaily.slice(-250); // proxy: ETF daily
+  }
+  if (sym === 'ETFBM40TR.WA' || sym === 'ETFBW20TR.WA'){
+    if (rangeId === '1D' || rangeId === '5D') return SNAPSHOT.etfDaily.slice(-6);
+    const n = rangeId === '1M' ? 21 : rangeId === '6M' ? 126 : 251;
+    return SNAPSHOT.etfDaily.slice(-n);
+  }
+  const q0 = SNAPSHOT.quotes[sym];
+  if (q0 && q0.p != null) return [[q0.ts || Math.floor(Date.now()/1000), q0.p]];
+  return null;
+}
+async function loadChart(){
+  const {sym, range} = chartState;
+  const R = RANGES.find(r => r.id === range);
+  const isIndex = UNIVERSE.indices.some(o => o.s === sym);
+  const effSym = (isIndex && ['1M','6M','1Y'].includes(range)) ? 'ETFBM40TR.WA' : sym;
+  const proxyNote = (isIndex && effSym !== sym) ? ' · proxy: Beta ETF mWIG40TR (index history capped at 5D by the data source)' : '';
+  const key = effSym + '|' + range;
+  $('chTitle').textContent = (META[sym] ? META[sym].n : sym) + ' · ' + range;
+  $('chSource').textContent = 'loading…';
+  chartState.loading = true;
+  let pts = null, src = '';
+  if (range === '1D' && Q[sym] && Q[sym].intraday && Q[sym].intraday.length > 4){
+    pts = Q[sym].intraday; src = 'live · instant — from the turbo feed (0 extra requests)'; // TURBO: reuse batch data
+  } else {
+    const cached = chartCache[key];
+    if (cached && Date.now() - cached.ts < 300000) { pts = cached.pts; src = 'live (cached)'; }
+    else if (DATA_MODE !== 'SNAPSHOT'){
+      pts = await fetchSeries(effSym, R.r, R.i);
+      if (pts){ chartCache[key] = {pts, ts: Date.now()}; src = 'live · Yahoo Finance'; }
+    }
+  }
+  if (!pts){
+    pts = snapshotSeries(sym, range);
+    src = DATA_MODE === 'SNAPSHOT' ? 'snapshot · GPW close 03 Nov 2026' : 'snapshot fallback (proxies unreachable)';
+  }
+  chartState.loading = false;
+  if (!pts || pts.length < 2){
+    $('chartHost').innerHTML = '<div style="padding:40px;text-align:center;color:var(--faint);font-family:var(--mono)">no series available for ' + esc(sym) + ' ' + range + '</div>';
+    $('chSource').textContent = 'no data';
+    return;
+  }
+  chartState.pts = pts;
+  $('chSource').textContent = src + proxyNote;
+  drawChart(pts);
+  // stats
+  const vals = pts.map(p => p[1]);
+  const first = vals[0], last = vals[vals.length-1];
+  const chg = (first != null && first !== 0) ? (last - first)/first*100 : null;
+  $('chStats').innerHTML =
+    '<span>open <b>' + fmt(first, 2) + '</b></span><span>last <b class="' + cls(chg) + '">' + fmt(last, 2) + '</b></span>' +
+    '<span>Δ <b class="' + cls(chg) + '">' + pct(chg) + '</b></span>' +
+    '<span>hi <b>' + fmt(Math.max(...vals), 2) + '</b></span><span>lo <b>' + fmt(Math.min(...vals), 2) + '</b></span>' +
+    '<span>points <b>' + pts.length + '</b></span>';
+  P.ranges[range] = true; saveP();
+  if (Object.keys(P.ranges).filter(k => P.ranges[k]).length >= 5) unlock('chart5');
+}
+function drawChart(pts){
+  const W = 900, H = 320, padL = 8, padR = 56, padT = 14, padB = 26;
+  const iw = W - padL - padR, ih = H - padT - padB;
+  const vals = pts.map(p => p[1]);
+  const mn = Math.min(...vals), mx = Math.max(...vals);
+  const pad = (mx - mn) * 0.08 || Math.abs(mx) * 0.001 || 1;
+  const lo = mn - pad, hi = mx + pad;
+  const X = i => padL + (i / (pts.length - 1)) * iw;
+  const Y = v => padT + (1 - (v - lo) / (hi - lo)) * ih;
+  let path = '', area = '';
+  pts.forEach((p, i) => { path += (i ? 'L' : 'M') + X(i).toFixed(1) + ',' + Y(p[1]).toFixed(1); });
+  area = 'M' + padL + ',' + (padT + ih) + ' L' + X(0).toFixed(1) + ',' + Y(vals[0]).toFixed(1) + ' ' + path.replace('M','L') + ' L' + X(pts.length-1).toFixed(1) + ',' + (padT+ih) + ' Z';
+  const up = vals[vals.length-1] >= vals[0];
+  const col = up ? '#22c55e' : '#ef4444';
+  // gridlines + right labels
+  let grid = '';
+  for (let g = 0; g <= 4; g++){
+    const v = lo + (hi - lo) * g / 4, y = Y(v);
+    grid += '<line x1="' + padL + '" y1="' + y.toFixed(1) + '" x2="' + (padL+iw) + '" y2="' + y.toFixed(1) + '" stroke="#1c2433" stroke-width="1"/>' +
+            '<text x="' + (padL+iw+6) + '" y="' + (y+3).toFixed(1) + '" font-size="10" fill="#8494ab" font-family="monospace">' + fmt(v, v > 1000 ? 0 : 2) + '</text>';
+  }
+  // x labels: first, mid, last
+  const xi = [0, Math.floor((pts.length-1)/2), pts.length-1];
+  const xl = xi.map(i => '<text x="' + X(i).toFixed(1) + '" y="' + (H-8) + '" font-size="10" fill="#5a687e" font-family="monospace" text-anchor="' +
+    (i === 0 ? 'start' : i === pts.length-1 ? 'end' : 'middle') + '">' + (chartState.range.includes('D') ? fmtTime(pts[i][0]) : fmtDate(pts[i][0])) + '</text>').join('');
+  const host = $('chartHost');
+  host.innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" id="chSvg">' +
+    '<defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + col + '" stop-opacity=".22"/><stop offset="1" stop-color="' + col + '" stop-opacity="0"/></linearGradient></defs>' +
+    grid +
+    '<path d="' + area + '" fill="url(#ag)"/>' +
+    '<path d="' + path + '" fill="none" stroke="' + col + '" stroke-width="2"/>' +
+    '<line id="chCross" x1="0" y1="' + padT + '" x2="0" y2="' + (padT+ih) + '" stroke="#ffb400" stroke-width="1" stroke-dasharray="3 3" style="display:none"/>' +
+    '<circle id="chDot" r="4" fill="#ffb400" style="display:none"/>' + xl +
+    '</svg><div class="ctip" id="chTip"></div>';
+  const svg = $('chSvg'), cross = $('chCross'), dot = $('chDot'), tip = $('chTip');
+  svg.addEventListener('mousemove', e => {
+    const rect = svg.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width * W;
+    const i = clamp(Math.round((px - padL) / iw * (pts.length - 1)), 0, pts.length - 1);
+    cross.style.display = 'block'; dot.style.display = 'block';
+    cross.setAttribute('x1', X(i)); cross.setAttribute('x2', X(i));
+    dot.setAttribute('cx', X(i)); dot.setAttribute('cy', Y(pts[i][1]));
+    const chgFrom = (vals[0] !== 0) ? (pts[i][1] - vals[0]) / vals[0] * 100 : null;
+    tip.style.display = 'block';
+    tip.innerHTML = (chartState.range.includes('D') ? fmtTime(pts[i][0]) : fmtDate(pts[i][0])) + ' · <b>' + fmt(pts[i][1], 2) + '</b> <span class="' + cls(chgFrom) + '">' + pct(chgFrom) + '</span>';
+    tip.style.left = clamp(px / W * rect.width - 70, 0, rect.width - 150) + 'px';
+    tip.style.top = '8px';
+  });
+  svg.addEventListener('mouseleave', () => { cross.style.display='none'; dot.style.display='none'; tip.style.display='none'; });
+}
+
+/* ---- master render ---- */
+function renderAll(){
+  renderTape(); renderMarkets(); renderMovers(); renderWorld();
+  renderBookHero(); renderWire(); renderDesk(); renderXP();
+  if ($('panel-book').classList.contains('active')) renderBookSim();
+}
+/* ============================================================
+   MIST-40 ULTRA — part 6: academy, arcade, commands, boot
+   ============================================================ */
+
+/* ---- ACADEMY ---- */
+const KEY = (l) => 'L' + (l.idx != null ? l.idx : LESSONS.indexOf(l));
+function renderAcademy(){
+  const done = LESSONS.filter((l, i) => (P.academy['L' + i] || {}).read).length;
+  $('acadDone').textContent = done;
+  $('acadBar').style.width = (done / LESSONS.length * 100) + '%';
+  $('acadXpTxt').textContent = P.xp + ' total desk XP';
+  const tracks = [...new Set(LESSONS.map(l => l.track))];
+  $('acadTracks').innerHTML = tracks.map(tr => {
+    const ls = LESSONS.map((l, i) => ({...l, idx: i})).filter(l => l.track === tr);
+    const dn = ls.filter(l => P.academy[KEY(l)] && P.academy[KEY(l)].read).length;
+    return '<div class="track-head"><h3 style="color:var(--amber2)">' + esc(tr) + '</h3><div class="rule"></div><span class="tpct">' + dn + '/' + ls.length + '</span></div>' +
+      '<div class="grid g2">' + ls.map(l => {
+        const st = P.academy[KEY(l)];
+        const doneQ = st ? st.quiz : 0;
+        return '<div class="lesson-card" onclick="openLesson(' + l.idx + ')">' +
+          '<div class="lesson-ico">' + l.ico + '</div>' +
+          '<div class="lesson-body"><div class="lesson-title">' + esc(l.title) + '</div>' +
+          '<div class="lesson-sub">' + (st && st.read ? 'quiz ' + doneQ + '/3 · re-read anytime' : 'unread · 3-question quiz inside') + '</div>' +
+          '<div class="lesson-meta">≈ 3 min · +' + (25 + 15) + ' XP available</div></div>' +
+          (st && st.read ? '<div class="lesson-done">✓</div>' : '<div style="color:var(--faint);font-size:18px">›</div>') + '</div>';
+      }).join('') + '</div>';
+  }).join('');
+}
+function openLesson(i){
+  snd('click');
+  const l = LESSONS[i], k = KEY(l), st = P.academy[k];
+  const quizHTML = l.quiz.map((qq, qi) =>
+    '<div class="q-item" data-qi="' + qi + '"><div class="qq">' + (qi+1) + '. ' + esc(qq.q) + '</div>' +
+    qq.o.map((o, oi) => '<button class="q-opt" data-qi="' + qi + '" data-oi="' + oi + '" onclick="answerQuiz(' + i + ',' + qi + ',' + oi + ',this)">' + String.fromCharCode(65+oi) + ') ' + esc(o) + '</button>').join('') +
+    '<div class="q-expl" id="qexpl-' + qi + '">' + esc(qq.e) + '</div></div>').join('');
+  openModal(l.ico + ' ' + esc(l.title) + '<span style="font-size:11px;color:var(--faint);font-family:var(--mono)"> · ' + esc(l.track) + '</span>',
+    l.body +
+    '<div class="gside">' + esc(l.gordon) + '</div>' +
+    '<h4>quiz — earn ' + (5*3) + ' XP</h4>' + quizHTML +
+    '<div id="lessonDone" style="margin-top:12px;font-family:var(--mono);font-size:12px;color:var(--faint)">reading counts once you answer the first question · +25 XP for the lesson itself</div>');
+  if (!st || !st.read){
+    P.academy[k] = {read: true, quiz: st ? st.quiz : 0};
+    saveP(); addXP(25, 'lesson read: ' + l.title);
+    snd('ding');
+    const totalDone = LESSONS.filter(x => P.academy[KEY(x)] && P.academy[KEY(x)].read).length;
+    if (totalDone >= 1) unlock('acad1');
+    if (totalDone >= 6) unlock('acad6');
+    if (totalDone >= 12) unlock('acad12');
+    renderAcademy();
+  }
+}
+function answerQuiz(li, qi, oi, btn){
+  const l = LESSONS[li], k = KEY(l), qq = l.quiz[qi];
+  const wrap = btn.closest('.q-item');
+  const answered = wrap.dataset.done === '1';
+  if (answered) return;
+  wrap.dataset.done = '1';
+  wrap.querySelectorAll('.q-opt').forEach(b => { b.disabled = true; });
+  const correct = oi === qq.a;
+  const correctBtn = wrap.querySelector('.q-opt[data-oi="' + qq.a + '"]');
+  correctBtn.classList.add('correct');
+  if (!correct){ btn.classList.add('wrong'); snd('wrong'); } else { snd('xp'); addXP(5, 'correct answer'); }
+  $('qexpl-' + qi).classList.add('show');
+  const st = P.academy[k] || {read: true, quiz: 0};
+  const already = st.quiz >= qi + 1;
+  if (!already){
+    st.quiz = qi + 1; P.academy[k] = st; saveP();
+    if (st.quiz === 3){ addXP(15, 'lesson aced: ' + l.title); toast('ach', '🎓 LESSON COMPLETE', l.title + ' — Gordon nods, reluctantly.'); }
+    renderAcademy();
+  }
+}
+
+/* ---- ARCADE: Bull or Bear ---- */
+const G = {pair: null, streak: 0, round: 0};
+function renderArcade(){
+  $('gameRec').textContent = 'record ' + P.gameW + 'W–' + P.gameL + 'L · best streak ' + P.streakBest;
+  $('achCount').textContent = Object.keys(P.ach).length + '/' + ACH.length;
+  $('levelRow').innerHTML = LEVELS.map((L, i) => {
+    const cur = levelInfo(P.xp);
+    return '<span class="lv ' + (cur.i > i ? 'done' : cur.i === i ? 'now' : '') + '" title="' + L.xp + ' XP">' + L.t + '</span>';
+  }).join('');
+  $('achGrid').innerHTML = ACH.map(a =>
+    '<div class="ach' + (P.ach[a.id] ? ' unlocked' : '') + '" title="' + esc(a.desc) + ' · +' + a.xp + ' XP"><div class="aico">' + a.ico + '</div><div class="anm">' + esc(a.nm) + '</div></div>').join('');
+  $('sassOut').textContent = $('sassOut').dataset.last || 'Press the button. I dare you.';
+}
+function newGameRound(){
+  const pts = chartState.pts && chartState.pts.length > 30 ? chartState.pts : SNAPSHOT.etfDaily;
+  if (!pts || pts.length < 10) { $('gameStage').innerHTML = '<div style="color:var(--faint)">no history loaded yet</div>'; return; }
+  const i = 2 + Math.floor(Math.random() * (pts.length - 3));
+  G.pair = {prev: pts[i-1], hidden: pts[i]};
+  G.round++;
+  $('gameStage').innerHTML =
+    '<div class="game-date">ROUND ' + G.round + ' · REAL HISTORY · Beta ETF mWIG40TR daily</div>' +
+    '<div class="game-prev"><span class="lbl">CLOSE ON ' + fmtDate(G.pair.prev[0]).toUpperCase() + '</span>' + fmt(G.pair.prev[1], 2) + ' zł</div>' +
+    '<div class="game-q">The next trading day closed…</div>' +
+    '<button class="game-btn bull" onclick="guessGame(1)">🐂 BULL — HIGHER</button>' +
+    '<button class="game-btn bear" onclick="guessGame(-1)">🐻 BEAR — LOWER</button>' +
+    '<div class="game-reveal" id="gameReveal"></div><div class="streak">streak: ' + G.streak + '</div>';
+}
+function guessGame(dir){
+  if (!G.pair) return;
+  const prev = G.pair.prev[1], nxt = G.pair.hidden[1];
+  const actual = nxt > prev ? 1 : (nxt < prev ? -1 : (dir === 1 ? 1 : -1)); // tie counts as bull-win for kindness? no: ties are pushes
+  const tie = nxt === prev;
+  const chg = (nxt - prev) / prev * 100;
+  const win = !tie && dir === actual;
+  if (tie){
+    $('gameReveal').innerHTML = 'PUSH — it closed exactly flat at ' + fmt(nxt, 2) + '. Even history has lazy days.';
+  } else if (win){
+    G.streak++; P.gameW++; snd('ding');
+    $('gameReveal').innerHTML = '<span class="up">✅ ' + fmt(nxt, 2) + ' (' + pct(chg) + ') — you win!</span>';
+    addXP(5, 'Bull-or-Bear win');
+    if (G.streak >= 5){ unlock('streak5'); toast('ach', '5-STREAK!', 'Gordon is checking your office for crystal balls.'); }
+  } else {
+    G.streak = 0; P.gameL++; snd('wrong');
+    $('gameReveal').innerHTML = '<span class="down">❌ ' + fmt(nxt, 2) + ' (' + pct(chg) + ') — history disagrees with you.</span>';
+  }
+  P.streakBest = Math.max(P.streakBest, G.streak); saveP();
+  renderArcade();
+  $$('.game-btn').forEach(b => b.disabled = true);
+  setTimeout(newGameRound, 1900);
+}
+function renderAch(){ renderArcade(); }
+
+/* ---- tabs ---- */
+const TABS = ['markets','chart','movers','world','book','wire','gordon','academy','arcade'];
+function switchTab(id){
+  if (!TABS.includes(id)) return;
+  snd('tick');
+  $$('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === id));
+  TABS.forEach(t => { const p = $('panel-' + t); if (p) p.classList.toggle('active', t === id); });
+  if (id === 'chart' && !chartState.pts) loadChart();
+  if (id === 'academy') renderAcademy();
+  if (id === 'arcade'){ renderArcade(); if (!G.pair) newGameRound(); }
+  if (id === 'book') renderBookSim();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+/* ---- command line ---- */
+const CMDS = [
+  {c:'help',        d:'show the command menu'},
+  {c:'1..9',       d:'jump to a desk (tabs)'},
+  {c:'go <ticker>',d:'chart a symbol — e.g. GO PKO'},
+  {c:'sym <name>',  d:'find a symbol — e.g. SYM COPPER'},
+  {c:'movers',      d:'full movers board'},
+  {c:'world',       d:'FX & global session'},
+  {c:'book',        d:'your satellite-1 plan'},
+  {c:'wire',        d:'desk wire commentary'},
+  {c:'gordon',      d:"Gordon's desk"},
+  {c:'academy',     d:'learning studies'},
+  {c:'lesson <n>',  d:'open lesson n (1-12)'},
+  {c:'quiz <n>',    d:'shortcut: open lesson n quiz'},
+  {c:'game',        d:'Bull or Bear price game'},
+  {c:'sass',        d:'emergency sass ration'},
+  {c:'roast <tkr>', d:'make Gordon roast a ticker'},
+  {c:'refresh',     d:'force a live data refresh'},
+  {c:'xp',          d:'show your XP & level'},
+  {c:'sound',       d:'toggle desk sounds'},
+  {c:'status',      d:'data freshness report'}
+];
+function initCmd(){
+  const inp = $('cmdInput'), hint = $('cmdHint');
+  let sel = 0, matches = [];
+  const renderHint = () => {
+    if (!matches.length){ hint.style.display = 'none'; return; }
+    hint.innerHTML = matches.map((m, i) => '<div class="hint-row' + (i === sel ? ' sel' : '') + '" data-cmd="' + esc(m.c) + '"><span class="hcmd">' + esc(m.c) + '</span><span class="hdesc">' + esc(m.d) + '</span></div>').join('');
+    hint.style.display = 'block';
+    $$('#cmdHint .hint-row').forEach(r => r.addEventListener('mousedown', ev => { ev.preventDefault(); inp.value = r.dataset.cmd; hint.style.display = 'none'; execCmd(inp.value); inp.value=''; }));
+  };
+  inp.addEventListener('input', () => {
+    const v = inp.value.trim().toLowerCase();
+    matches = v ? CMDS.filter(c => c.c.toLowerCase().includes(v.split(' ')[0])) : CMDS;
+    sel = 0; renderHint();
+  });
+  inp.addEventListener('keydown', e => {
+    if (e.key === 'ArrowDown'){ e.preventDefault(); sel = Math.min(sel+1, matches.length-1); renderHint(); }
+    else if (e.key === 'ArrowUp'){ e.preventDefault(); sel = Math.max(sel-1, 0); renderHint(); }
+    else if (e.key === 'Enter'){
+      e.preventDefault();
+      execCmd(inp.value.trim());
+      inp.value = ''; hint.style.display = 'none';
+    } else if (e.key === 'Escape'){ inp.blur(); hint.style.display = 'none'; }
+  });
+  inp.addEventListener('blur', () => setTimeout(()=>{ hint.style.display = 'none'; }, 150));
+}
+function bumpCmd(){ P.cmds++; saveP(); if (P.cmds >= 10) unlock('cmd10'); }
+function execCmd(raw){
+  if (!raw) return;
+  bumpCmd(); snd('tick');
+  const parts = raw.toLowerCase().split(/\s+/);
+  const cmd = parts[0], arg = parts.slice(1).join(' ');
+  const num = parseInt(arg, 10);
+  switch(cmd){
+    case 'help': case '?':
+      openModal('⌨️ COMMAND MENU',
+        '<div style="font-family:var(--mono);font-size:12.5px;line-height:2">' +
+        CMDS.map(c => '<b style="color:var(--amber2)">' + esc(c.c) + '</b> — ' + esc(c.d)).join('<br>') +
+        '</div><p style="margin-top:12px;color:var(--faint);font-size:12px">Keyboard: <span class="kbd">1</span>–<span class="kbd">9</span> desks · <span class="kbd">/</span> command line · <span class="kbd">R</span> refresh · <span class="kbd">S</span> sass · <span class="kbd">M</span> mute</p>');
+      break;
+    case 'go': {
+      let s = arg.toUpperCase().replace(/^GO\s+/,'');
+      let hit = ALL_SYMS.find(o => o.s === s || o.s === s + '.WA' || o.n.toUpperCase() === s);
+      if (hit){ openSym(hit.s); }
+      else { const f = ALL_SYMS.filter(o => o.n.toLowerCase().includes(arg)); if (f.length === 1) openSym(f[0].s); else toast('', 'UNKNOWN SYMBOL', 'try SYM ' + arg.toUpperCase() + ' to search'); }
+      break;
+    }
+    case 'sym': {
+      const f = ALL_SYMS.filter(o => o.n.toLowerCase().includes(arg) || o.s.toLowerCase().includes(arg));
+      if (f.length === 1) openSym(f[0].s);
+      else if (f.length) openModal('🔎 SYMBOL SEARCH', f.map(o => '<div style="font-family:var(--mono);padding:5px 0;border-bottom:1px solid var(--line)"><b style="color:var(--amber2)">' + esc(o.s) + '</b> — ' + esc(o.n) + ' <span style="float:right;color:var(--dim)">' + fmt(q(o.s).p, 2) + '</span></div>').join(''));
+      else toast('', 'NO MATCH', 'no symbol like "' + esc(arg) + '" on this desk');
+      break;
+    }
+    case 'movers': switchTab('movers'); break;
+    case 'world': case 'fx': switchTab('world'); break;
+    case 'book': switchTab('book'); break;
+    case 'wire': case 'news': switchTab('wire'); break;
+    case 'gordon': switchTab('gordon'); break;
+    case 'academy': case 'learn': case 'study': switchTab('academy'); break;
+    case 'lesson': case 'quiz':
+      if (num >= 1 && num <= LESSONS.length) { switchTab('academy'); openLesson(num-1); }
+      else toast('', 'LESSON 1-' + LESSONS.length, 'e.g. LESSON 7 — DCA, boring brilliance');
+      break;
+    case 'game': switchTab('arcade'); newGameRound(); break;
+    case 'sass': dispenseSass(); break;
+    case 'roast': {
+      const hit = ALL_SYMS.find(o => o.s.toUpperCase() === arg.toUpperCase() || o.s.toUpperCase() === arg.toUpperCase() + '.WA');
+      if (hit) roastStock(hit.s); else toast('', 'ROAST WHO?', 'try ROAST KGH — copper needs commentary');
+      break;
+    }
+    case 'refresh': refreshNow(); break;
+    case 'xp': {
+      const L = levelInfo(P.xp);
+      toast('xp', L.title + ' · ' + P.xp + ' XP', L.next ? 'next: ' + L.next + ' at ' + L.nextXp + ' XP' : 'maximum rank reached');
+      break;
+    }
+    case 'sound': toggleSound(); break;
+    case 'status': {
+      let ages = Object.values(Q).map(x => x.t ? Math.round((Date.now()-x.t)/1000) : null).filter(x => x != null);
+      toast('', 'DATA STATUS: ' + DATA_MODE, ages.length ? 'oldest live quote ' + Math.max(...ages) + 's ago' : 'snapshot base 03 Nov 2026');
+      break;
+    }
+    default:
+      if (/^[1-9]$/.test(cmd)) switchTab(TABS[+cmd - 1]);
+      else toast('', 'UNKNOWN COMMAND', '"' + esc(raw) + '" — type HELP for the menu');
+  }
+}
+
+/* ---- keyboard shortcuts ---- */
+function initKeys(){
+  document.addEventListener('keydown', e => {
+    const typing = e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA';
+    if (typing) return;
+    if (e.key === '/'){ e.preventDefault(); $('cmdInput').focus(); }
+    else if (e.key >= '1' && e.key <= '9'){ switchTab(TABS[+e.key - 1]); }
+    else if (e.key.toLowerCase() === 'r'){ refreshNow(); }
+    else if (e.key.toLowerCase() === 's'){ dispenseSass(); }
+    else if (e.key.toLowerCase() === 'm'){ toggleSound(); }
+    else if (e.key === '?'){ execCmd('help'); }
+  });
+  $$('#tabBar .tab').forEach(t => t.addEventListener('click', () => switchTab(t.dataset.tab)));
+  $$('#movFilter .sbtn').forEach(b => b.addEventListener('click', () => {
+    movFilter = b.dataset.f;
+    $$('#movFilter .sbtn').forEach(x => x.classList.toggle('active', x === b));
+    snd('click'); renderMovers();
+  }));
+}
+
+/* ---- boot ---- */
+function boot(){
+  // restore sound pref
+  $('sndBtn').textContent = P.sound ? '🔊 SOUND ON' : '🔇 SOUND OFF';
+  $('sndBtn').classList.toggle('on', P.sound);
+  // snapshot is the base — valid cache entries overlay it (a corrupt or old-format v3 cache can never blank the board)
+  Q = snapshotQuotes();
+  const cache = LS.get('mist40', null);
+  let nCached = 0;
+  if (cache && typeof cache === 'object'){
+    for (const s in cache){ const c = cache[s]; if (c && typeof c.p === 'number' && isFinite(c.p)){ Q[s] = c; nCached++; } }
+  }
+  setMode(nCached ? 'CACHED' : 'SNAPSHOT', nCached ? '· last saved quotes' : '· GPW close 03 Nov 2026');
+  initChartUI(); initCmd(); initKeys();
+  renderAll(); renderAcademy(); renderArcade(); renderBookSim(); renderXP();
+  unlock('boot');
+  toast('', '⚡ MIST-40 ULTRA ONLINE', '9 desks · live WSE feeds · academy + arcade armed');
+  startTimers();
+  refreshAll(false);
+}
+if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0){
+  navigator.serviceWorker.register('sw.js').catch(function(){ /* hosted-only feature */ });
+}
+document.addEventListener('DOMContentLoaded', boot);
+</script>
+</body>
+</html>
