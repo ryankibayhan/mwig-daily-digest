@@ -1,6 +1,6 @@
 # mwig-daily-digest
 
-Daily "trader-vibe" digest of the Polish mWIG40 session as a Mistral Workflow, pushed to Telegram at 18:15 Europe/Warsaw.
+Daily "trader-vibe" digest of the Polish mWIG40 session as a Mistral Workflow, 
 
 Pipeline: fetch mWIG40 / WIG20 / EUR-PLN history (stooq CSV) -> pull and rank Polish finance RSS headlines -> a Mistral model ("Gordon", Warsaw trading-desk editor) writes an entertaining English digest (THE TAPE / MOVER SPOTLIGHT / INSIDER WHISPERS / WHY IT MATTERS FOR YOU / TRADER LINGO / FUN FACT) -> push to Telegram.
 
