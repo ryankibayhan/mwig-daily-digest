@@ -390,9 +390,42 @@ footer .fwrap{max-width:1440px;margin:0 auto;padding:0 16px;display:flex;gap:14p
   .kbd{display:none}
 }
 .hidden{display:none!important}
+
+/* ============ NZT LIMITLESS MODE (v4.3) ============ */
+#nztRain{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;opacity:0;transition:opacity .8s}
+body.nzt #nztRain{opacity:.24}
+body.nzt{
+  --amber:#2fd4ff;--amber2:#8eefff;--amber-dim:rgba(47,212,255,.16);
+  background:
+    radial-gradient(1200px 520px at 85% -10%,rgba(47,212,255,.11),transparent 60%),
+    radial-gradient(900px 430px at -10% 110%,rgba(47,212,255,.08),transparent 60%),
+    radial-gradient(700px 340px at 50% 45%,rgba(47,212,255,.05),transparent 70%),
+    #04070c}
+body.nzt::after{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:repeating-linear-gradient(0deg,rgba(120,220,255,.03) 0 1px,transparent 1px 4px)}
+body.nzt .logo{background:radial-gradient(circle at 30% 25%,#8eefff,#2fd4ff 45%,#0a4a66 90%);
+  color:#00222f;box-shadow:0 0 26px rgba(47,212,255,.6), inset 0 0 8px rgba(255,255,255,.45)}
+body.nzt .brand h1{background:linear-gradient(90deg,#fff 0%,#9ff2ff 55%,#2fd4ff 100%);
+  -webkit-background-clip:text;background-clip:text}
+body.nzt .brand h1 .ultra{-webkit-text-fill-color:#2fd4ff;text-shadow:0 0 16px rgba(47,212,255,.7)}
+body.nzt .tab.active{box-shadow:inset 0 2px 0 #2fd4ff,0 0 18px rgba(47,212,255,.25)}
+body.nzt .card{transition:all .25s}
+body.nzt .card:hover{border-color:rgba(47,212,255,.5);box-shadow:0 0 26px rgba(47,212,255,.18);transform:translateY(-2px)}
+body.nzt .chip{border-color:rgba(47,212,255,.25)}
+body.nzt .chip:hover{border-color:#2fd4ff;color:#9ff2ff}
+body.nzt #statusBadge.live{box-shadow:0 0 16px rgba(34,197,94,.5)}
+body.nzt .tape{animation-duration:38s}
+body.nzt .cmdbox .prompt{color:#2fd4ff;text-shadow:0 0 10px rgba(47,212,255,.6)}
+body.nzt .hclock .time{text-shadow:0 0 12px rgba(47,212,255,.35)}
+body.nzt ::selection{background:rgba(47,212,255,.25)}
+body.nzt .mood-arc{filter:drop-shadow(0 0 6px rgba(47,212,255,.4))}
+body.nzt .mood-read{text-shadow:0 0 14px rgba(47,212,255,.45)}
+body.nzt #nztBtn.on{color:#9ff2ff;border-color:rgba(47,212,255,.6);background:rgba(47,212,255,.12);
+  box-shadow:0 0 16px rgba(47,212,255,.35)}
 </style>
 </head>
 <body>
+<canvas id="nztRain"></canvas>
 <header>
   <div class="hwrap">
     <div class="brand">
@@ -411,6 +444,7 @@ footer .fwrap{max-width:1440px;margin:0 auto;padding:0 16px;display:flex;gap:14p
     <span class="chip" id="statusBadge" title="Data freshness: LIVE = fetched just now · CACHED = last saved copy · SNAPSHOT = built-in 03 Nov 2026 close"><span class="dot"></span><span id="statusTxt">…</span></span>
     <span class="chip" id="xpChip" title="Your desk XP and level — click for the Trophy Room" onclick="switchTab('arcade')">★ <b id="xpVal">0</b> · <span id="lvlVal">INTERN</span><span class="xpbar-mini"><i id="xpBarMini"></i></span></span>
     <button class="chip" id="sndBtn" title="Toggle desk sounds (M)" onclick="toggleSound()">🔇 SOUND OFF</button>
+    <button class="chip" id="nztBtn" title="NZT Limitless mode (N) — ice-blue theme + data rain" onclick="toggleNZT()">💊 NZT</button>
     <button class="chip" id="refBtn" onclick="refreshNow()" title="Refresh now (R)">⟳ REFRESH NOW</button>
   </div>
   <div class="cmdwrap">
@@ -601,7 +635,7 @@ footer .fwrap{max-width:1440px;margin:0 auto;padding:0 16px;display:flex;gap:14p
 
 <footer>
   <div class="fwrap">
-    <span>MIST-40 ULTRA v4.2.1 TURBO · personal desk · turbo feed: whole board in 2 batched Yahoo requests · honest badge above = real freshness</span>
+    <span>MIST-40 ULTRA v4.3 NZT · personal desk · turbo feed: whole board in 2 batched Yahoo requests · honest badge above = real freshness</span>
     <span id="footStatus"></span>
     <span>Educational toy. No investment advice. No fabricated numbers — ever.</span>
   </div>
@@ -980,6 +1014,7 @@ const P = {
   ranges:    LS.get('mist40_ranges', {}),       // range -> true
   streakBest:LS.get('mist40_streak', 0),
   sound:     LS.get('mist40_snd', true),
+  nzt:       LS.get('mist40_nzt', false),
   gameW:     LS.get('mist40_gw', 0), gameL: LS.get('mist40_gl', 0)
 };
 function saveP(){
@@ -2020,6 +2055,7 @@ const CMDS = [
   {c:'refresh',     d:'force a live data refresh'},
   {c:'xp',          d:'show your XP & level'},
   {c:'sound',       d:'toggle desk sounds'},
+  {c:'nzt',         d:'Limitless mode — ice-blue theme + data rain'},
   {c:'status',      d:'data freshness report'}
 ];
 function initCmd(){
@@ -2099,6 +2135,7 @@ function execCmd(raw){
       break;
     }
     case 'sound': toggleSound(); break;
+    case 'nzt': toggleNZT(); break;
     case 'status': {
       let ages = Object.values(Q).map(x => x.t ? Math.round((Date.now()-x.t)/1000) : null).filter(x => x != null);
       toast('', 'DATA STATUS: ' + DATA_MODE, ages.length ? 'oldest live quote ' + Math.max(...ages) + 's ago' : 'snapshot base 03 Nov 2026');
@@ -2120,6 +2157,7 @@ function initKeys(){
     else if (e.key.toLowerCase() === 'r'){ refreshNow(); }
     else if (e.key.toLowerCase() === 's'){ dispenseSass(); }
     else if (e.key.toLowerCase() === 'm'){ toggleSound(); }
+    else if (e.key.toLowerCase() === 'n'){ toggleNZT(); }
     else if (e.key === '?'){ execCmd('help'); }
   });
   $$('#tabBar .tab').forEach(t => t.addEventListener('click', () => switchTab(t.dataset.tab)));
@@ -2131,10 +2169,71 @@ function initKeys(){
 }
 
 /* ---- boot ---- */
+/* ---- NZT LIMITLESS MODE (v4.3) — pure visuals; data honesty unchanged ---- */
+let nztRainOn = false, nztRAF = 0;
+function nztRain(){
+  const cv = $('nztRain');
+  const ctx = (cv.getContext && cv.getContext('2d')) || null;
+  if (!ctx || typeof requestAnimationFrame !== 'function') return; // no canvas / no rAF → idle, no crash
+  cv.width = window.innerWidth; cv.height = window.innerHeight;
+  if (!window.__nztRz){ window.__nztRz = true; window.addEventListener('resize', function(){ const c = $('nztRain'); c.width = window.innerWidth; c.height = window.innerHeight; }); }
+  const W = cv.width, H = cv.height;
+  const n = Math.max(12, Math.floor(W / 80));
+  const cols = [];
+  for (let i = 0; i < n; i++){
+    cols.push({
+      x: Math.random() * W, y: Math.random() * H,
+      v: 22 + Math.random() * 46,
+      len: 8 + Math.floor(Math.random() * 7),
+      d: Array.from({length: 16}, () => Math.floor(Math.random() * 10))
+    });
+  }
+  let last = 0;
+  function frame(t){
+    if (!nztRainOn) return;
+    nztRAF = requestAnimationFrame(frame);
+    const dt = Math.min(0.1, (t - (last || t)) / 1000); last = t;
+    ctx.clearRect(0, 0, W, H);
+    ctx.font = '12px monospace';
+    for (const c of cols){
+      c.y += c.v * dt;
+      if (c.y > H + 260){ c.y = -260; c.x = Math.random() * W; }
+      ctx.fillStyle = 'rgba(47,212,255,.92)';
+      ctx.fillText(String(c.d[0]), c.x, c.y);
+      for (let i = 1; i < c.len; i++){
+        ctx.fillStyle = 'rgba(47,212,255,' + ((1 - i / c.len) * 0.30).toFixed(3) + ')';
+        ctx.fillText(String(c.d[i % c.d.length]), c.x, c.y - i * 14);
+      }
+    }
+  }
+  nztRAF = requestAnimationFrame(frame);
+}
+function stopNZTRain(){
+  nztRainOn = false;
+  if (nztRAF && typeof cancelAnimationFrame === 'function') cancelAnimationFrame(nztRAF);
+  nztRAF = 0;
+}
+function applyNZT(){
+  const on = !!P.nzt;
+  document.body.classList.toggle('nzt', on);
+  const b = $('nztBtn');
+  b.textContent = on ? '💊 NZT ON' : '💊 NZT';
+  b.classList.toggle('on', on);
+  if (on){ if (!nztRainOn){ nztRainOn = true; nztRain(); } }
+  else stopNZTRain();
+}
+function toggleNZT(){
+  P.nzt = !P.nzt;
+  LS.set('mist40_nzt', P.nzt);
+  applyNZT();
+  if (P.nzt){ snd('level'); toast('xp', '💊 NZT ENGAGED', "You can suddenly see everything. The market still can't be outsmarted — that's the movie's whole point."); }
+  else { snd('click'); toast('', 'NZT WORN OFF', 'Back to merely excellent vision.'); }
+}
 function boot(){
   // restore sound pref
   $('sndBtn').textContent = P.sound ? '🔊 SOUND ON' : '🔇 SOUND OFF';
   $('sndBtn').classList.toggle('on', P.sound);
+  applyNZT();
   // snapshot is the base — valid cache entries overlay it (a corrupt or old-format v3 cache can never blank the board)
   Q = snapshotQuotes();
   const cache = LS.get('mist40', null);
