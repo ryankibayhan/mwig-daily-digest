@@ -177,14 +177,32 @@ table.mtable td .sym{color:var(--faint);font-size:10.5px;margin-left:6px}
 .seg-btns .sbtn:hover{color:var(--txt)}
 .seg-btns .sbtn.active{background:var(--amber-dim);border-color:rgba(255,180,0,.5);color:var(--amber2)}
 
-/* ---- gauge ---- */
+/* ---- gauge / mood-o-meter v2 — built once, animated in place ---- */
 .gauge-wrap{text-align:center}
-.gauge-val{font-family:var(--mono);font-size:26px;font-weight:800}
+.mood-svg{max-width:250px;margin:0 auto;display:block}
+.mood-arc-bg{fill:none;stroke:#1c2433;stroke-width:11;stroke-linecap:round}
+.mood-arc{fill:none;stroke:var(--up);stroke-width:11;stroke-linecap:round;transition:stroke-dasharray .9s cubic-bezier(.3,1,.4,1),stroke .4s}
+#moodNeedle{transition:transform .9s cubic-bezier(.34,1.45,.5,1);transform-box:view-box;transform-origin:110px 106px}
+#moodNeedle line{stroke:#fff;stroke-width:2.5;stroke-linecap:round}
+#moodNeedle circle{fill:#fff}
+.mood-tick{stroke:#2a3450;stroke-width:1.5}
+.mood-read{font-family:var(--mono);font-weight:800;font-size:26px;color:var(--txt)}
+.mood-read .mood-unit{font-size:12px;color:var(--dim);letter-spacing:.12em;margin-left:5px}
+.gauge-val{font-family:var(--mono);font-size:15px;font-weight:800;letter-spacing:.14em;margin-top:2px}
 .gauge-label{font-size:10px;color:var(--faint);letter-spacing:.16em;text-transform:uppercase;font-family:var(--mono);margin-top:2px}
+.breadth-bar{display:flex;height:8px;border-radius:4px;overflow:hidden;margin-top:10px;background:var(--line)}
+.breadth-bar i{flex:none;height:100%;width:33.33%;transition:width .9s cubic-bezier(.3,1,.4,1)}
+#bbUp{background:var(--up)}
+#bbFlat{background:#3a465f}
+#bbDown{background:var(--down)}
+.breadth-counts{font-family:var(--mono);font-size:11px;color:var(--dim);margin-top:5px;letter-spacing:.06em}
+.breadth-counts .up{color:var(--up)}
+.breadth-counts .down{color:var(--down)}
 .meter{display:flex;gap:3px;margin-top:9px}
-.meter i{flex:1;height:9px;border-radius:2px;background:var(--line)}
+.meter i{flex:1;height:9px;border-radius:2px;background:var(--line);transition:background .5s,box-shadow .5s}
 .meter i.on-up{background:var(--up);box-shadow:0 0 6px rgba(34,197,94,.5)}
 .meter i.on-down{background:var(--down);box-shadow:0 0 6px rgba(239,68,68,.5)}
+.meter i.on-flat{background:#3a465f}
 
 /* ---- chart desk ---- */
 .chart-card{padding-bottom:6px}
@@ -583,7 +601,7 @@ footer .fwrap{max-width:1440px;margin:0 auto;padding:0 16px;display:flex;gap:14p
 
 <footer>
   <div class="fwrap">
-    <span>MIST-40 ULTRA v4.2 TURBO · personal desk · turbo feed: whole board in 2 batched Yahoo requests · honest badge above = real freshness</span>
+    <span>MIST-40 ULTRA v4.2.1 TURBO · personal desk · turbo feed: whole board in 2 batched Yahoo requests · honest badge above = real freshness</span>
     <span id="footStatus"></span>
     <span>Educational toy. No investment advice. No fabricated numbers — ever.</span>
   </div>
@@ -1349,44 +1367,74 @@ function renderIndices(){
   }).join('');
 }
 
-/* ---- mood-o-meter ---- */
+/* ---- mood-o-meter v2 — DOM built ONCE, updated in place (no flicker, smooth needle) ---- */
+function buildMood(){
+  const r = 88, cx = 110, cy = 106;
+  const arcD = 'M' + (cx - r) + ',' + cy + ' A' + r + ',' + r + ' 0 0 1 ' + (cx + r) + ',' + cy;
+  let ticks = '';
+  [25, 50, 75].forEach(t => {
+    const phi = (180 - t * 1.8) * Math.PI / 180;
+    ticks += '<line class="mood-tick" x1="' + (cx + 79 * Math.cos(phi)).toFixed(1) + '" y1="' + (cy - 79 * Math.sin(phi)).toFixed(1) +
+             '" x2="' + (cx + 84 * Math.cos(phi)).toFixed(1) + '" y2="' + (cy - 84 * Math.sin(phi)).toFixed(1) + '"/>';
+  });
+  $('moodWrap').innerHTML =
+    '<svg class="mood-svg" viewBox="0 0 220 122" aria-label="breadth gauge">' +
+      '<path class="mood-arc-bg" d="' + arcD + '" pathLength="100" stroke-dasharray="100 100"/>' +
+      '<path id="moodArc" class="mood-arc" d="' + arcD + '" pathLength="100" stroke-dasharray="0 100"/>' +
+      ticks +
+      '<text x="' + (cx - r) + '" y="118" text-anchor="middle" font-size="9" fill="#5a687e" font-family="monospace">0%</text>' +
+      '<text x="110" y="12" text-anchor="middle" font-size="9" fill="#5a687e" font-family="monospace">50%</text>' +
+      '<text x="' + (cx + r) + '" y="118" text-anchor="middle" font-size="9" fill="#5a687e" font-family="monospace">100%</text>' +
+      '<g id="moodNeedle"><line x1="110" y1="106" x2="110" y2="28"/><circle cx="110" cy="106" r="5"/></g>' +
+    '</svg>' +
+    '<div class="mood-read"><span id="moodPct">—</span><span class="mood-unit">% UP</span></div>' +
+    '<div class="gauge-val" id="moodVal"></div>' +
+    '<div class="gauge-label" id="moodLbl"></div>' +
+    '<div class="breadth-bar"><i id="bbUp"></i><i id="bbFlat"></i><i id="bbDown"></i></div>' +
+    '<div class="breadth-counts"><b id="bcUp" class="up"></b><span id="bcFlat"></span><b id="bcDown" class="down"></b></div>' +
+    '<div class="meter" id="moodDots">' + UNIVERSE.stocks.map((o, i) => '<i id="md' + i + '"></i>').join('') + '</div>';
+}
+let moodBuilt = false;
 function renderMood(){
-  const b = upCount();
-  const pctUp = b.pct;
-  const mood = pctUp >= 80 ? ['EUPHORIA','even the interns are making money','var(--up)'] :
+  if (!moodBuilt){ buildMood(); moodBuilt = true; }
+  let ups = 0, downs = 0, flats = 0, n = 0;
+  UNIVERSE.stocks.forEach(o => {
+    const c = q(o.s).chg;
+    if (c == null) return;
+    n++;
+    if (c > 0) ups++; else if (c < 0) downs++; else flats++;
+  });
+  const pctUp = n ? ups / n * 100 : null;
+  const mood = pctUp == null ? ['NO DATA','the tape went quiet','var(--faint)'] :
+               pctUp >= 80 ? ['EUPHORIA','even the interns are making money','var(--up)'] :
                pctUp >= 60 ? ['GREEN SEA','broad, boring, beautiful','var(--up)'] :
                pctUp >= 45 ? ['SPLIT DESK','a knife fight in a corridor','#c9a227'] :
                pctUp >= 25 ? ['RED DRIFT','the tape is leaking','#d97706'] :
                              ['CAPITULATION','everyone is suddenly an art critic','var(--down)'];
-  const segs = UNIVERSE.stocks.map(o => {
+  const arc = $('moodArc');
+  arc.setAttribute('stroke-dasharray', (pctUp || 0).toFixed(1) + ' 100');
+  arc.style.stroke = mood[2];
+  const nd = $('moodNeedle');
+  nd.style.transform = 'rotate(' + (pctUp == null ? 0 : pctUp / 100 * 180 - 90) + 'deg)';
+  $('moodPct').textContent = pctUp == null ? '—' : fmt(pctUp, 0);
+  const mv = $('moodVal');
+  mv.textContent = mood[0];
+  mv.style.color = mood[2];
+  $('moodLbl').textContent = mood[1];
+  const W = (n || 1) / 100;
+  $('bbUp').style.width = (ups / W) + '%';
+  $('bbFlat').style.width = (flats / W) + '%';
+  $('bbDown').style.width = (downs / W) + '%';
+  $('bcUp').textContent = ups + ' up';
+  $('bcFlat').textContent = n ? ' \u00b7 ' + flats + ' flat \u00b7 ' : '';
+  $('bcDown').textContent = downs + ' down';
+  UNIVERSE.stocks.forEach((o, i) => {
     const c = q(o.s).chg;
-    const on = c == null ? '' : (c > 0 ? 'on-up' : (c < 0 ? 'on-down' : ''));
-    return '<i class="' + on + '" title="' + esc(o.n) + ' ' + pct(c) + '"></i>';
-  }).join('');
-  // semicircular gauge
-  const ang = clamp(pctUp, 0, 100) / 100 * 180 - 90;
-  const rad = -90 * Math.PI/180;
-  const r = 62, cx = 80, cy = 72;
-  const arc = (a0, a1, col) => {
-    const p0 = [cx + r*Math.cos((a0-90)*Math.PI/180), cy + r*Math.sin((a0-90)*Math.PI/180)];
-    const p1 = [cx + r*Math.cos((a1-90)*Math.PI/180), cy + r*Math.sin((a1-90)*Math.PI/180)];
-    return '<path d="M' + p0[0].toFixed(1) + ',' + p0[1].toFixed(1) + ' A' + r + ',' + r + ' 0 0 1 ' + p1[0].toFixed(1) + ',' + p1[1].toFixed(1) + '" stroke="' + col + '" stroke-width="10" fill="none" stroke-linecap="round"/>';
-  };
-  const ndx = clamp(pctUp/100*180, 0, 180);
-  const needle = ang;
-  const nx = cx + (r-14)*Math.cos((needle-90)*Math.PI/180);
-  const ny = cy + (r-14)*Math.sin((needle-90)*Math.PI/180);
-  $('moodWrap').innerHTML =
-    '<svg viewBox="0 0 160 92" style="max-width:230px;margin:0 auto;display:block">' +
-      arc(2, 178, '#1c2433') + arc(Math.max(2,ndx-16), Math.min(178, ndx), mood[2]) +
-      '<line x1="' + cx + '" y1="' + cy + '" x2="' + nx.toFixed(1) + '" y2="' + ny.toFixed(1) + '" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>' +
-      '<circle cx="' + cx + '" cy="' + cy + '" r="4" fill="#fff"/>' +
-      '<text x="' + cx + '" y="' + (cy-8) + '" text-anchor="middle" font-size="21" font-weight="800" fill="' + mood[2] + '" font-family="monospace">' + fmt(pctUp,0) + '% UP</text>' +
-    '</svg>' +
-    '<div class="gauge-val" style="color:' + mood[2] + ';font-size:15px;letter-spacing:.14em">' + mood[0] + '</div>' +
-    '<div class="gauge-label" style="color:var(--dim)">' + mood[1] + '</div>' +
-    '<div class="meter">' + segs + '</div>';
-  $('breadthMini').textContent = b.ups + '/' + b.n + ' up';
+    const el = $('md' + i);
+    el.className = c == null ? '' : (c > 0 ? 'on-up' : (c < 0 ? 'on-down' : 'on-flat'));
+    el.setAttribute('title', o.n + ' ' + (c == null ? '—' : pct(c)));
+  });
+  $('breadthMini').textContent = n ? ups + '/' + n + ' up' : 'no data';
 }
 
 /* ---- mini movers (markets tab) ---- */
