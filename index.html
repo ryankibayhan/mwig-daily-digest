@@ -422,6 +422,21 @@ body.nzt .mood-arc{filter:drop-shadow(0 0 6px rgba(47,212,255,.4))}
 body.nzt .mood-read{text-shadow:0 0 14px rgba(47,212,255,.45)}
 body.nzt #nztBtn.on{color:#9ff2ff;border-color:rgba(47,212,255,.6);background:rgba(47,212,255,.12);
   box-shadow:0 0 16px rgba(47,212,255,.35)}
+/* ---- nzt wire (secret super-sync news desk — visible only in NZT mode) ---- */
+#tab-nztwire{display:none}
+body.nzt #tab-nztwire{display:inline-flex;color:#8eefff;border-color:rgba(47,212,255,.5)}
+#panel-nztwire{display:none}
+#panel-nztwire.active{display:block}
+.nzw-card{box-shadow:0 0 18px rgba(47,212,255,.22), inset 0 0 30px rgba(47,212,255,.05)}
+.nzw-filters{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 10px}
+.nzw-f.on{color:#9ff2ff;border-color:rgba(47,212,255,.65);background:rgba(47,212,255,.14)}
+.nzw-list{display:flex;flex-direction:column;gap:8px;max-height:52vh;overflow-y:auto;padding-right:4px}
+.nzw-item{display:block;padding:8px 10px;border:1px solid rgba(47,212,255,.18);border-radius:8px;background:rgba(10,25,45,.5);text-decoration:none;color:inherit;cursor:pointer;transition:transform .15s, box-shadow .15s, border-color .15s}
+.nzw-item:hover{transform:translateX(4px);border-color:rgba(47,212,255,.6);box-shadow:0 0 12px rgba(47,212,255,.28)}
+.nzw-item .nzw-src{font-size:10px;letter-spacing:.08em;color:#2fd4ff;text-transform:uppercase;margin-right:8px}
+.nzw-item .nzw-time{font-size:10px;color:rgba(142,239,255,.55);margin-left:8px}
+.nzw-item b{display:inline;font-weight:600}
+.nzw-empty{color:rgba(142,239,255,.6);padding:14px;text-align:center}
 </style>
 </head>
 <body>
@@ -468,6 +483,7 @@ body.nzt #nztBtn.on{color:#9ff2ff;border-color:rgba(47,212,255,.6);background:rg
   <button class="tab" data-tab="gordon"><span class="tnum">7</span>GORDON</button>
   <button class="tab" data-tab="academy"><span class="tnum">8</span>ACADEMY</button>
   <button class="tab" data-tab="arcade"><span class="tnum">9</span>ARCADE</button>
+  <button class="tab" id="tab-nztwire" data-tab="nztwire" title="NZT only — super sync live news firehose"><span class="tnum">0</span>⚡ NZT WIRE</button>
 </nav>
 
 <main>
@@ -613,6 +629,22 @@ body.nzt #nztBtn.on{color:#9ff2ff;border-color:rgba(47,212,255,.6);background:rg
 </section>
 
 <!-- ============ 9 · ARCADE ============ -->
+<section class="panel" id="panel-nztwire">
+  <div class="card nzw-card">
+    <div class="chead"><h3>⚡ NZT WIRE — SUPER SYNC LIVE NEWS</h3><span class="tag" id="nztNewsBadge">SYNCING…</span>
+      <div class="spacer"></div><button class="chip" id="nztNewsRefresh" title="Force a full re-sync of every feed">⟳ SYNC NOW</button></div>
+    <div class="mini" style="margin:2px 0 8px">🇵🇱 Poland · GPW/WSE · złoty &amp; rates · global finance — one firehose, zero fluff. <b>Click a headline to read, hover for Gordon's take.</b></div>
+    <div class="nzw-filters" id="nzwFilters">
+      <button class="chip nzw-f on" data-f="all">ALL</button>
+      <button class="chip nzw-f" data-f="pl">🇵🇱 POLAND</button>
+      <button class="chip nzw-f" data-f="wse">🏛 GPW/WSE</button>
+      <button class="chip nzw-f" data-f="fx"> złoty/PLN</button>
+      <button class="chip nzw-f" data-f="gl">🌍 GLOBAL</button>
+    </div>
+    <div id="nztNewsList" class="nzw-list"></div>
+    <div class="card inset" id="nztGordonTake" style="margin-top:10px"><span class="mini">GORDON:</span> <span id="nztGordonTakeTxt" class="mini">Hover a headline — I'll tell you what it actually means. That's the NZT talking, not me.</span></div>
+  </div>
+</section>
 <section class="panel" id="panel-arcade">
   <div class="grid g2">
     <div class="card">
@@ -635,7 +667,7 @@ body.nzt #nztBtn.on{color:#9ff2ff;border-color:rgba(47,212,255,.6);background:rg
 
 <footer>
   <div class="fwrap">
-    <span>MIST-40 ULTRA v4.3 NZT · personal desk · turbo feed: whole board in 2 batched Yahoo requests · honest badge above = real freshness</span>
+    <span>MIST-40 ULTRA v4.3.1 NZT WIRE · personal desk · turbo feed: whole board in 2 batched Yahoo requests · honest badge above = real freshness</span>
     <span id="footStatus"></span>
     <span>Educational toy. No investment advice. No fabricated numbers — ever.</span>
   </div>
@@ -2022,7 +2054,7 @@ function guessGame(dir){
 function renderAch(){ renderArcade(); }
 
 /* ---- tabs ---- */
-const TABS = ['markets','chart','movers','world','book','wire','gordon','academy','arcade'];
+const TABS = ['markets','chart','movers','world','book','wire','gordon','academy','arcade','nztwire'];
 function switchTab(id){
   if (!TABS.includes(id)) return;
   snd('tick');
@@ -2031,6 +2063,7 @@ function switchTab(id){
   if (id === 'chart' && !chartState.pts) loadChart();
   if (id === 'academy') renderAcademy();
   if (id === 'arcade'){ renderArcade(); if (!G.pair) newGameRound(); }
+  if (id === 'nztwire'){ if (!P.nzt){ toast('', 'ACCESS DENIED', "The NZT WIRE only exists for a brain running at full capacity. Take the pill first (press N)."); switchTab('markets'); return; } initNewsDesk(); renderNews(); }
   if (id === 'book') renderBookSim();
   window.scrollTo({top: 0, behavior: 'smooth'});
 }
@@ -2056,6 +2089,7 @@ const CMDS = [
   {c:'xp',          d:'show your XP & level'},
   {c:'sound',       d:'toggle desk sounds'},
   {c:'nzt',         d:'Limitless mode — ice-blue theme + data rain'},
+  {c:'news',        d:'⚡ NZT WIRE — super sync live Poland/market news (NZT only)'},
   {c:'status',      d:'data freshness report'}
 ];
 function initCmd(){
@@ -2136,13 +2170,14 @@ function execCmd(raw){
     }
     case 'sound': toggleSound(); break;
     case 'nzt': toggleNZT(); break;
+    case 'news': if (P.nzt){ switchTab('nztwire'); syncNews(true); } else toast('', 'ACCESS DENIED', "NZT WIRE requires a fully-synced brain. Press N first — the pill is free, unlike the lessons it teaches."); break;
     case 'status': {
       let ages = Object.values(Q).map(x => x.t ? Math.round((Date.now()-x.t)/1000) : null).filter(x => x != null);
       toast('', 'DATA STATUS: ' + DATA_MODE, ages.length ? 'oldest live quote ' + Math.max(...ages) + 's ago' : 'snapshot base 03 Nov 2026');
       break;
     }
     default:
-      if (/^[1-9]$/.test(cmd)) switchTab(TABS[+cmd - 1]);
+      if (/^[0-9]$/.test(cmd)) switchTab(cmd === '0' ? 'nztwire' : TABS[+cmd - 1]);
       else toast('', 'UNKNOWN COMMAND', '"' + esc(raw) + '" — type HELP for the menu');
   }
 }
@@ -2154,6 +2189,7 @@ function initKeys(){
     if (typing) return;
     if (e.key === '/'){ e.preventDefault(); $('cmdInput').focus(); }
     else if (e.key >= '1' && e.key <= '9'){ switchTab(TABS[+e.key - 1]); }
+    else if (e.key === '0'){ switchTab('nztwire'); }
     else if (e.key.toLowerCase() === 'r'){ refreshNow(); }
     else if (e.key.toLowerCase() === 's'){ dispenseSass(); }
     else if (e.key.toLowerCase() === 'm'){ toggleSound(); }
@@ -2219,8 +2255,8 @@ function applyNZT(){
   const b = $('nztBtn');
   b.textContent = on ? '💊 NZT ON' : '💊 NZT';
   b.classList.toggle('on', on);
-  if (on){ if (!nztRainOn){ nztRainOn = true; nztRain(); } }
-  else stopNZTRain();
+  if (on){ if (!nztRainOn){ nztRainOn = true; nztRain(); } switchNewsGate(); }
+  else { stopNZTRain(); stopNewsSync(); }
 }
 function toggleNZT(){
   P.nzt = !P.nzt;
@@ -2228,6 +2264,136 @@ function toggleNZT(){
   applyNZT();
   if (P.nzt){ snd('level'); toast('xp', '💊 NZT ENGAGED', "You can suddenly see everything. The market still can't be outsmarted — that's the movie's whole point."); }
   else { snd('click'); toast('', 'NZT WORN OFF', 'Back to merely excellent vision.'); }
+}
+/* ---- NZT WIRE — super sync live news firehose (secret desk, NZT-only) ---- */
+function escapeHTML(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+const NZW = { items: [], filter: 'all', t: 0, timer: 0, loading: false };
+const NZW_FEEDS = [
+  {f:'pl', label:'POLAND',    bq:'Poland economy',        gq:'Poland economy OR inflation OR NBP when:7d'},
+  {f:'wse',label:'GPW/WSE',   bq:'Warsaw Stock Exchange', gq:'"Warsaw Stock Exchange" OR GPW OR mWIG40 OR WIG20 when:7d'},
+  {f:'fx', label:'ZLOTY/PLN', bq:'zloty',                 gq:'zloty OR "Polish zloty" OR PLN currency when:7d'},
+  {f:'gl', label:'GLOBAL',     bq:'European stock market', gq:'European stocks OR ECB OR "Federal Reserve" OR inflation when:7d'}
+];
+function nzwURL(f){ // Bing News RSS primary (verified live), Google News RSS fallback
+  return { bing: 'https://www.bing.com/news/search?q=' + encodeURIComponent(f.bq) + '&format=RSS',
+           goog: 'https://news.google.com/rss/search?q=' + encodeURIComponent(f.gq) + '&hl=en-US&gl=US&ceid=US:en' };
+}
+async function fetchText(url){
+  const order = [bestProxy, ...PROXIES.map((_,i)=>i).filter(i=>i!==bestProxy)];
+  for (const pi of order){
+    try{
+      const r = await fetch(PROXIES[pi](url), {cache:'no-store'});
+      if (!r.ok) continue;
+      const t = await r.text();
+      if (t && t.length > 80){ bestProxy = pi; LS.set('mist40_proxy', pi); return t; }
+    }catch(e){ /* next proxy */ }
+  }
+  return null;
+}
+function parseRSS(xml, DP){
+  const parser = DP || (typeof DOMParser !== 'undefined' ? new DOMParser() : null);
+  if (!parser) return [];
+  const doc = parser.parseFromString(xml, 'text/xml');
+  if (!doc) return [];
+  const out = [];
+  doc.querySelectorAll('item').forEach(it => {
+    const g = t => {
+      let e = it.querySelector(t);
+      if (!e && t === 'source'){ try { e = it.querySelector('News\\:Source'); } catch(err){ e = null; } }
+      return e ? e.textContent : '';
+    };
+    let link = g('link');
+    if (/apiclick|bing\.com\/news\//.test(link)){ // unwrap Bing redirect to the real article URL
+      const m = link.match(/[?&]url=([^&]+)/);
+      if (m){ try { const real = decodeURIComponent(m[1]); if (/^https?:\/\//i.test(real)) link = real; } catch(err){} }
+    }
+    if (link) out.push({ t: (g('title') || '').trim(), link, d: g('pubDate'), src: g('source') || 'bing news' });
+  });
+  return out;
+}
+async function syncNews(manual){
+  if (NZW.loading) return;
+  NZW.loading = true;
+  const b = $('nztNewsBadge'); if (b) b.textContent = '⇄ SYNCING…';
+  const results = await Promise.all(NZW_FEEDS.map(async feed => {
+    const urls = nzwURL(feed);
+    let items = parseRSS(await fetchText(urls.bing));
+    if (!items.length) items = parseRSS(await fetchText(urls.goog)); // fallback chain
+    return items.slice(0, 15).map(it => ({ ...it, f: feed.f, label: feed.label }));
+  }));
+  const seen = {}; const merged = [];
+  results.flat().forEach(it => {
+    const k = it.t.toLowerCase().replace(/[^a-z0-9]/g,'').slice(0, 90);
+    if (!k || seen[k]) return; seen[k] = 1; merged.push(it);
+  });
+  merged.sort((a,b2) => (b2.d ? Date.parse(b2.d) : 0) - (a.d ? Date.parse(a.d) : 0));
+  if (merged.length){ NZW.items = merged.slice(0, 60); NZW.t = Date.now(); }
+  NZW.loading = false;
+  const badge = $('nztNewsBadge');
+  if (badge) badge.textContent = NZW.items.length ? '🔴 LIVE · ' + NZW.items.length + ' STORIES · ' + nzwAgo(NZW.t) : 'NO SIGNAL — retry';
+  renderNews();
+  if (manual) toast('xp', '⚡ SUPER SYNC COMPLETE', NZW.items.length + ' live stories from 4 feeds. NZT brain: satisfied.');
+}
+function nzwAgo(t){
+  const s = Math.max(0, (Date.now() - t) / 1000);
+  if (s < 60) return 'just now';
+  if (s < 3600) return Math.floor(s/60) + 'm ago';
+  return Math.floor(s/3600) + 'h ago';
+}
+function nzwItemAgo(d){
+  const t = d ? Date.parse(d) : 0;
+  if (!t || isNaN(t)) return '';
+  return nzwAgo(t);
+}
+function gordonNewsTake(title){
+  const s = (title || '').toLowerCase();
+  if (/record|all-time|surge|soar|rally/.test(s)) return 'One headline does not make a bull market. I\'ve seen euphoria end mid-sentence.';
+  if (/crash|plunge|slump|tumble|selloff/.test(s)) return 'Breathe. Your DCA plan exists precisely for days like this. Do nothing — heroically.';
+  if (/inflation|cpi|price/.test(s)) return 'Inflation news moves rates, rates move the złoty, the złoty moves your ETFs. Everything is connected — that\'s the NZT view.';
+  if (/zloty|pln|currency|fx/.test(s)) return 'The złoty is Poland\'s mood ring. Watch it when you book that Warsaw flat.';
+  if (/rate|nbp|central bank|fed|ecb/.test(s)) return 'Central bankers say five words, markets reprice five percent. Watch what they do, not what they say.';
+  if (/war|conflict|energy|gas|oil/.test(s)) return 'Energy is the tax nobody votes for. GPW\'s TPE and PGE are watching this closely.';
+  if (/gdp|growth|economy/.test(s)) return 'GDP is the rear-view mirror. Markets trade the windshield.';
+  return 'A story with a headline designed to be clicked, not traded. Read it, then check the tape anyway.';
+}
+function renderNews(){
+  const box = $('nztNewsList'); if (!box) return;
+  const items = NZW.filter === 'all' ? NZW.items : NZW.items.filter(i => i.f === NZW.filter);
+  if (!items.length){
+    box.innerHTML = '<div class="nzw-empty">' + (NZW.loading ? '⇄ Syncing the firehose…' : 'No stories on this filter — hit ⟳ SYNC NOW.') + '</div>';
+    return;
+  }
+  box.innerHTML = items.map(it =>
+    '<a class="nzw-item" data-take="' + escapeHTML(gordonNewsTake(it.t)) + '" href="' + escapeHTML(it.link) + '" target="_blank" rel="noopener">' +
+    '<span class="nzw-src">' + it.label + '</span>' + escapeHTML(it.t) +
+    '<span class="nzw-time">' + nzwItemAgo(it.d) + '</span></a>'
+  ).join('');
+}
+function initNewsDesk(){
+  const rf = $('nztNewsRefresh'); if (rf && !rf.dataset.wired){ rf.dataset.wired = 1; rf.onclick = () => syncNews(true); }
+  const box = $('nztNewsList');
+  if (box && !box.dataset.wired){
+    box.dataset.wired = 1;
+    box.onmouseover = e => {
+      const a = e.target && e.target.closest ? e.target.closest('.nzw-item') : null;
+      if (a){ const el = $('nztGordonTakeTxt'); if (el) el.textContent = a.dataset.take || ''; }
+    };
+  }
+  $$('.nzw-f').forEach(c => { if (!c.dataset.wired){ c.dataset.wired = 1; c.onclick = () => { NZW.filter = c.dataset.f; $$('.nzw-f').forEach(x => x.classList.toggle('on', x === c)); renderNews(); snd('tick'); }; } });
+}
+function nztNewsTick(){
+  if (!P.nzt) return;
+  if (!NZW.t || Date.now() - NZW.t > 5 * 60 * 1000) syncNews(false);
+}
+function switchNewsGate(){
+  // secret desk: only exists while NZT is active
+  const t = $('tab-nztwire'); if (t) t.style.display = '';
+  if (!NZW.timer){ NZW.timer = setInterval(nztNewsTick, 60 * 1000); }
+  if (!NZW.t) setTimeout(() => syncNews(false), 600);
+  initNewsDesk();
+}
+function stopNewsSync(){
+  if (NZW.timer){ clearInterval(NZW.timer); NZW.timer = 0; }
 }
 function boot(){
   // restore sound pref
